@@ -3,8 +3,7 @@
 namespace iof;
 
 require __DIR__ . '/vendor/autoload.php';
-
-Config::init();
+require_once __DIR__ . '/config.php';
 
 $scripts = explode(';', file_get_contents(__DIR__.'/db/dbinit.sql'));
 
