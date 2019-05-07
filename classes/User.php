@@ -10,4 +10,10 @@ class User {
 
     }
 
+    public function signin() : string {
+
+        return 'Success';
+
+    }
+
 }
