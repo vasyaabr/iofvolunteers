@@ -1,6 +1,7 @@
 # IOF worldwide volunteering platform
 
-Requirements:
+### Requirements
+
 - PHP 7.0+
 - MySQL 5.6+
 

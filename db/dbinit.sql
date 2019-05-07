@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   country VARCHAR(20),
   email VARCHAR(30),
   uname VARCHAR(20),
-  pword VARCHAR(20),
+  password VARCHAR(20),
   reg_date DATETIME default now(),
   gender VARCHAR(1),
   birth DATETIME,
