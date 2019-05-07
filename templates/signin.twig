@@ -1,10 +1,10 @@
 <div id="buttonsBlock">
-    <a href="new_user.php"><img src="images\button1new.jpg" id="imagen" border="0" onMouseOver="but2n();" onMouseOut="but1n();"></a>
-    <a href="sign_in.php"><img src="images\button1signin.jpg" id="images" border="0" onMouseOver="but2s();" onMouseOut="but1s();"></a>
+    <a href="#"><img src="images\button1new.jpg" name="imagen" border="0"></a>
+    <a href="#"><img src="images\button1signin.jpg" name="images" border="0"></a>
 </div>
 
 <div id="registerBlock" style="display:none">
-    <form method="POST" action="new_user.php">
+    <form id="registerForm" method="POST" action="register">
         <table width="300" bordercolor="#376FA6">
             <tr><td colspan="2"><p align="center"><font face="Verdana" color="#FF0000" size="1">All fields are required!</p></td></tr>
             <tr><td><font face="Verdana" color="#376FA6" size="2">Name</font><font face="Verdana" color="#FF0000" size="1">*</font></td><td>: <input type="text" name="name" size="20"></td></tr>
@@ -21,12 +21,12 @@
             <b> If you are aleady registered, sign in here! </b>
         </font>
         <br>
-        <a href="sign_in.php"><img src="images/button1signin.jpg" id="images" border="0" onMouseOver="but2s();" onMouseOut="but1s();"></a>
+        <a href="#"><img src="images/button1signin.jpg" name="images" border="0"></a>
     </p>
 </div>
 
 <div id="signInBlock" style="display:none">
-    <form method="POST" action="sign_in.php">
+    <form method="POST" action="sign_in">
         <table width="300" bordercolor="#376FA6">
             <tr><td colspan="2"><p align="center"><font face="Verdana" color="#376FA6" size="1">You may sign in using your e-mail or username and password...</font></p></td></tr>
             <tr><td><font face="Verdana" color="#376FA6" size="2">E-mail</font></td><td>: <input type="text" name="email" size="20"> OR </td></tr>
@@ -41,26 +41,59 @@
             <b> If you are a new user, register first! </b>
         </font>
         <br>
-        <a href="new_user.php"><img src="images/button1new.jpg" id="imagen" border="0" onMouseOver="but2n();" onMouseOut="but1n();"></a>
+        <a href="#"><img src="images/button1new.jpg" name="imagen" border="0"></a>
     </p>
 </div>
 
 <script language="javascript" type="text/javascript">
 
-    function but1n() {
-        document.getElementById("imagen").src = "images\\button1new.jpg";
-    }
+$( document ).ready(function() {
 
-    function but2n() {
-        document.getElementById("imagen").src = "images\\button2new.jpg";
-    }
+    $('img[name=imagen]').mouseover(function() {
+        $( this ).attr('src', "images\\button2new.jpg");
+    });
+    $('img[name=imagen]').mouseout(function() {
+        $( this ).attr('src', "images\\button1new.jpg");
+    });
 
-    function but1s() {
-        document.getElementById("images").src = "images\\button1signin.jpg";
-    }
+    $('img[name=images]').mouseover(function() {
+        $( this ).attr('src', "images\\button2signin.jpg");
+    });
+    $('img[name=images]').mouseout(function() {
+        $( this ).attr('src', "images\\button1signin.jpg");
+    });
 
-    function but2s() {
-        document.getElementById("images").src = "images\\button2signin.jpg";
-    }
+    $('img[name=imagen]').click(function() {
+        $('#buttonsBlock').hide();
+        $('#registerBlock').show();
+        $('#signInBlock').hide();
+    });
+
+    $('img[name=images]').click(function() {
+        $('#buttonsBlock').hide();
+        $('#registerBlock').hide();
+        $('#signInBlock').show();
+    });
+
+    $("#registerForm").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                alert(data); // debug statement
+            }
+            });
+            
+    });
+
+});
 
 </script>

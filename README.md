@@ -6,11 +6,11 @@ Requirements:
 
 ### Installation
 
-1. mkdir iofvolunteers
-2. git clone https://github.com/vasyaabr/iofvolunteers.git iofvolunteers
-3. cd iofvolunteers
-4. composer install
-5. Configure database connection in **config.php** constants.
+1. git clone https://github.com/vasyaabr/iofvolunteers.git
+2. cd iofvolunteers
+3. composer install
+4. Copy **config_example.php** as **config.php**
+5. Configure database connection in **config.php** constants
 6. Run `install.php` in core directory
 
 ### Testing

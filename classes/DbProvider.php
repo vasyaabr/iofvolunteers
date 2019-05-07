@@ -48,8 +48,7 @@ class DbProvider {
         $statement = self::getInstance()->prepare($query);
         $success = $statement->execute($params);
         if (!$success) {
-            error_log('DB error', "SQL error in query:\n" . $query, $params);
-            die();
+            throw new \Error("SQL error in query:\n{$query}");
         }
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
     }

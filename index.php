@@ -8,6 +8,7 @@ require_once __DIR__ . '/config.php';
 // Available routes list
 $dispatcher = \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'Platform/load');
+    $r->addRoute('POST', '/register', 'User/add');
 });
 
 // Fetch method and URI from somewhere
