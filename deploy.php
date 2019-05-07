@@ -22,5 +22,5 @@ if ($body != '') {
 $result .= 'Exec result: ' . shell_exec('git pull') . '<br/>';
 
 mail('vasyaabr@gmail.com', 'Deploy', $result);
-echo $result;
+echo str_replace('<br/>',"\n",$result);
 die();
