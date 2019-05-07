@@ -1,0 +1,87 @@
+Users
+Table: users
+FieldTypeNullKeyDefaultExtra
+idint(6) unsignedNO PRI  auto_increment
+namevarchar(20)NO
+countryvarchar(20)NO
+emailvarchar(30)NO
+unamevarchar(20)NO
+pwordvarchar(20)NO
+reg_datetimestampNO  CURRENT_TIMESTAMP
+gendervarchar(1)YES
+birthint(5)YES
+nicknamevarchar(20)YES
+phonevarchar(15)YES
+licenseint(2)YES
+
+
+Continents:
+Table: conts
+FieldTypeNullKeyDefaultExtra
+cidint(6) unsignedNO PRI  auto_increment
+continentvarchar(2)YES
+vidint(5)YES
+
+Disciplines
+Table: discs
+FieldTypeNullKeyDefaultExtra
+didint(6) unsignedNO PRI  auto_increment
+disvarchar(10)YES
+vidint(5)YES
+
+Duties (local and international
+Table: duties
+FieldTypeNullKeyDefaultExtra
+idint(6) unsignedNO PRI  auto_increment
+dutsvarchar(2)YES
+vidint(11)YES
+idutsvarchar(2)YES
+
+Experience (this is one of the tables I think should be split into
+more than one)
+Table: experience
+FieldTypeNullKeyDefaultExtra
+idint(6) unsignedNO PRI  auto_increment
+ondutsvarchar(50)YES
+oidutsvarchar(50)YES
+expectvarchar(80)YES
+expervarchar(50)YES
+trainingvarchar(50)YES
+mappervarchar(50)YES
+sprintint(2)YES
+forestint(2)YES
+coachvarchar(50)YES
+nteamint(2)YES
+clubsint(2)YES
+siint(2)YES
+emitint(2)YES
+gpsint(2)YES
+itexvarchar(50)YES
+clubevint(2)YES
+localevint(2)YES
+natevint(2)YES
+hlevint(2)YES
+evorgvarchar(50)YES
+documentsvarchar(50)YES
+oskillsvarchar(50)YES
+vidint(11)YES
+natcint(2)YES
+intcint(2)YES
+helpvarchar(80)YES
+othertimeint(1)YES
+mtboint(2)YES
+
+Languages
+Table: langs
+FieldTypeNullKeyDefaultExtra
+lidint(6) unsignedNO PRI  auto_increment
+langvarchar(10)YES
+vidint(5)YES
+levelint(2)YES
+
+Maps (uploaded sample maps)
+Table: maps
+FieldTypeNullKeyDefaultExtra
+midint(6) unsignedNO PRI  auto_increment
+maplongblobYES
+vidint(5)YES
