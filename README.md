@@ -1,8 +1,8 @@
 # IOF worldwide volunteering platform
 
 Requirements:
-- PHP 7.2
-- MySQL
+- PHP 7.0+
+- MySQL 5.6+
 
 ### Installation
 
@@ -10,11 +10,8 @@ Requirements:
 2. git clone https://github.com/vasyaabr/iofvolunteers.git iofvolunteers
 3. cd iofvolunteers
 4. composer install
-
-### Settings
-
-To configure database connection, change **classes/Config.php** constants. On 'DEV' environment **sqlite3** driver is used, 
-on 'PROD' environment - **MySQL** driver.
+5. Configure database connection in **classes/Config.php** constants.
+6. Run `install.php` in core directory
 
 ### Testing
 
