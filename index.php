@@ -4,6 +4,8 @@ namespace iof;
 
 require __DIR__ . '/vendor/autoload.php';
 
+Config::init();
+
 // Available routes list
 $dispatcher = \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'Platform/load');
