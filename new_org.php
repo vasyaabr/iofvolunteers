@@ -157,7 +157,7 @@ document.getElementById("images").src = "button2signin.jpg";
 </tr></table></form>
 
 <p align="center"><font face="Verdana" size="2"><b> If you are aleady registered, sign in here! </b></font><br>
-<a href="sign_in.php"><img src="button1signin.jpg" id="images" border="0" onMouseOver="but2s();" onMouseOut="but1s();">          </a></p>
+<a href="sign_in.php"><img src="images/button1signin.jpg" id="images" border="0" onMouseOver="but2s();" onMouseOut="but1s();">          </a></p>
 
 
 <br><br>

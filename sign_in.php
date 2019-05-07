@@ -90,7 +90,7 @@ document.getElementById("images").src = "button2signin.jpg";
 <tr><td colspan="2"><p align="center"><input type="submit" value="Sign in!" name="signin"></p></td>
 
 </tr></table></form>
-<p align="center"><font face="Verdana" size="2"><b> If you are a new user, register first! </b></font><br><a href="new_user.php"><img src="button1new.jpg" id="imagen" border="0" onMouseOver="but2n();" onMouseOut="but1n();">          </a></p> 
+<p align="center"><font face="Verdana" size="2"><b> If you are a new user, register first! </b></font><br><a href="new_user.php"><img src="images/button1new.jpg" id="imagen" border="0" onMouseOver="but2n();" onMouseOut="but1n();">          </a></p>
 <br><br>
 <table align="center" border="0" cellpadding="0" cellspacing="10" width="75%" bgcolor="#E7FCFE">
 <tr><td align = "center"> <font color="#376FA6" face="Verdana" size = "3"><b> Impressions, Experiences... </font></b></td></tr> 
