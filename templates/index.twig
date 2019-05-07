@@ -1,9 +1,11 @@
 {% extends 'common.twig' %}
 
 {% block sidebar %}
-<a href="new_user.php"><img src="images\button1new.jpg" id="imagen" border="0" onMouseOver="but2n();" onMouseOut="but1n();"></a>
-<a href="sign_in.php"><img src="images\button1signin.jpg" id="images" border="0" onMouseOver="but2s();" onMouseOut="but1s();"></a>
+
+{% include 'signin.twig' %}
+
 <br>
+
 <p align="center"><img class="slides" src="images/project1s.jpg">
     <img class="slides" src="images/project2s.jpg">
     <img class="slides" src="images/project3s.jpg">
@@ -12,16 +14,11 @@
 <br><br>
 <table align="center" border="0" cellpadding="0" cellspacing="10" width="75%" bgcolor="#E7FCFE">
     <tr>
-        <td align="center"><font color="#376FA6" face="Verdana" size="3"><b> Impressions, Experiences... </font></b>
-        </td>
+        <td align="center"><font color="#376FA6" face="Verdana" size="3"><b> Impressions, Experiences... </font></b></td>
     </tr>
     <tr>
         <td>
-
-
             <marquee direction="up" scrollamount="1" behavior="scroll" height="200">
-
-
                 <font face="Verdana" size="2">
                     "Orienteering has always been and remains to be my favorite activity. I started orienteering in 1978
                     and I am still an active orienteer, mainly in Foot-O. I regularly take a part in events at various
@@ -40,29 +37,14 @@
                     "I would like to thank you for great experience we have had as volunteers for Navigation Games in
                     the United States. Me and my husband Josivan Juan, are grateful for this opportunity given by IOF
                     Global Orienteering Volunteer Platform."<br>
-                    <b>Pavla Zdrahalova, Volunteer, Czech Republic</b></font>
+                    <b>Pavla Zdrahalova, Volunteer, Czech Republic</b>
+                </font>
             </marquee>
         </td>
     </tr>
 </table>
 
 <script language="javascript" type="text/javascript">
-
-    function but1n() {
-        document.getElementById("imagen").src = "images\\button1new.jpg";
-    }
-
-    function but2n() {
-        document.getElementById("imagen").src = "images\\button2new.jpg";
-    }
-
-    function but1s() {
-        document.getElementById("images").src = "images\\button1signin.jpg";
-    }
-
-    function but2s() {
-        document.getElementById("images").src = "images\\button2signin.jpg";
-    }
 
     var slideIndex = 0;
     change_slides();
