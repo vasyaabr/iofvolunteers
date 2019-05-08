@@ -2,17 +2,26 @@
 
 namespace iof;
 
+use FastRoute\RouteCollector;
+
 require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
 session_start();
 
 // Available routes list
-$dispatcher = \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
+$dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/', 'Platform/load');
     $r->addRoute('GET', '/countries', 'Country/getOptionList');
     $r->addRoute('POST', '/register', 'User/add');
     $r->addRoute('POST', '/signin', 'User/signin');
+    // For testing on remote
+    $r->addGroup('/iofvolunteers', function (RouteCollector $r) {
+        $r->addRoute('GET', '/', 'Platform/load');
+        $r->addRoute('GET', '/countries', 'Country/getOptionList');
+        $r->addRoute('POST', '/register', 'User/add');
+        $r->addRoute('POST', '/signin', 'User/signin');
+    });
 });
 
 // Fetch method and URI from somewhere
