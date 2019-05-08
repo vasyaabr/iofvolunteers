@@ -45,12 +45,15 @@ class DbProvider {
      * @return array
      */
     public static function run(string $query, array $params = null) : array {
+
         $statement = self::getInstance()->prepare($query);
         $success = $statement->execute($params);
         if (!$success) {
             throw new \Error("SQL error in query:\n{$query}");
         }
+
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
+
     }
     
 }
