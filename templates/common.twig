@@ -10,18 +10,20 @@
 
     <p align="center">
 
-        <img border="0" src="images/pg_template1.jpg" />
+        <a href="/"><img border="0" src="images/pg_template1.jpg" /></a>
+
+        {% block onecolumn %}
+        {% endblock %}
 
         <table align="center" border="0" cellpadding="0" cellspacing="10" width="75%">
             <tr>
-                <td width="30%" align="center" valign="top" id="sidebar">
-                    {% block sidebar %}
-                    {% endblock %}
-                </td>
-                <td valign="top" id="main">
-                    {% block main %}
-                    {% endblock %}
-                </td>
+
+                {% block sidebar %}
+                {% endblock %}
+
+                {% block main %}
+                {% endblock %}
+
             </tr>
         </table>
 

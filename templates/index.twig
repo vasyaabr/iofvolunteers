@@ -1,6 +1,7 @@
 {% extends 'common.twig' %}
 
 {% block sidebar %}
+<td width="30%" align="center" valign="top" id="sidebar">
 
 {% include 'signin.twig' %}
 
@@ -64,34 +65,36 @@
     }
 
 </script>
+
+</td>
 {% endblock %}
 
 {% block main %}
-<td valign="top">
+<td valign="top" id="main">
     <table>
         <tr>
             <td align="center" bgcolor="#E7FCFE" width="45%">
-                <font size="3" face="Verdana">{{ welcome }}</font></td>
+                <font size="3" face="Verdana">{{ welcome|raw }}</font></td>
         </tr>
     </table>
     <table cellpadding="10">
         <tr>
 
-            <td align="center"><img src="images/vol_needed.jpg" width="100" height="77"><br><font color="#376FA6"
+            <td align="center"><a href="regVolunteer"><img src="images/vol_needed.jpg" width="100" height="77"><br><font color="#376FA6"
                                                                                                   face="Verdana"
                                                                                                   size="2"><b>Register
                         as a Volunteer</b></font><br>
                 <font size="2" face="Verdana">Are you skilled in some orienteering topics? Do you want to make new
                     friends and while help others develop orienteering?<br> </font><font size="1" color="#B30000"
                                                                                          face="Verdana">(You need to be
-                    18+ to volunteer!)</font></td>
+                        18+ to volunteer!)</font></a></td>
             <td width="%5"></td>
-            <td align="center"><img src="images/search_vol.jpg" width="100" height="77"><br><font color="#376FA6"
+            <td align="center"><a href="searchVolunteer"><img src="images/search_vol.jpg" width="100" height="77"><br><font color="#376FA6"
                                                                                                   face="Verdana"
                                                                                                   size="2"><b>Search a
                         Volunteer</b></font><br>
                 <font size="2" face="Verdana">Find volunteers with different skills who can help you develop
-                    orienteering or help you realize a project!</font></td>
+                    orienteering or help you realize a project!</font></a></td>
 
         </tr>
         <tr>
@@ -149,4 +152,5 @@
                     young orienteer who could stay with your family and go orienteering with you!</font></td>
         </tr>
     </table>
+</td>
 {% endblock %}

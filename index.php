@@ -15,13 +15,10 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/countries', 'Country/getOptionList');
     $r->addRoute('POST', '/register', 'User/add');
     $r->addRoute('POST', '/signin', 'User/signin');
-    // For testing on remote
-    $r->addGroup('/iofvolunteers', function (RouteCollector $r) {
-        $r->addRoute('GET', '/', 'Platform/load');
-        $r->addRoute('GET', '/countries', 'Country/getOptionList');
-        $r->addRoute('POST', '/register', 'User/add');
-        $r->addRoute('POST', '/signin', 'User/signin');
-    });
+    $r->addRoute('GET', '/regVolunteer', 'Volunteer/regShow');
+    $r->addRoute('POST', '/regVolunteer', 'Volunteer/register');
+    $r->addRoute('GET', '/searchVolunteer', 'Volunteer/searchShow');
+    $r->addRoute('POST', '/searchVolunteer', 'Volunteer/search');
 });
 
 // Fetch method and URI from somewhere
@@ -32,6 +29,12 @@ $uri = $_SERVER['REQUEST_URI'];
 if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
+
+// Strip testing part of URI
+if (false !== strpos($uri, '/iofvolunteers')) {
+    $uri = str_replace('/iofvolunteers','',$uri);
+}
+
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);

@@ -89,7 +89,9 @@ class User {
          * - password not empty
          */
 
-        $params['password'] = self::encodePassword($params['password']);
+        if (isset($params['password'])) {
+            $params['password'] = self::encodePassword( $params['password'] );
+        }
 
         return $params;
 

@@ -44,6 +44,10 @@
     </p>
 </div>
 
+<div id="logoutBlock" style="display:none">
+    <a href="#"><img src="images\button1logout.png" name="imagelogout" border="0"></a>
+</div>
+
 <script language="javascript" type="text/javascript">
 
 $( document ).ready(function() {
@@ -73,21 +77,32 @@ $( document ).ready(function() {
         $( this ).attr('src', "images\\button1signin.jpg");
     });
 
+    $('img[name=imagelogout]').mouseover(function() {
+        $( this ).attr('src', "images\\button2logout.png");
+    });
+    $('img[name=imagelogout]').mouseout(function() {
+        $( this ).attr('src', "images\\button1logout.png");
+    });
+
     $('img[name=imagen]').click(function() {
         $('#buttonsBlock').hide();
         $('#registerBlock').show();
         $('#signInBlock').hide();
+        $('#logoutBlock').hide();
     });
 
     $('img[name=images]').click(function() {
         $('#buttonsBlock').hide();
         $('#registerBlock').hide();
         $('#signInBlock').show();
+        $('#logoutBlock').hide();
     });
 
     $("#registerForm").submit(function(e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        // TODO: pre-validate fields
 
         var form = $(this);
 
@@ -111,6 +126,8 @@ $( document ).ready(function() {
     $("#signinForm").submit(function(e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        // TODO: pre-validate fields
 
         var form = $(this);
 
