@@ -18,7 +18,7 @@ class User {
             return implode(', ', $params['errors']);
         }
 
-        $query = 'INSERT INTO '.DB_NAME.'.users (id,name,country,email,login,password)
+        $query = 'INSERT INTO users (id,name,country,email,login,password)
                 VALUES (DEFAULT, :name, :country, :email, :login, :password)';
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
