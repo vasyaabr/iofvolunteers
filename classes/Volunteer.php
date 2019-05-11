@@ -25,21 +25,16 @@ class Volunteer {
             return 'Error: user not authenticated';
         }
 
-        error_log(var_export($_POST,true)."\n");
+        //error_log(var_export($_POST,true)."\n");
 
         $params = $this->validate($_POST);
 
         // show validation errors
         if (!empty($params['errors'])) {
-            return implode(', ', $params['errors']);
+            return implode("\n", $params['errors']);
         }
 
-        // fill other fields
-        $params['userID'] = User::getUserID();
-
-        if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
-
-        error_log(var_export($params,true)."\n");
+        //error_log(var_export($params,true)."\n");
 
         // prepare and run query
         $keys = implode(',',array_keys($params));
@@ -49,7 +44,7 @@ class Volunteer {
 
         $query = "INSERT INTO volunteers ({$keys})
                 VALUES ({$valueMasks})";
-        error_log("{$query}\n");
+        //error_log("{$query}\n");
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
@@ -101,7 +96,18 @@ class Volunteer {
 
         if (empty($params["iAgreeWithTerms"])) {
             $params['errors'][] = "You are not agreed with disclaimer";
+        } else {
+            unset($params["iAgreeWithTerms"]);
         }
+
+        // fill tech fields
+        if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
+        if (isset($params['coachDesc'])) { $params['coachSkilled'] = 1; }
+        if (isset($params['itDesc'])) { $params['itSkilled'] = 1; }
+        if (isset($params['eventDesc'])) { $params['eventSkilled'] = 1; }
+        if (isset($params['teacherDesc'])) { $params['teacherSkilled'] = 1; }
+
+        $params['userID'] = User::getUserID();
 
         return $params;
 
@@ -109,8 +115,34 @@ class Volunteer {
 
     public function search() : string {
 
-        error_log(var_export($_POST,true));
-        return 'OK';
+        if (!User::isAuthenticated()) {
+            return 'Error: user not authenticated';
+        }
+
+        error_log(var_export($_POST,true)."\n");
+
+        $params = $_POST;
+
+        // fill other fields
+        $params['userID'] = User::getUserID();
+
+        error_log(var_export($params,true)."\n");
+
+        // prepare and run query
+        $conditions = implode(' AND ',
+            array_map(
+                function($v) { return "{$v} = :{$v}"; } ,
+                array_keys($params)
+            )
+        );
+
+        $query = "SELECT * 
+            FROM volunteers
+            WHERE {$conditions}";
+        error_log("{$query}\n");
+        $found = DbProvider::run( $query , $params );
+
+        return TemplateProvider::getInstance()->render('volunteersList.twig', $found);
 
     }
 

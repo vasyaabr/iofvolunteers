@@ -2,240 +2,251 @@
 
 {% block onecolumn %}
 
-<form method="POST" action="searchVolunteer" enctype="multipart/form-data">
+    <form method="POST" action="searchVolunteer" enctype="multipart/form-data">
 
-    <p align="center"><b><font face="Verdana" color="#376FA6" size="3">Volunteer Search Form</font></b><br><font
-                color="#B30000" face="Verdana" size="2">Please fill in your search criteria. Leave blank if not relevant
-            / important!</font></p>
+        <div align="center">
+            <div class="title">Volunteer Search Form</div>
+            <br>
+            <div class="warn-title">
+                Please fill in your search criteria. Leave blank if not relevant / important!
+            </div>
+        </div>
 
-    <table width="90%" align="center">
-        <tbody>
-        <tr>
-            <td valign="top" width="25%">
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b><br>Personal
-                                    Information</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Gender </font></td>
-                        <td>: <select size="1" name="gender">
-                                <option selected="" value="">--- select ---</option>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Age </font></td>
-                        <td>: <font color="#376FA6" face="Verdana" size="2"> at least <input type="text" name="minage"
-                                                                                             size="2"> at most <input
-                                        type="text" name="maxage" size="2"></font></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><font color="#B30000" face="Verdana" size="1">Note that volunteers under 18 are
-                                not allowed to register in the Platform</font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">International driving license? </font></td>
-                        <td>: <input type="checkbox" name="license" value="1"><font color="#376FA6" face="Verdana"
-                                                                                    size="2"> Check if required </font>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Disciplines of
-                                    experience</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-
-                                <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp; &nbsp;</font>
-                        </td>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="M"> MTBO </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;</font>
-                        </td>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="T"> Trail-O
-
-                            </font></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>O-Experience</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Years in orienteering </font></td>
-                        <td>:<font color="#376FA6" face="Verdana" size="2"> at least <input type="text" name="oyears"
-                                                                                            size="2"> years
-                            </font></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><u>Experience as Competitor</u>
-                            </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Taken part in minimum <br>
-                                Local events </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="loc">
+        <table width="90%" align="center">
+            <tbody>
+            <tr>
+                <td valign="top" width="25%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b><br>Personal Information</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Gender </td>
+                            <td>: <select size="1" name="gender">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 50</option>
-                                    <option value="2">51 - 100</option>
-                                    <option value="3">over 100</option>
-                                </select></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">National Championships </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="nchamp">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 50</option>
-                                    <option value="2">51 - 100</option>
-                                    <option value="3">over 100</option>
-                                </select></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">International Competitions </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="icomp">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 20</option>
-                                    <option value="2">21 - 50</option>
-                                    <option value="3">over 50</option>
-                                </select></font></td>
-                    </tr>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Age </td>
+                            <td>: <div class="desc"> at least
+                                    <input type="text" name="minage" size="2">
+                                    at most
+                                    <input type="text" name="maxage" size="2">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="warn">
+                                Note that volunteers under 18 are not allowed to register in the Platform
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                International driving license?
+                            </td>
+                            <td>: <input type="checkbox" name="license" value="1">
+                                <div class="desc"> Check if required </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Disciplines of experience</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                    <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
+                                    &nbsp;
+                            </td>
+                            <td class="desc">
+                                    <input type="checkbox" name="dis[]" value="M"> MTBO </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                    <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="desc">
+                                    <input type="checkbox" name="dis[]" value="T"> Trail-O
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                    </tbody>
-                </table>
-            </td>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>O-Experience</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Years in orienteering </td>
+                            <td>:<div class="desc">
+                                    at least
+                                    <input type="text" name="oyears" size="2">
+                                    years
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="desc">
+                                <u>Experience as Competitor</u>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Taken part in minimum <br>
+                                    Local events </td>
+                            <td class="desc">: <select size="1" name="loc">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="0">none</option>
+                                        <option value="1">1 - 50</option>
+                                        <option value="2">51 - 100</option>
+                                        <option value="3">over 100</option>
+                                    </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">National Championships </td>
+                            <td class="desc">: <select size="1" name="nchamp">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="0">none</option>
+                                        <option value="1">1 - 50</option>
+                                        <option value="2">51 - 100</option>
+                                        <option value="3">over 100</option>
+                                    </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">International Competitions </td>
+                            <td class="desc">: <select size="1" name="icomp">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="0">none</option>
+                                        <option value="1">1 - 20</option>
+                                        <option value="2">21 - 50</option>
+                                        <option value="3">over 50</option>
+                                    </select></td>
+                        </tr>
 
-            <td valign="top" width="27%">
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Languages
-                                    required</b></font><br><font color="#B30000" face="Verdana" size="1">Tick only the
-                                <u>most important</u> one or two to increase search results</font></td>
-                    </tr>
-                    <tr>
+                        </tbody>
+                    </table>
+                </td>
 
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="E"> English </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="F"> French </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="S"> Spanish </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="G"> German </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="I"> Italian </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="P"> Portuguese </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="W"> "Scandinavian" </font></td>
-                    </tr>
-                    <tr>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td><font color="#376FA6" face="Verdana" size="2"><b>Timing</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">When to start? <input type="text" size="2"
-                                                                                                name="sdatem"
-                                                                                                value="mm"> / <input
-                                        type="text" size="10" name="sdatey" value="yyyy"></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Must stay for at least <input type="text"
-                                                                                                        size="3"
-                                                                                                        name="duration"
-                                                                                                        value=""> weeks</font>
-                        </td>
-                    </tr>
+                <td valign="top" width="27%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><div class="desc">
+                                    <b>Languages required</b>
+                                </div>
+                                <br>
+                                <div class="warn">
+                                    Tick only the <u>most important</u> one or two to increase search results
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="E"> English </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="F"> French </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="S"> Spanish </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="G"> German </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="I"> Italian </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="P"> Portuguese </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="lang[]" value="W"> "Scandinavian"</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td class="desc"><b>Timing</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">When to start?
+                                <input type="text" size="2" name="sdatem" value="mm"> /
+                                <input type="text" size="10" name="sdatey" value="yyyy">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Must stay for at least
+                                <input type="text" size="3" name="duration" value="">
+                                weeks
+                            </td>
+                        </tr>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-            </td>
-            <td valign="top" width="31%">
+                </td>
+                <td valign="top" width="31%">
 
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Skills required</b></font><font
-                                    color="#B30000" face="Verdana" size="1"> &nbsp;(Please tick only the <u>most
-                                    important</u> ones to increase search results...)</font></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="sprint" value="M"><font color="#376FA6" face="Verdana"
-                                                                                 size="2"> Mapping </font></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="sprint" value="M"><font color="#376FA6" face="Verdana"
-                                                                                 size="2"> Coaching </font></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="sprint" value="M"><font color="#376FA6" face="Verdana"
-                                                                                 size="2"> IT &amp; timekeeping </font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="sprint" value="M"><font color="#376FA6" face="Verdana"
-                                                                                 size="2"> Event Organising </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><u>Teaching</u> (please tick)
-                                <br><font color="#376FA6" face="Verdana" size="1"><input type="checkbox" name="teach[]"
-                                                                                         value="C"> Beginners &amp;
-                                    children <br><input type="checkbox" name="teach[]" value="M"> Teach how to map
-                                    <br><input type="checkbox" name="teach[]" value="O"> Teach coaching <br><input
-                                            type="checkbox" name="teach[]" value="I"> Teach IT &amp; Timekeeping
-                                    <br><input type="checkbox" name="teach[]" value="E"> Teach Event Organising
-
-                                </font></font></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4" align="right"><input type="submit" name="search" value="Find volunteers">
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</form>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><div class="desc"><b>Skills required</b></div>
+                                <div class="warn">
+                                    &nbsp;(Please tick only the <u>most important</u> ones to increase search results...)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="sprint" value="M"><div class="desc"> Mapping </div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="sprint" value="M"><div class="desc"> Coaching </div></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="sprint" value="M"><div class="desc"> IT &amp; timekeeping </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="sprint" value="M"><div class="desc"> Event Organising </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <u>Teaching</u> (please tick)
+                                <br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="teach[]" value="C"> Beginners &amp; children <br>
+                                    <input type="checkbox" name="teach[]" value="M"> Teach how to map<br>
+                                    <input type="checkbox" name="teach[]" value="O"> Teach coaching <br>
+                                    <input type="checkbox" name="teach[]" value="I"> Teach IT &amp; Timekeeping<br>
+                                    <input type="checkbox" name="teach[]" value="E"> Teach Event Organising
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right">
+                    <input type="submit" name="search" value="Find volunteers">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 
 {% endblock %}

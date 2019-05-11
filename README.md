@@ -7,7 +7,7 @@
 
 ### Installation
 
-1. git clone https://github.com/vasyaabr/iofvolunteers.git
+1. git clone https://github.com/vasyaabr/iofvolunteers.git (or just unzip archive with code)
 2. cd iofvolunteers
 3. composer install
 4. Copy **config_example.php** as **config.php**
