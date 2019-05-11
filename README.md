@@ -3,7 +3,7 @@
 ### Requirements
 
 - PHP 7.0+
-- MySQL 5.6+
+- MySQL 5.7+
 
 ### Installation
 

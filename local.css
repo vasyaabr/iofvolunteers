@@ -1,0 +1,34 @@
+.desc {
+    color: #376FA6;
+    font-family: Verdana, Times, serif;
+    font-size: small;
+}
+
+.title {
+    color: #376FA6;
+    font-family: Verdana, Times, serif;
+    font-size: medium;
+}
+
+.value {
+    color: #376FA6;
+    font-family: Verdana, Times, serif;
+}
+
+.warn {
+    color: #B30000;
+    font-family: Verdana, Times, serif;
+    font-size: x-small;
+}
+
+.warn-title {
+    color: #B30000;
+    font-family: Verdana, Times, serif;
+    font-size: small;
+}
+
+.smradio {
+    color: #376FA6;
+    font-family: Verdana, Times, serif;
+    font-size: x-small;
+}

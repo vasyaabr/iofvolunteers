@@ -44,6 +44,7 @@ CREATE TABLE `volunteers` (
   `itDesc` json DEFAULT NULL,
   `eventDesc` json DEFAULT NULL,
   `teacherDesc` json DEFAULT NULL,
+  `otherSkills` longtext,
   `oworkLocalExp` json DEFAULT NULL,
   `oworkInternationalExp` json DEFAULT NULL,
   `helpDesc` longtext,

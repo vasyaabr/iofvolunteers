@@ -62,6 +62,26 @@ class User {
     }
 
     /**
+     * Return true, if user is authenticated
+     * @return bool
+     */
+    public static function isAuthenticated() : bool {
+
+        return !empty($_SESSION['user']);
+
+    }
+
+    /**
+     * Return authenticated user ID
+     * @return int
+     */
+    public static function getUserID() : int {
+
+        return User::isAuthenticated() ? $_SESSION['user']['id'] : 0;
+
+    }
+
+    /**
      * Default password encode
      * @param string $password
      *

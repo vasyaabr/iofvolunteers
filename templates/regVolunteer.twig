@@ -2,492 +2,522 @@
 
 {% block onecolumn %}
 
-<form method="POST" action="regVolunteer" enctype="multipart/form-data">
+    <form method="POST" action="regVolunteer" enctype="multipart/form-data">
 
-    <p align="center">
-        <b><font face="Verdana" color="#376FA6" size="3">Volunteer Registration Form</font></b>
-        <br>
-        <font color="#B30000" face="Verdana" size="2">Please note that you must be 18+ to register as a
-            volunteer!</font>
-    </p>
+        <div align="center">
+            <b>
+                <div class="title">Volunteer Registration Form</div>
+            </b>
+            <br>
+            <div class="warn-title">Please note that you must be 18+ to register as a
+                volunteer!
+            </div>
+        </div>
 
-    <table width="90%" align="center">
-        <tbody>
-        <tr>
-            <td valign="top" width="25%">
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Contact Information</b></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Name</font></td>
-                        <td><font face="Verdana" size="2">: <input type="text" name="name" size="15" value=""></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Country</font></td>
-                        <td><font face="Verdana" size="2">: <input type="text" name="country" size="15" value=""></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">E-mail</font></td>
-                        <td><font face="Verdana" size="2">: <input type="text" name="email" size="15" value=""></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Phone </font><font color="#B30000"
-                                                                                             face="Verdana" size="1">(optional)</font>
-                        </td>
-                        <td>: <input type="text" name="phone" value="" size="15"></td>
-                    </tr>
+        <table width="90%" align="center">
+            <tbody>
+            <tr>
+                <td valign="top" width="25%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Contact Information</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Name</td>
+                            <td class="value">: <input type="text" name="name" size="15" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Country</td>
+                            <td class="value">: <input type="text" name="country" size="15" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">E-mail</td>
+                            <td class="value">: <input type="text" name="email" size="15" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Phone
+                                <div class="warn">(optional)</div>
+                            </td>
+                            <td>: <input type="text" name="phone" value="" size="15"></td>
+                        </tr>
 
-                    <tr>
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b><br>Personal
-                                    Information</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Gender </font></td>
-                        <td>: <select size="1" name="gender">
-                                <option selected="" value="">--- select ---</option>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Year of birth </font><font color="#B30000"
-                                                                                                     face="Verdana"
-                                                                                                     size="1">
-                                required</font></td>
-                        <td>: <input type="text" name="birth" size="4" value="yyyy"></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Nickname </font><font color="#B30000"
-                                                                                                face="Verdana" size="1">optional</font>
-                        </td>
-                        <td>: <input type="text" name="nickname" size="15" value=""></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><font color="#B30000" face="Verdana" size="1">if left blank, your first name
-                                will be assumed as your nickname</font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">International driving license? </font></td>
-                        <td>: <select size="1" name="license">
-                                <option selected="" value="">--- select ---</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Disciplines of
-                                    experience</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">
+                        <tr>
+                            <td colspan="2" class="desc"><b><br>Personal
+                                    Information</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Gender</td>
+                            <td>: <select size="1" name="gender">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Year of birth
+                                <div class="warn">
+                                    required
+                                </div>
+                            </td>
+                            <td>:
+                                <input type="number" min="1900" max="2099" step="1" name="birthdate" size="4" placeholder="yyyy" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Nickname
+                                <div class="warn">optional</div>
+                            </td>
+                            <td>: <input type="text" name="nickname" size="15" value=""></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="warn">if left blank, your first name
+                                will be assumed as your nickname
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">International driving license?</td>
+                            <td>: <select size="1" name="license">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Disciplines of experience</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="footO" value="1"> Foot-O &nbsp; &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="desc">
+                                <input type="checkbox" name="mtbO" value="1"> MTBO
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="skiO" value="1"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="desc">
+                                <input type="checkbox" name="trailO" value="1"> Trail-O
 
-                                <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp; &nbsp;</font>
-                        </td>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="M"> MTBO </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;</font>
-                        </td>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                <input type="checkbox" name="dis[]" value="T"> Trail-O
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                            </font></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>O-Experience</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Year you started orienteering</font></td>
-                        <td>: <font color="#376FA6" face="Verdana" size="2"><input type="text" name="start" size="4"
-                                                                                   value="yyyy"> <font color="#B30000"
-                                                                                                       face="Verdana"
-                                                                                                       size="1">(required)
-                                </font></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Your present club (if any) </font></td>
-                        <td>: <font color="#376FA6" face="Verdana" size="2"><input type="text" name="club" size="20">
-                            </font></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><u>Experience as Competitor</u>
-                            </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Local events </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="loc">
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>O-Experience</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Year you started orienteering</td>
+                            <td class="desc">:
+                                <input type="number" min="1900" max="2099" step="1" name="startO" size="4" placeholder="yyyy" value="">
+                                <div class="warn">(required)</div>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="desc">Your present club (if any)</td>
+                            <td class="desc">: <input type="text" name="club" size="20">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="desc"><u>Experience as Competitor</u>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Local events</td>
+                            <td class="desc">: <select size="1" name="competitorExp['local']">
                                     <option selected="" value="">--- select ---</option>
                                     <option value="0">none</option>
                                     <option value="1">1 - 50</option>
                                     <option value="2">51 - 100</option>
                                     <option value="3">over 100</option>
-                                </select></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">National Championships </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="nchamp">
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">National Championships</td>
+                            <td class="desc">: <select size="1" name="competitorExp['national']">
                                     <option selected="" value="">--- select ---</option>
                                     <option value="0">none</option>
                                     <option value="1">1 - 50</option>
                                     <option value="2">51 - 100</option>
                                     <option value="3">over 100</option>
-                                </select></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">International Competitions </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="icomp">
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">International Competitions</td>
+                            <td class="desc">: <select size="1" name="competitorExp['international']">
                                     <option selected="" value="">--- select ---</option>
                                     <option value="0">none</option>
                                     <option value="1">1 - 20</option>
                                     <option value="2">21 - 50</option>
                                     <option value="3">over 50</option>
-                                </select></font></td>
-                    </tr>
+                                </select></td>
+                        </tr>
 
-                    </tbody>
-                </table>
-            </td>
+                        </tbody>
+                    </table>
+                </td>
 
-            <td valign="top" width="27%">
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Languages
-                                    spoken</b></font><font color="#B30000" face="Verdana" size="1"> (required, even if
-                                only listed in "other")</font></td>
-                    </tr>
-                    <tr>
+                <td valign="top" width="27%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Languages spoken</b>
+                                <div class="warn"> (required, even if only listed in "other")</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['English']['known']" value="1">English</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['English']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['English']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['English']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['French']['known']" value="1">French</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['French']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['French']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['French']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['Spanish']['known']" value="1">Spanish</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['Spanish']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['Spanish']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['Spanish']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['German']['known']" value="1">German</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['German']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['German']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['German']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['Italian']['known']" value="1">Italian</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['Italian']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['Italian']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['Italian']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['Portuguese']['known']" value="1">Portuguese</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['Portuguese']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['Portuguese']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['Portuguese']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages['Scandinavian']['known']" value="1">Scandinavian</td>
+                            <td class="smradio">
+                                <input type="radio" name="languages['Scandinavian']['level']" value="1">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages['Scandinavian']['level']" value="2">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages['Scandinavian']['level']" value="3">Poor
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="desc">
+                                Other languages?<br>
+                                State each language and level, separated by commas below...<br>
+                                <input type="text" name="languages['Other']" value="" size="30">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    &nbsp; &nbsp; &nbsp; &nbsp;<table>
+                        <tbody>
+                        <tr valign="top">
+                            <td class="desc"><b>Where to work?</b></td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc"><b>Timing</b></td>
+                        </tr>
+                        <tr>
+                            <td class="smradio">Do you have a preferred destination? <br>If
+                                not, just tick "Anywhere"
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc">When can you start?</td>
+                        </tr>
 
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="E"> English </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="elevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="elevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="elevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="F"> French </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="flevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="flevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="flevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="S"> Spanish </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="slevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="slevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="slevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="G"> German </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="glevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="glevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="glevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="I"> Italian </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="ilevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="ilevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="ilevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="P"> Portuguese </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="plevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="plevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="plevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="lang[]"
-                                                                                 value="W"> "Scandinavian" </font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1"><input type="radio" name="wlevel" value="1">
-                                Excellent &nbsp; &nbsp;<input type="radio" name="wlevel" value="2"> OK &nbsp;
-                                &nbsp;<input type="radio" name="wlevel" value="3"> Poor </font></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2">Other languages? <br>State each
-                                language and level, separated by commas below...<br> <input type="text" name="olangs"
-                                                                                            value="" size="30">
-                            </font></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                &nbsp; &nbsp; &nbsp; &nbsp;<table>
-                    <tbody>
-                    <tr valign="top">
-                        <td><font color="#376FA6" face="Verdana" size="2"><b>Where to work?</b></font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td><font color="#376FA6" face="Verdana" size="2"><b>Timing</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="1">Do you have a preferred destination? <br>If
-                                not, just tick "Anywhere"</font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td><font color="#376FA6" face="Verdana" size="2">When can you start? </font></td>
-                    </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="All"> Anywhere
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc">
+                                <input type="text" size="10" name="timeToStart" id="timeToStart" class="hasDatepicker">
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="A"> Anywhere </font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="text" size="10" name="sdate"
-                                                                                 id="sdate"
-                                                                                 class="hasDatepicker"></font></td>
-                    </tr>
+                        <tr>
+                            <td class="desc"><br>
+                                <input type="checkbox" name="preferredContinents[]" value="N"> North America
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="S"> South America
+                            </td>
+                            <td></td>
+                            <td class="desc">For how long can you work?</td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="E"> Europe
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc">
+                                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
+                                months
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="I"> Asia
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="F"> Africa
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="checkbox" name="preferredContinents[]" value="O"> Oceania
+                            </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td></td>
+                        </tr>
 
-                    <tr>
-                        <td><br> <font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                      value="N"> North America </font>
-                        </td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="S"> South America </font></td>
-                        <td></td>
-                        <td><font color="#376FA6" face="Verdana" size="2">For how long can you work? </font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="E"> Europe </font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td><input type="text" size="3" name="duration" id="duration" value=""><font color="#376FA6"
-                                                                                                     face="Verdana"
-                                                                                                     size="2">
-                                months</font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="I"> Asia </font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="F"> Africa </font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="continent[]"
-                                                                                 value="O"> Oceania </font></td>
-                        <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        <td></td>
-                    </tr>
+                        </tbody>
+                    </table>
 
-                    </tbody>
-                </table>
+                </td>
+                <td valign="top" width="31%">
 
-            </td>
-            <td valign="top" width="31%">
-
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Skills</b></font><font
-                                    color="#B30000" face="Verdana" size="1"> &nbsp;(Please tick all relevant to you.
-                                Details are <b>required</b> if skill is ticked)</font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">* Mapping <br><font color="#B30000"
-                                                                                              face="Verdana" size="1">Notice
-                                    that you will be required to upload map samples! </font><br><font color="#376FA6"
-                                                                                                      face="Verdana"
-                                                                                                      size="1"><input
-                                            type="checkbox" name="sprint" value="1"> Sprint <br><input type="checkbox"
-                                                                                                       name="forest"
-                                                                                                       value="1"> Forest
-                                    <br><input type="checkbox" name="mtbo" value="1"> MTBO</font></font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1">Brief outline of your experience as a mapper
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Skills</b>
+                                <div class="warn"> &nbsp;(Please tick all relevant to you.
+                                    Details are <b>required</b> if skill is ticked)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">* Mapping <br>
+                                <div class="warn">Notice that you will be required to upload map samples!
+                                </div>
                                 <br>
-                                <textarea rows="2" cols="30" name="mapper" id="mapper" value=""></textarea></font></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <font color="#376FA6" face="Verdana" size="2">* Coaching<br><font color="#376FA6"
-                                                                                              face="Verdana"
-                                                                                              size="1"><input
-                                            type="checkbox" name="nteam" value="1"> National Team<br><input
-                                            type="checkbox" name="clubs" value="1"> Clubs </font></font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1">Brief outline of your experience in coaching
+                                <div class="smradio">
+                                    <input type="checkbox" name="mappingDesc['sprint']" value="1"> Sprint <br>
+                                    <input type="checkbox" name="mappingDesc['forest']" value="1"> Forest <br>
+                                    <input type="checkbox" name="mappingDesc['mtbo']" value="1"> MTBO
+                                </div>
+                            </td>
+                            <td class="smradio">Brief outline of your experience as a mapper
                                 <br>
-                                <textarea rows="2" cols="30" name="coach" id="coach" value=""></textarea> </font></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <font color="#376FA6" face="Verdana" size="2">* IT &amp; time-keeping <br><font
-                                        color="#376FA6" face="Verdana" size="1"><input type="checkbox" name="si"
-                                                                                       value="1"> SportIdent &nbsp;
-                                    &nbsp;<input type="checkbox" name="emit" value="1"> Emit <br><input type="checkbox"
-                                                                                                        name="othertime"
-                                                                                                        value="1"> Other
-                                    Timekeeping <br><input type="checkbox" name="gps" value="1"> GPS
-                                    Tracking</font></font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1">Brief details of your IT skills &amp;
-                                experience <br>
-                                <textarea rows="2" cols="30" name="itex" id="itex" value=""></textarea> </font></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <font color="#376FA6" face="Verdana" size="2">* Event Organising <br><font color="#376FA6"
-                                                                                                       face="Verdana"
-                                                                                                       size="1"><input
-                                            type="checkbox" name="clubev" value="1"> Club &nbsp; &nbsp;<input
-                                            type="checkbox" name="localev" value="1"> Local &nbsp; &nbsp;<br><input
-                                            type="checkbox" name="natev" value="1"> National &nbsp; &nbsp;<input
-                                            type="checkbox" name="hlev" value="1"> High-Level </font></font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1">Brief outline of your experience as organiser
+                                <textarea rows="2" cols="30" name="mappingDesc['info']" id="mappingDescInfo" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                * Coaching<br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="coachDesc['nationalTeam']" value="1"> National Team<br>
+                                    <input type="checkbox" name="coachDesc['clubs']" value="1"> Clubs
+                                </div>
+                            </td>
+                            <td class="smradio">Brief outline of your experience in coaching
                                 <br>
-                                <textarea rows="2" cols="30" name="evorg" id="evorg" value=""></textarea></font></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <font color="#376FA6" face="Verdana" size="2">* Teaching experience
-
-                                <br><font color="#376FA6" face="Verdana" size="1"><input type="checkbox" name="teach[]"
-                                                                                         value="C"> Beginners &amp;
-                                    children <br><input type="checkbox" name="teach[]" value="M"> Teach how to map
-                                    <br><input type="checkbox" name="teach[]" value="O"> Teach coaching <br><input
-                                            type="checkbox" name="teach[]" value="I"> Teach IT &amp; Timekeeping
-                                    <br><input type="checkbox" name="teach[]" value="E"> Teach Event Organising
-
-                                </font></font></td>
-                        <td><font color="#376FA6" face="Verdana" size="1">Brief outline of your experience in teaching
-                                <textarea rows="2" cols="30" name="teachex" id="teachex" value=""></textarea></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <font color="#376FA6" face="Verdana" size="2">* Other skills? Please explain... </font></td>
-                        <td><textarea rows="2" cols="30" name="oskills" id="oskills" value=""></textarea>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>O-Work Experience</b></font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">Local / National Events
-                                <select size="1" name="natc">
+                                <textarea rows="2" cols="30" name="coachDesc['info']" id="coachDescInfo" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                * IT &amp; time-keeping <br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="itDesc['si']" value="1"> SportIdent <br>
+                                    <input type="checkbox" name="itDesc['emit']" value="1"> Emit <br>
+                                    <input type="checkbox" name="itDesc['othertime']" value="1"> Other Timekeeping <br>
+                                    <input type="checkbox" name="itDesc['gps']" value="1"> GPS Tracking
+                                </div>
+                            </td>
+                            <td class="smradio">Brief details of your IT skills &amp; experience <br>
+                                <textarea rows="2" cols="30" name="itDesc['info']" id="itDescInfo" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                * Event Organising <br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="eventDesc['club']" value="1"> Club &nbsp; &nbsp;<br>
+                                    <input type="checkbox" name="eventDesc['local']" value="1"> Local &nbsp; &nbsp;<br>
+                                    <input type="checkbox" name="eventDesc['national']" value="1"> National &nbsp; &nbsp;<br>
+                                    <input type="checkbox" name="eventDesc['highLevel']" value="1"> High-Level
+                                </div>
+                            </td>
+                            <td class="smradio">Brief outline of your experience as organiser
+                                <br>
+                                <textarea rows="2" cols="30" name="eventDesc['info']" id="eventDescInfo" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                * Teaching experience
+                                <br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="teacherDesc['beginners']" value="1"> Beginners &amp; children <br>
+                                    <input type="checkbox" name="teacherDesc['map']" value="1"> Teach how to map<br>
+                                    <input type="checkbox" name="teacherDesc['coaching']" value="1"> Teach coaching <br>
+                                    <input type="checkbox" name="teacherDesc['IT']" value="1"> Teach IT &amp; Timekeeping<br>
+                                    <input type="checkbox" name="teacherDesc['eventOrg']" value="1"> Teach Event Organising
+                                </div>
+                            </td>
+                            <td class="smradio">Brief outline of your experience in teaching
+                                <textarea rows="2" cols="30" name="teacherDesc['info']" id="teacherDescInfo" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                * Other skills? Please explain...
+                            </td>
+                            <td>
+                                <textarea rows="2" cols="30" name="otherSkills" id="otherSkills" value=""></textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>O-Work Experience</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Local / National Events
+                                <select size="1" name="oworkLocalExp['experience']">
                                     <option selected="" value="">- select -</option>
                                     <option value="0">none</option>
                                     <option value="1">1 - 10</option>
                                     <option value="2">11 - 30</option>
                                     <option value="3">over 30</option>
                                 </select><br>
-                                <br>Duties:<br></font><font color="#376FA6" face="Verdana" size="1">
-
-                                <input type="checkbox" name="dut[]" value="NE"> Event Director <br>
-                                <input type="checkbox" name="dut[]" value="NM"> Mapper / Course Planner <br>
-                                <input type="checkbox" name="dut[]" value="NT"> IT Director <br>
-                                <input type="checkbox" name="dut[]" value="NA"> Event Advisor <br>
-                                <input type="checkbox" name="dut[]" value="NJ"> Jury Member <br>
-                                Other duties? State below...<br> <input type="text" name="onduts" value="" size="20">
-                            </font>
-                        </td>
-                        <td><font color="#376FA6" face="Verdana" size="2">International Events &nbsp;
-                                <select size="1" name="intc">
+                                <br>Duties:<br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="oworkLocalExp['director']" value="1"> Event Director <br>
+                                    <input type="checkbox" name="oworkLocalExp['mapper']" value="1"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="oworkLocalExp['IT']" value="1"> IT Director <br>
+                                    <input type="checkbox" name="oworkLocalExp['advisor']" value="1"> Event Advisor <br>
+                                    <input type="checkbox" name="oworkLocalExp['jury']" value="1"> Jury Member <br>
+                                    Other duties? State below...<br>
+                                    <input type="text" name="oworkLocalExp['other']" value="" size="20">
+                                </div>
+                            </td>
+                            <td class="desc">International Events &nbsp;
+                                <select size="1" name="oworkInternationalExp['experience']">
                                     <option selected="" value="">- select -</option>
                                     <option value="0">none</option>
                                     <option value="1">1 - 10</option>
                                     <option value="2">11 - 20</option>
                                     <option value="3">over 20</option>
                                 </select><br>
-                                <br>Duties:<br></font><font color="#376FA6" face="Verdana" size="1">
+                                <br>Duties:<br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="oworkInternationalExp['director']" value="1"> Event Director <br>
+                                    <input type="checkbox" name="oworkInternationalExp['mapper']" value="1"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="oworkInternationalExp['IT']" value="1"> IT Director <br>
+                                    <input type="checkbox" name="oworkInternationalExp['advisor']" value="1"> Event Advisor <br>
+                                    <input type="checkbox" name="oworkInternationalExp['jury']" value="1"> Jury Member <br>
+                                    Other duties? State below...<br>
+                                    <input type="text" name="oworkInternationalExp['info']" value="" size="20">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                                <input type="checkbox" name="idut[]" value="IE"> Event Director <br>
-                                <input type="checkbox" name="idut[]" value="IM"> Mapper / Course Planner <br>
-                                <input type="checkbox" name="idut[]" value="IT"> IT Director <br>
-                                <input type="checkbox" name="idut[]" value="IA"> Event Advisor <br>
-                                <input type="checkbox" name="idut[]" value="IJ"> Jury Member <br>
-                                Other duties? State below...<br> <input type="text" name="oiduts" value="" size="20">
+                </td>
+                <td valign="top" width="17%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Additional Information</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                Skilled in mapping? <br>Upload your "best" maps here...<br>
+                                <div class="warn">Required for mappers!</div>
+                                <br>(At most 3 maps in PDF format)<br><br>
+                                <input name="map1" type="file"><br><br>
+                                <input name="map2" type="file"><br><br>
+                                <input name="map3" type="file"><br><br>
 
-                            </font></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </td>
-            <td valign="top" width="17%">
-                <table>
-                    <tbody>
-                    <tr valign="top">
-                        <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Additional
-                                    Information</b></font></td>
-                    </tr>
-                    <tr>
-                        <td><font color="#376FA6" face="Verdana" size="2">
-                                Skilled in mapping? <br>Upload your "best" maps here...<br><font color="#B30000"
-                                                                                                 face="Verdana"
-                                                                                                 size="1">Required for
-                                    mappers!</font><br>(At most 3 maps in PDF format)<br><br>
-                                <input name="image1" type="file"><br><br>
-                                <input name="image2" type="file"><br><br>
-                                <input name="image3" type="file"><br><br>
-
-                                Explain how you can help as a volunteer <br><font color="#B30000" face="Verdana"
-                                                                                  size="1">(required) <br></font>
-                                <textarea rows="4" cols="30" name="help" id="help" value=""></textarea><br><br>
+                                Explain how you can help as a volunteer <br>
+                                <div class="warn">(required)<br></div>
+                                <textarea rows="4" cols="30" name="helpDesc" id="helpDesc" value=""></textarea><br><br>
                                 Expectations as a volunteer <br>
-                                <textarea rows="4" cols="30" name="expect" id="expect" value=""></textarea><br><br>
+                                <textarea rows="4" cols="30" name="expectations" id="expectations" value=""></textarea><br><br>
                                 Experience abroad? When? Where? What?<br>
-                                <textarea rows="4" cols="30" name="exper" id="exper" value=""></textarea><br><br>
+                                <textarea rows="4" cols="30" name="abroadExp" id="abroadExp" value=""></textarea><br><br>
                                 Seminars, Training Camps attended...<br>
-                                <textarea rows="4" cols="30" name="training" id="training" value=""></textarea><br><br>
+                                <textarea rows="4" cols="30" name="learning" id="learning" value=""></textarea><br><br>
 
-                            </font></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Disclaimer:</b> I have filled in my details
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" class="desc"><b>Disclaimer:</b> I have filled in my details
                     above as accurately as possible. By submitting this form, I state that I am a volunteer in
                     developing orienteering. I understand that the IOF cannot be held responsible for my being or not
                     being recruited as a volunteer. I also understand that should I choose to accept any offer
                     requesting my assistance, the IOF cannot be held responsible for the terms under which I will work
                     as a volunteer.
-                    <br><br><input type="checkbox" name="ok"> I have read and understood the above.</font> <font
-                        color="#B30000" face="Verdana" size="1"> Please tick the disclaimer...</font></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="4" align="right"><input type="submit" name="newvol" value="Submit my details">
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</form>
+                    <br><br><input type="checkbox" name="iAgreeWithTerms"> I have read and understood the above.
+                    <div class="warn"> Please tick the disclaimer...</div>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right"><input type="submit" value="Submit my details">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 
 {% endblock %}
