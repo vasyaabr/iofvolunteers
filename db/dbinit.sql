@@ -11,72 +11,48 @@ CREATE TABLE `users` (
   UNIQUE KEY `login_UNIQUE` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `disciplines` (
-  id INT(6) AUTO_INCREMENT,
-  dis VARCHAR(10),
-  vid INT(5),
-  PRIMARY KEY (id)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
-
-CREATE TABLE `duties` (
-  id INT(6) AUTO_INCREMENT,
-  duts VARCHAR(2),
-  vid INT(11),
-  iduts VARCHAR(2),
-  PRIMARY KEY (id)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
-
 CREATE TABLE `volunteers` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `userID` int(6) unsigned NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
+  `reg_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(60) DEFAULT NULL,
   `country` varchar(3) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
   `birthdate` datetime DEFAULT NULL,
   `nickname` varchar(30) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `reg_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `license` varchar(2) DEFAULT NULL,
-  `onduts` varchar(50) DEFAULT NULL,
-  `oiduts` varchar(50) DEFAULT NULL,
-  `expect` varchar(80) DEFAULT NULL,
-  `exper` varchar(50) DEFAULT NULL,
-  `training` varchar(50) DEFAULT NULL,
-  `mapper` varchar(50) DEFAULT NULL,
-  `sprint` int(2) DEFAULT NULL,
-  `forest` int(2) DEFAULT NULL,
-  `coach` varchar(50) DEFAULT NULL,
-  `nteam` int(2) DEFAULT NULL,
-  `clubs` int(2) DEFAULT NULL,
-  `si` int(2) DEFAULT NULL,
-  `emit` int(2) DEFAULT NULL,
-  `gps` int(2) DEFAULT NULL,
-  `itex` varchar(50) DEFAULT NULL,
-  `clubev` int(2) DEFAULT NULL,
-  `localev` int(2) DEFAULT NULL,
-  `natev` int(2) DEFAULT NULL,
-  `hlev` int(2) DEFAULT NULL,
-  `evorg` varchar(50) DEFAULT NULL,
-  `documents` varchar(50) DEFAULT NULL,
-  `oskills` varchar(50) DEFAULT NULL,
-  `vid` int(11) DEFAULT NULL,
-  `natc` int(2) DEFAULT NULL,
-  `intc` int(2) DEFAULT NULL,
-  `help` varchar(80) DEFAULT NULL,
-  `othertime` int(1) DEFAULT NULL,
-  `mtbo` int(2) DEFAULT NULL,
+  `license` tinyint(1) DEFAULT '0',
+  `footO` tinyint(1) DEFAULT NULL,
+  `skiO` tinyint(1) DEFAULT NULL,
+  `mtbO` tinyint(1) DEFAULT NULL,
+  `trailO` tinyint(1) DEFAULT NULL,
+  `startO` datetime DEFAULT NULL,
+  `club` varchar(60) DEFAULT NULL,
+  `competitorExp` json DEFAULT NULL,
+  `languages` json DEFAULT NULL,
+  `preferredContinents` json DEFAULT NULL,
+  `timeToStart` datetime DEFAULT NULL,
+  `maxWorkDuration` int(11) DEFAULT NULL,
+  `mappingSkilled` tinyint(1) DEFAULT NULL,
+  `coachSkilled` tinyint(1) DEFAULT NULL,
+  `itSkilled` tinyint(1) DEFAULT NULL,
+  `eventSkilled` tinyint(1) DEFAULT NULL,
+  `teacherSkilled` tinyint(1) DEFAULT NULL,
+  `mappingDesc` json DEFAULT NULL,
+  `coachDesc` json DEFAULT NULL,
+  `itDesc` json DEFAULT NULL,
+  `eventDesc` json DEFAULT NULL,
+  `teacherDesc` json DEFAULT NULL,
+  `oworkLocalExp` json DEFAULT NULL,
+  `oworkInternationalExp` json DEFAULT NULL,
+  `helpDesc` longtext,
+  `expectations` longtext,
+  `abroadExp` longtext,
+  `learning` longtext,
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `langs` (
-  id INT(6) AUTO_INCREMENT,
-  lang VARCHAR(10),
-  vid INT(5),
-  level INT(2),
-  PRIMARY KEY (id)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 CREATE TABLE `maps` (
   id INT(6) AUTO_INCREMENT,
