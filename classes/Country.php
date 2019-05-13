@@ -9,7 +9,7 @@ class Country {
 
         echo implode("\n",
             array_column(
-                DbProvider::run("SELECT concat('<option value=\"',id,'\">',name,'</option>') AS opt FROM countries ORDER BY name"),
+                DbProvider::select("SELECT concat('<option value=\"',id,'\">',name,'</option>') AS opt FROM countries ORDER BY name"),
                 'opt'
             )
         );

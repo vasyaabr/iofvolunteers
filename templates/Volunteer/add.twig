@@ -2,15 +2,15 @@
 
 {% block onecolumn %}
 
-    <form method="POST" action="regVolunteer" enctype="multipart/form-data">
-
-        <div align="center">
-            <div class="title">Volunteer Registration Form</div>
-            <br>
-            <div class="warn-title">Please note that you must be 18+ to register as a
-                volunteer!
-            </div>
+    <div align="center">
+        <div class="title">Volunteer Registration Form</div>
+        <br>
+        <div class="warn-title">Please note that you must be 18+ to register as a
+            volunteer!
         </div>
+    </div>
+
+    <form method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
 
         <table width="90%" align="center">
             <tbody>
@@ -58,13 +58,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc">Year of birth
+                            <td class="desc">Date of birth
                                 <div class="warn">
                                     required
                                 </div>
                             </td>
                             <td>:
-                                <input type="number" min="1900" max="2099" step="1" name="birthdate" size="4" placeholder="yyyy" value="">
+                                <input type="text" name="birthdate" size="15" value="" class="datepicker">
                             </td>
                         </tr>
                         <tr>
@@ -140,30 +140,30 @@
                             <td class="desc">Local events</td>
                             <td class="desc">: <select size="1" name="competitorExp[local]">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 50</option>
-                                    <option value="2">51 - 100</option>
-                                    <option value="3">over 100</option>
+                                    <option value="none">none</option>
+                                    <option value="1 - 50">1 - 50</option>
+                                    <option value="51 - 100">51 - 100</option>
+                                    <option value="over 100">over 100</option>
                                 </select></td>
                         </tr>
                         <tr>
                             <td class="desc">National Championships</td>
                             <td class="desc">: <select size="1" name="competitorExp[national]">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 50</option>
-                                    <option value="2">51 - 100</option>
-                                    <option value="3">over 100</option>
+                                    <option value="none">none</option>
+                                    <option value="1 - 50">1 - 50</option>
+                                    <option value="51 - 100">51 - 100</option>
+                                    <option value="over 100">over 100</option>
                                 </select></td>
                         </tr>
                         <tr>
                             <td class="desc">International Competitions</td>
                             <td class="desc">: <select size="1" name="competitorExp[international]">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 20</option>
-                                    <option value="2">21 - 50</option>
-                                    <option value="3">over 50</option>
+                                    <option value="none">none</option>
+                                    <option value="1 - 20">1 - 20</option>
+                                    <option value="21 - 50">21 - 50</option>
+                                    <option value="over 50">over 50</option>
                                 </select></td>
                         </tr>
 
@@ -182,57 +182,57 @@
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[English][known]" value="1">English</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[English][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[English][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[English][level]" value="3">Poor
+                                <input type="radio" name="languages[English][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[English][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[English][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[French][known]" value="1">French</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[French][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[French][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[French][level]" value="3">Poor
+                                <input type="radio" name="languages[French][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[French][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[French][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[Spanish][known]" value="1">Spanish</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[Spanish][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Spanish][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Spanish][level]" value="3">Poor
+                                <input type="radio" name="languages[Spanish][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[Spanish][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[Spanish][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[German][known]" value="1">German</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[German][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[German][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[German][level]" value="3">Poor
+                                <input type="radio" name="languages[German][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[German][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[German][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[Italian][known]" value="1">Italian</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[Italian][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Italian][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Italian][level]" value="3">Poor
+                                <input type="radio" name="languages[Italian][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[Italian][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[Italian][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[Portuguese][known]" value="1">Portuguese</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[Portuguese][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Portuguese][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Portuguese][level]" value="3">Poor
+                                <input type="radio" name="languages[Portuguese][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[Portuguese][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[Portuguese][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[Scandinavian][known]" value="1">"Scandinavian"</td>
                             <td class="smradio">
-                                <input type="radio" name="languages[Scandinavian][level]" value="1">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Scandinavian][level]" value="2">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Scandinavian][level]" value="3">Poor
+                                <input type="radio" name="languages[Scandinavian][level]" value="Excellent">Excellent &nbsp; &nbsp;
+                                <input type="radio" name="languages[Scandinavian][level]" value="OK">OK &nbsp;&nbsp;
+                                <input type="radio" name="languages[Scandinavian][level]" value="Poor">Poor
                             </td>
                         </tr>
                         <tr>
@@ -266,7 +266,7 @@
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td class="desc">
-                                <input type="text" size="10" name="timeToStart" id="timeToStart" class="hasDatepicker">
+                                <input type="text" name="timeToStart" id="timeToStart" size="10" class="datepicker">
                             </td>
                         </tr>
 

@@ -43,7 +43,7 @@ class User {
             $query = "SELECT * FROM users WHERE (login=:login OR email=:login) and password=:passwordHash";
         }
 
-        $users = DbProvider::run($query, $params);
+        $users = DbProvider::select($query, $params);
         $success = count($users) === 1;
 
         if ($success) {

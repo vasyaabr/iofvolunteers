@@ -4,6 +4,19 @@
     font-size: small;
 }
 
+.big-desc {
+    color: #376FA6;
+    font-family: Verdana, Times, serif;
+    font-size: small;
+    font-weight: bold;
+}
+
+.maincol {
+    color: #BC0000;
+    font-family: Verdana, Times, serif;
+    font-size: small;
+}
+
 .title {
     color: #376FA6;
     font-family: Verdana, Times, serif;

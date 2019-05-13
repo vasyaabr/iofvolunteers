@@ -19,6 +19,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('POST', '/volunteer/register', 'Volunteer/add');
     $r->addRoute('GET', '/volunteer/search', 'Volunteer/searchView');
     $r->addRoute('POST', '/volunteer/search', 'Volunteer/search');
+    $r->addRoute('GET', '/volunteer/list', 'Volunteer/listView');
 });
 
 // Fetch method and URI from somewhere

@@ -7,15 +7,75 @@ class Volunteer {
 
     private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
     private static $dateTimeFields = ['birthdate','startO', 'timeToStart'];
-    private static $actions = ['register', 'search'];
+    private static $actions = ['register', 'search', 'list'];
 
     public function addView() : string {
+
+        if (!User::isAuthenticated()) {
+            return 'Error: user not authenticated';
+        }
 
         return TemplateProvider::render('Volunteer/add.twig');
 
     }
 
+    public function listView() : string {
+
+        if (!User::isAuthenticated()) {
+            return 'Error: user not authenticated';
+        }
+
+        $query = "SELECT * 
+            FROM volunteers
+            WHERE userID = " . User::getUserID() . "
+            ORDER BY id";
+        $result = DbProvider::select( $query );
+
+        if (count($result) === 0) {
+            return $this->addView();
+        }
+
+        foreach ($result as &$vol) {
+
+            // prepare languages string
+            if (!empty($vol['languages'])) {
+                $langs = json_decode($vol['languages'], true);
+                if ( json_last_error() === JSON_ERROR_NONE ) {
+                    $langResults = [];
+                    foreach ($langs as $lang => $desc) {
+                        if (isset($desc['level'])) {
+                            $langResults[] = "{$lang} ({$desc['level']})";
+                        }
+                    }
+                    $vol['languages'] = implode(', ', $langResults);
+                }
+            }
+
+            // prepare competitor experience string
+            if (!empty($vol['competitorExp'])) {
+                $exp = json_decode($vol['competitorExp'], true);
+                if ( json_last_error() === JSON_ERROR_NONE ) {
+                    $expResults = [];
+                    foreach ($exp as $type => $value) {
+                        $expResults[] = "{$value} {$type} events";
+                    }
+                    $vol['competitorExp'] = 'compete in ' . implode(', ', $expResults);
+                }
+            }
+
+        }
+
+        return TemplateProvider::render('Volunteer/list.twig',
+            [ 'volunteers' => $result, 'title' => 'Volunteers list' ]
+        );
+
+    }
+
     public function searchView() : string {
+
+        if (!User::isAuthenticated()) {
+            return 'Error: user not authenticated';
+        }
 
         return TemplateProvider::render('Volunteer/search.twig');
 
@@ -50,7 +110,7 @@ class Volunteer {
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
-        return $success ? 'OK' : 'Error';
+        return $success ? $this->listView() : 'Error';
 
     }
 
@@ -88,11 +148,11 @@ class Volunteer {
 
         }
 
-        $params['userID'] = User::getUserID();
-
         if ($action === 'search') {
             return $params;
         }
+
+        $params['userID'] = User::getUserID();
 
         // check for required fields
         foreach (self::$requiredFields as $key) {
@@ -185,9 +245,11 @@ class Volunteer {
             FROM volunteers
             WHERE {$conditions}";
         error_log("{$query}\n");
-        $found = DbProvider::run( $query , $params );
+        $found = DbProvider::select( $query , $params );
 
-        return TemplateProvider::render('Volunteer/list.twig', $found);
+        return TemplateProvider::render('Volunteer/list.twig',
+            [ 'volunteers' => $found, 'title' => 'Search results' ]
+        );
 
     }
 
