@@ -15,14 +15,15 @@ class Volunteer {
             return Platform::error( 'You are not authenticated' );
         }
 
-        // Workaround to get empty array with keys
-        $query = "SELECT * 
-            FROM volunteers
-            LIMIT 1";
-        $result = DbProvider::select( $query );
-        $emptyRes = array_fill_keys(array_keys($result[0]),'');
+        // Lazy workaround to get empty array with keys
+//        $query = "SELECT *
+//            FROM volunteers
+//            LIMIT 1";
+//        $result = DbProvider::select( $query );
+//        $emptyRes = array_fill_keys(array_keys($result[0]),'');
 
-        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $emptyRes ] );
+        //return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $emptyRes ] );
+        return TemplateProvider::render('Volunteer/add.twig');
 
     }
 
@@ -32,13 +33,12 @@ class Volunteer {
             return Platform::error( 'You are not authenticated' );
         }
 
-        // Workaround to get empty array with keys
         $query = "SELECT * 
             FROM volunteers
             WHERE id = {$id}";
         $result = DbProvider::select( $query );
 
-        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $result ] );
+        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $result[0] ] );
 
     }
 
@@ -139,14 +139,20 @@ class Volunteer {
         //error_log(var_export($params,true)."\n");
 
         // prepare and run query
-        $keys = implode(',',array_keys($params));
         $valueMasks = implode(',',
             array_map(function($v) { return ':'.$v; },array_keys($params))
         );
-
-        $query = "INSERT INTO volunteers ({$keys})
+        if (isset($params['id'])) {
+            $query = "UPDATE volunteers
+                SET {$valueMasks}
+                WHERE id= :id";
+        } else {
+            $keys = implode(',',array_keys($params));
+            $query = "INSERT INTO volunteers ({$keys})
                 VALUES ({$valueMasks})";
+        }
         //error_log("{$query}\n");
+
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
