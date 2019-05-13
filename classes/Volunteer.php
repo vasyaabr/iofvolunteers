@@ -15,7 +15,30 @@ class Volunteer {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Volunteer/add.twig');
+        // Workaround to get empty array with keys
+        $query = "SELECT * 
+            FROM volunteers
+            LIMIT 1";
+        $result = DbProvider::select( $query );
+        $emptyRes = array_fill_keys(array_keys($result[0]),'');
+
+        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $emptyRes ] );
+
+    }
+
+    public function editView(int $id) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        // Workaround to get empty array with keys
+        $query = "SELECT * 
+            FROM volunteers
+            WHERE id = {$id}";
+        $result = DbProvider::select( $query );
+
+        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $result ] );
 
     }
 
@@ -78,6 +101,23 @@ class Volunteer {
         }
 
         return TemplateProvider::render('Volunteer/search.twig');
+
+    }
+
+    public function previewView(int $id) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        $query = "SELECT * 
+            FROM volunteers
+            WHERE id = {$id}";
+        $result = DbProvider::select( $query );
+
+        return TemplateProvider::render('Volunteer/preview.twig',
+            [ 'data' => $result ]
+        );
 
     }
 
