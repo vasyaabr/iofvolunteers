@@ -22,7 +22,7 @@ CREATE TABLE `volunteers` (
   `gender` varchar(1) DEFAULT NULL,
   `birthdate` datetime DEFAULT NULL,
   `nickname` varchar(30) DEFAULT NULL,
-  `license` tinyint(1) DEFAULT '0',
+  `license` tinyint(1) DEFAULT 0,
   `footO` tinyint(1) DEFAULT NULL,
   `skiO` tinyint(1) DEFAULT NULL,
   `mtbO` tinyint(1) DEFAULT NULL,

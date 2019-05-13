@@ -32,9 +32,9 @@
                         <tr>
                             <td class="desc">Age </td>
                             <td>: <div class="desc"> at least
-                                    <input type="text" name="minage" size="2">
+                                    <input type="number" name="minage" size="2">
                                     at most
-                                    <input type="text" name="maxage" size="2">
+                                    <input type="number" name="maxage" size="2">
                                 </div>
                             </td>
                         </tr>
@@ -61,18 +61,17 @@
                         </tr>
                         <tr>
                             <td class="desc">
-                                    <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
-                                    &nbsp;
+                                    <input type="checkbox" name="footO" value="1"> Foot-O &nbsp; &nbsp; &nbsp;
                             </td>
                             <td class="desc">
-                                    <input type="checkbox" name="dis[]" value="M"> MTBO </td>
+                                    <input type="checkbox" name="mtbO" value="1"> MTBO </td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                    <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <input type="checkbox" name="skiO" value="1"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;
                             </td>
                             <td class="desc">
-                                    <input type="checkbox" name="dis[]" value="T"> Trail-O
+                                    <input type="checkbox" name="trailO" value="1"> Trail-O
                             </td>
                         </tr>
                         </tbody>
@@ -89,7 +88,7 @@
                             <td class="desc">Years in orienteering </td>
                             <td>:<div class="desc">
                                     at least
-                                    <input type="text" name="oyears" size="2">
+                                    <input type="number" name="oyears" size="2">
                                     years
                                 </div>
                             </td>
@@ -102,7 +101,7 @@
                         <tr>
                             <td class="desc">Taken part in minimum <br>
                                     Local events </td>
-                            <td class="desc">: <select size="1" name="loc">
+                            <td class="desc">: <select size="1" name="competitorExp[local]">
                                         <option selected="" value="">--- select ---</option>
                                         <option value="0">none</option>
                                         <option value="1">1 - 50</option>
@@ -112,7 +111,7 @@
                         </tr>
                         <tr>
                             <td class="desc">National Championships </td>
-                            <td class="desc">: <select size="1" name="nchamp">
+                            <td class="desc">: <select size="1" name="competitorExp[national]">
                                         <option selected="" value="">--- select ---</option>
                                         <option value="0">none</option>
                                         <option value="1">1 - 50</option>
@@ -122,7 +121,7 @@
                         </tr>
                         <tr>
                             <td class="desc">International Competitions </td>
-                            <td class="desc">: <select size="1" name="icomp">
+                            <td class="desc">: <select size="1" name="competitorExp[international]">
                                         <option selected="" value="">--- select ---</option>
                                         <option value="0">none</option>
                                         <option value="1">1 - 20</option>
@@ -149,27 +148,25 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="E"> English </td>
+                            <td class="desc"><input type="checkbox" name="languages[English][known]" value="1"> English </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="F"> French </td>
+                            <td class="desc"><input type="checkbox" name="languages[French][known]" value="1"> French </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="S"> Spanish </td>
+                            <td class="desc"><input type="checkbox" name="languages[Spanish][known]" value="1"> Spanish </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="G"> German </td>
+                            <td class="desc"><input type="checkbox" name="languages[German][known]" value="1"> German </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="I"> Italian </td>
+                            <td class="desc"><input type="checkbox" name="languages[Italian][known]" value="1"> Italian </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="P"> Portuguese </td>
+                            <td class="desc"><input type="checkbox" name="languages[Portuguese][known]" value="1"> Portuguese </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="lang[]" value="W"> "Scandinavian"</td>
-                        </tr>
-                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[Scandinavian][known]" value="1"> "Scandinavian"</td>
                         </tr>
                         </tbody>
                     </table>
@@ -181,13 +178,13 @@
                         </tr>
                         <tr>
                             <td class="desc">When to start?
-                                <input type="text" size="2" name="sdatem" value="mm"> /
-                                <input type="text" size="10" name="sdatey" value="yyyy">
+                                <input type="text" size="2" name="timeToStart_m" value="mm"> /
+                                <input type="text" size="10" name="timeToStart_y" value="yyyy">
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">Must stay for at least
-                                <input type="text" size="3" name="duration" value="">
+                                <input type="text" size="3" name="maxWorkDuration" value="">
                                 weeks
                             </td>
                         </tr>
@@ -208,19 +205,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="sprint" value="M"><div class="desc"> Mapping </div></td>
+                            <td><input type="checkbox" name="mappingSkilled" value="1"><div class="desc"> Mapping </div></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="sprint" value="M"><div class="desc"> Coaching </div></td>
+                            <td><input type="checkbox" name="coachSkilled" value="1"><div class="desc"> Coaching </div></td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" name="sprint" value="M"><div class="desc"> IT &amp; timekeeping </div>
+                                <input type="checkbox" name="itSkilled" value="1"><div class="desc"> IT &amp; timekeeping </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" name="sprint" value="M"><div class="desc"> Event Organising </div>
+                                <input type="checkbox" name="eventSkilled" value="1"><div class="desc"> Event Organising </div>
                             </td>
                         </tr>
                         <tr>
@@ -228,11 +225,11 @@
                                 <u>Teaching</u> (please tick)
                                 <br>
                                 <div class="smradio">
-                                    <input type="checkbox" name="teach[]" value="C"> Beginners &amp; children <br>
-                                    <input type="checkbox" name="teach[]" value="M"> Teach how to map<br>
-                                    <input type="checkbox" name="teach[]" value="O"> Teach coaching <br>
-                                    <input type="checkbox" name="teach[]" value="I"> Teach IT &amp; Timekeeping<br>
-                                    <input type="checkbox" name="teach[]" value="E"> Teach Event Organising
+                                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children <br>
+                                    <input type="checkbox" name="teacherDesc[map]" value="1"> Teach how to map<br>
+                                    <input type="checkbox" name="teacherDesc[coach]" value="1"> Teach coaching <br>
+                                    <input type="checkbox" name="teacherDesc[it]" value="1"> Teach IT &amp; Timekeeping<br>
+                                    <input type="checkbox" name="teacherDesc[event]" value="1"> Teach Event Organising
                                 </div>
                             </td>
                         </tr>

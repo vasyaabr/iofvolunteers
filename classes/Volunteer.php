@@ -5,7 +5,9 @@ namespace iof;
 
 class Volunteer {
 
-    public static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
+    private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
+    private static $dateTimeFields = ['birthdate','startO', 'timeToStart'];
+    private static $actions = ['register', 'search'];
 
     public function regShow() : string {
 
@@ -27,7 +29,7 @@ class Volunteer {
 
         //error_log(var_export($_POST,true)."\n");
 
-        $params = $this->validate($_POST);
+        $params = $this->validate($_POST, 'register');
 
         // show validation errors
         if (!empty($params['errors'])) {
@@ -54,11 +56,18 @@ class Volunteer {
 
     /**
      * Validate params and set 'errors' element on errors
+     *
      * @param array $params
+     * @param string $action
      *
      * @return array
+     * @throws \Exception
      */
-    private function validate(array $params) : array {
+    private function validate(array $params, string $action) : array {
+
+        if ( empty($action) || !in_array($action,self::$actions,true) ) {
+            throw new \Exception('Invalid validate action');
+        }
 
         foreach ($params as $key => &$param) {
 
@@ -73,24 +82,29 @@ class Volunteer {
             }
 
             // convert arrays to JSON
-            if (is_array($param)) {
+            if (is_array($param) && $action === 'register') {
                 $param = json_encode($param, JSON_UNESCAPED_UNICODE);
             }
 
         }
 
+        $params['userID'] = User::getUserID();
+
+        if ($action === 'search') {
+            return $params;
+        }
+
         // check for required fields
-        foreach (self::$requiredFields as $value) {
-            if (!isset($params[$value])) {
-                $params['errors'][] = "Required field `{$value}` is missing`";
+        foreach (self::$requiredFields as $key) {
+            if (!isset($params[$key])) {
+                $params['errors'][] = "Required field `{$key}` is missing`";
             }
         }
 
         // check datetime fields
-        $dateTimeFields = ['birthdate','startO', 'timeToStart'];
-        foreach ($dateTimeFields as $value) {
-            if (isset($params[$value])) {
-                $params[$value] = "{$params[$value]}-01-01 00:00:00";
+        foreach (self::$dateTimeFields as $key) {
+            if (isset($params[$key])) {
+                $params[$key] = "{$params[$key]}-01-01 00:00:00";
             }
         }
 
@@ -107,9 +121,44 @@ class Volunteer {
         if (isset($params['eventDesc'])) { $params['eventSkilled'] = 1; }
         if (isset($params['teacherDesc'])) { $params['teacherSkilled'] = 1; }
 
-        $params['userID'] = User::getUserID();
-
         return $params;
+
+    }
+
+    /**
+     * Return MySQL condition string for each param name
+     * @param string $param parameter name
+     *
+     * @return string
+     */
+    private function createCondition(string $param) : string {
+
+        switch (trim($param)) {
+            case 'minage':
+                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) >= :{$param}";
+                break;
+            case 'maxage':
+                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) <= :{$param}";
+                break;
+            case 'oyears':
+                $condition = "YEAR(now()) - YEAR(oStart) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(oStart, '%m%d')) >= :{$param}";
+                break;
+            case 'maxWorkDuration':
+                $condition = "{$param} >= :{$param}";
+                break;
+            case 'timeToStart_m':
+            case 'timeToStart_y':
+            case 'competitorExp':
+            case 'languages':
+            case 'teacherDesc':
+                // TODO
+                //break;
+            default:
+                $condition = "{$param} = :{$param}";
+                break;
+        }
+
+        return $condition;
 
     }
 
@@ -119,22 +168,18 @@ class Volunteer {
             return 'Error: user not authenticated';
         }
 
-        error_log(var_export($_POST,true)."\n");
-
-        $params = $_POST;
-
-        // fill other fields
-        $params['userID'] = User::getUserID();
+        $params = $this->validate($_POST, 'search');
 
         error_log(var_export($params,true)."\n");
 
         // prepare and run query
         $conditions = implode(' AND ',
             array_map(
-                function($v) { return "{$v} = :{$v}"; } ,
+                array($this, 'createCondition') ,
                 array_keys($params)
             )
         );
+        error_log("{$conditions}\n");
 
         $query = "SELECT * 
             FROM volunteers

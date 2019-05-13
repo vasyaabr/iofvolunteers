@@ -33,3 +33,7 @@
     font-family: Verdana, Times, serif;
     font-size: x-small;
 }
+
+a.main {
+    text-decoration: none;
+}

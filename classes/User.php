@@ -77,7 +77,7 @@ class User {
      */
     public static function getUserID() : int {
 
-        return User::isAuthenticated() ? $_SESSION['user']['id'] : 0;
+        return self::isAuthenticated() ? $_SESSION['user']['id'] : 0;
 
     }
 

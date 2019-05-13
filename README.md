@@ -14,6 +14,23 @@
 5. Configure database connection in **config.php** constants
 6. Run `install.php` in core directory
 
+### Project structure
+
+```bash
+├── classes - PHP code
+├── css - stylesheets
+├── db - database init queries, which runs from install.php
+├── images - graphics
+├── templates - html templates
+├── composer.json
+├── composer.lock
+├── config_example.php - site config (mysql credentials)
+├── index.php
+├── install.php
+├── phpinfo.php
+└── README.md - this file
+```
+
 ### Testing
 
 Local run: `php -S localhost:8000` 
