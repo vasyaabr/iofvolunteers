@@ -19,7 +19,7 @@ class Platform {
             }
         }
 
-        return TemplateProvider::getInstance()->render('index.twig', $params);
+        return TemplateProvider::render('index.twig', $params);
 
     }
 

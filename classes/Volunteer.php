@@ -9,19 +9,19 @@ class Volunteer {
     private static $dateTimeFields = ['birthdate','startO', 'timeToStart'];
     private static $actions = ['register', 'search'];
 
-    public function regShow() : string {
+    public function addView() : string {
 
-        return TemplateProvider::getInstance()->render('regVolunteer.twig');
-
-    }
-
-    public function searchShow() : string {
-
-        return TemplateProvider::getInstance()->render('searchVolunteer.twig');
+        return TemplateProvider::render('Volunteer/add.twig');
 
     }
 
-    public function register() : string {
+    public function searchView() : string {
+
+        return TemplateProvider::render('Volunteer/search.twig');
+
+    }
+
+    public function add() : string {
 
         if (!User::isAuthenticated()) {
             return 'Error: user not authenticated';
@@ -187,7 +187,7 @@ class Volunteer {
         error_log("{$query}\n");
         $found = DbProvider::run( $query , $params );
 
-        return TemplateProvider::getInstance()->render('volunteersList.twig', $found);
+        return TemplateProvider::render('Volunteer/list.twig', $found);
 
     }
 

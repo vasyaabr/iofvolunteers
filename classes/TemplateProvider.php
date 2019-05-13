@@ -18,8 +18,7 @@ class TemplateProvider {
     /**
      * @return \Twig\Environment
      */
-    public static function getInstance() : \Twig\Environment
-    {
+    public static function getInstance() : \Twig\Environment {
 
         if ( is_null(self::$instance) ) {
 
@@ -29,6 +28,14 @@ class TemplateProvider {
         }
 
         return self::$instance;
+
+    }
+
+    public static function render(string $name, array $context = []) : string {
+
+        $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+        self::getInstance()->addGlobal('url', $root);
+        return self::getInstance()->render($name, $context);
 
     }
 

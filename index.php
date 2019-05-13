@@ -14,11 +14,11 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/', 'Platform/load');
     $r->addRoute('GET', '/countries', 'Country/getOptionList');
     $r->addRoute('POST', '/register', 'User/add');
-    $r->addRoute('POST', '/signin', 'User/signin');
-    $r->addRoute('GET', '/regVolunteer', 'Volunteer/regShow');
-    $r->addRoute('POST', '/regVolunteer', 'Volunteer/register');
-    $r->addRoute('GET', '/searchVolunteer', 'Volunteer/searchShow');
-    $r->addRoute('POST', '/searchVolunteer', 'Volunteer/search');
+    $r->addRoute('POST', '/signin', 'User/signIn');
+    $r->addRoute('GET', '/volunteer/register', 'Volunteer/addView');
+    $r->addRoute('POST', '/volunteer/register', 'Volunteer/add');
+    $r->addRoute('GET', '/volunteer/search', 'Volunteer/searchView');
+    $r->addRoute('POST', '/volunteer/search', 'Volunteer/search');
 });
 
 // Fetch method and URI from somewhere

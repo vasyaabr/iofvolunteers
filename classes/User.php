@@ -6,13 +6,7 @@ class User {
 
     public function add() : string {
 
-        $params = $this->validate([
-            'name' => $_POST['name'] ?? null,
-            'country'    => $_POST['country'] ?? null,
-            'email'    => $_POST['email'] ?? null,
-            'login' => $_POST['login'] ?? null,
-            'password'    => $_POST['password'] ?? null,
-        ]);
+        $params = $this->validate($_POST);
 
         if (!empty($params['errors'])) {
             return implode(', ', $params['errors']);
@@ -101,7 +95,8 @@ class User {
      */
     private function validate(array $params) : array {
 
-        /** TODO: validate params, which is set
+        /**
+         * TODO: validate params, which is set
          * - name not empty, set first letter capital
          * - country code in list of countries
          * - email is not empty, valid and unique
@@ -117,7 +112,7 @@ class User {
 
     }
 
-    public function signin() : string {
+    public function signIn() : string {
 
         $params = $this->validate([
             'login' => $_POST['login'] ?? null,
