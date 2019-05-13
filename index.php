@@ -30,15 +30,6 @@ if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
 
-print_r($uri);
-
-// Strip testing part of URI
-if (false !== strpos($uri, '/iofvolunteers')) {
-    $uri = str_replace('/iofvolunteers','',$uri);
-}
-
-print_r($uri);
-
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
