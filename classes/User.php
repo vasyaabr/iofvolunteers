@@ -9,7 +9,7 @@ class User {
         $params = $this->validate($_POST);
 
         if (!empty($params['errors'])) {
-            return implode(', ', $params['errors']);
+            return Platform::error( $params['errors'] );
         }
 
         $query = 'INSERT INTO users (id,name,country,email,login,password)
@@ -21,7 +21,7 @@ class User {
             $this->authenticate($params['login']);
         }
 
-        return $success ? 'OK' : 'Error';
+        return $success ? 'OK' : Platform::error( 'Unexpected error' );
 
     }
 
@@ -125,7 +125,7 @@ class User {
 
         $success = $this->authenticate($params['login'], $params['password']);
 
-        return $success ? 'OK' : 'Error';
+        return $success ? 'OK' : Platform::error( 'Invalid login or password' );
 
     }
 

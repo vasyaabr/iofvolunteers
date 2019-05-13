@@ -1,72 +1,9 @@
 {% extends 'common.twig' %}
 
 {% block sidebar %}
-<td width="30%" align="center" valign="top" id="sidebar">
 
-{% include 'signin.twig' %}
+    {% include 'sidebar.twig' %}
 
-<br>
-
-<p align="center"><img class="slides" src="images/project1s.jpg">
-    <img class="slides" src="images/project2s.jpg">
-    <img class="slides" src="images/project3s.jpg">
-</p>
-
-<br><br>
-<table align="center" border="0" cellpadding="0" cellspacing="10" width="75%" bgcolor="#E7FCFE">
-    <tr>
-        <td align="center"><font color="#376FA6" face="Verdana" size="3"><b> Impressions, Experiences... </font></b></td>
-    </tr>
-    <tr>
-        <td>
-            <marquee direction="up" scrollamount="1" behavior="scroll" height="200">
-                <font face="Verdana" size="2">
-                    "Orienteering has always been and remains to be my favorite activity. I started orienteering in 1978
-                    and I am still an active orienteer, mainly in Foot-O. I regularly take a part in events at various
-                    levels, from local events to WMOC. I have prepared an MBTO map for the Albanian Orienteering
-                    Project. It is nice to get the opportunity to be involved in the development of orienteering in a
-                    country I have never been to."<br>
-                    <b>Alexey Zuev, Volunteer, Russia</b><br><br>
-                    "The IOF Global Orienteering Volunteer Project is great for me, as apart from some help from friends
-                    from Austria, this is the first time I am not the only expert here in Albania. It gives me the
-                    feeling of being recognised in my work and motivates me to do more."<br>
-                    <b>Inge Bosina, Project Leader, Albanian Orienteering Project</b><br><br>
-                    "Wow this has taken off! I knew it would. My dream has come true. I have been asking people to do
-                    something world wide at IOF level like this for many years. You have done very well."<br>
-                    <b>David Poland, Project Leader, Orienteering Scholarship Australia</b><br><br>
-
-                    "I would like to thank you for great experience we have had as volunteers for Navigation Games in
-                    the United States. Me and my husband Josivan Juan, are grateful for this opportunity given by IOF
-                    Global Orienteering Volunteer Platform."<br>
-                    <b>Pavla Zdrahalova, Volunteer, Czech Republic</b>
-                </font>
-            </marquee>
-        </td>
-    </tr>
-</table>
-
-<script language="javascript" type="text/javascript">
-
-    var slideIndex = 0;
-    change_slides();
-
-    function change_slides() {
-        var i;
-        var x = document.getElementsByClassName("slides");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > x.length) {
-            slideIndex = 1
-        }
-        x[slideIndex - 1].style.display = "block";
-        setTimeout(change_slides, 2000); // Change image every 2 seconds
-    }
-
-</script>
-
-</td>
 {% endblock %}
 
 {% block main %}

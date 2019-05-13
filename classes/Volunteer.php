@@ -12,7 +12,7 @@ class Volunteer {
     public function addView() : string {
 
         if (!User::isAuthenticated()) {
-            return 'Error: user not authenticated';
+            return Platform::error( 'You are not authenticated' );
         }
 
         return TemplateProvider::render('Volunteer/add.twig');
@@ -22,7 +22,7 @@ class Volunteer {
     public function listView() : string {
 
         if (!User::isAuthenticated()) {
-            return 'Error: user not authenticated';
+            return Platform::error( 'You are not authenticated' );
         }
 
         $query = "SELECT * 
@@ -74,7 +74,7 @@ class Volunteer {
     public function searchView() : string {
 
         if (!User::isAuthenticated()) {
-            return 'Error: user not authenticated';
+            return Platform::error( 'You are not authenticated' );
         }
 
         return TemplateProvider::render('Volunteer/search.twig');
@@ -84,7 +84,7 @@ class Volunteer {
     public function add() : string {
 
         if (!User::isAuthenticated()) {
-            return 'Error: user not authenticated';
+            return Platform::error( 'You are not authenticated' );
         }
 
         //error_log(var_export($_POST,true)."\n");
@@ -93,7 +93,7 @@ class Volunteer {
 
         // show validation errors
         if (!empty($params['errors'])) {
-            return implode("\n", $params['errors']);
+            return Platform::error( $params['errors'] );
         }
 
         //error_log(var_export($params,true)."\n");
@@ -110,7 +110,7 @@ class Volunteer {
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
-        return $success ? $this->listView() : 'Error';
+        return $success ? $this->listView() : Platform::error( 'Unexpected error' );
 
     }
 
@@ -225,7 +225,7 @@ class Volunteer {
     public function search() : string {
 
         if (!User::isAuthenticated()) {
-            return 'Error: user not authenticated';
+            return Platform::error( 'You are not authenticated' );
         }
 
         $params = $this->validate($_POST, 'search');

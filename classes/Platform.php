@@ -23,4 +23,18 @@ class Platform {
 
     }
 
+    public static function error($message) : string {
+
+        if (is_array($message)) {
+            $message = implode("<br>\n",$message);
+        }
+
+        $params = [
+            'referer' => $_SERVER['HTTP_REFERER'],
+            'message' => $message,
+        ];
+
+        return TemplateProvider::render('error.twig', $params);
+    }
+
 }
