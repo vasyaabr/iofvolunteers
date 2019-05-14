@@ -263,7 +263,7 @@
 
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="All"> Anywhere
+                                <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td class="desc">
@@ -273,21 +273,21 @@
 
                         <tr>
                             <td class="desc"><br>
-                                <input type="checkbox" name="preferredContinents[]" value="N"> North America
+                                <input type="checkbox" name="preferredContinents[North America]" value="1"> North America
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="S"> South America
+                                <input type="checkbox" name="preferredContinents[South America]" value="1"> South America
                             </td>
                             <td></td>
                             <td class="desc">For how long can you work?</td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="E"> Europe
+                                <input type="checkbox" name="preferredContinents[Europe]" value="1"> Europe
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td class="desc">
@@ -297,21 +297,21 @@
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="I"> Asia
+                                <input type="checkbox" name="preferredContinents[Asia]" value="1"> Asia
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="F"> Africa
+                                <input type="checkbox" name="preferredContinents[Africa]" value="1"> Africa
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="preferredContinents[]" value="O"> Oceania
+                                <input type="checkbox" name="preferredContinents[Oceania]" value="1"> Oceania
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
                             <td></td>
@@ -338,9 +338,9 @@
                                 </div>
                                 <br>
                                 <div class="smradio">
-                                    <input type="checkbox" name="mappingDesc[sprint]" value="1"> Sprint <br>
-                                    <input type="checkbox" name="mappingDesc[forest]" value="1"> Forest <br>
-                                    <input type="checkbox" name="mappingDesc[mtbo]" value="1"> MTBO
+                                    <input type="checkbox" name="mappingDesc[Sprint]" value="1"> Sprint <br>
+                                    <input type="checkbox" name="mappingDesc[Forest]" value="1"> Forest <br>
+                                    <input type="checkbox" name="mappingDesc[MTBO]" value="1"> MTBO
                                 </div>
                             </td>
                             <td class="smradio">Brief outline of your experience as a mapper
@@ -525,11 +525,22 @@
 
             var data = JSON.parse('{{ data | raw }}');
 
-            for (var prop in data) {
-                if (data.hasOwnProperty(prop)) {
-                    console.log("prop: " + prop + " value: " + data[prop])
+            // reset form values from json object
+            $.each(data, function(name, val){
+
+                var $el = $('[name="'+name+'"]'), type = $el.attr('type');
+
+                switch(type){
+                    case 'checkbox':
+                        $el.attr('checked', 'checked');
+                        break;
+                    case 'radio':
+                        $el.filter('[value="'+val+'"]').attr('checked', 'checked');
+                        break;
+                    default:
+                        $el.val(val);
                 }
-            }
+            });
 
         });
 

@@ -3,7 +3,7 @@
 namespace iof;
 
 
-class Volunteer {
+class Volunteer extends Controller {
 
     private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
     private static $actions = ['register', 'search', 'list'];
@@ -30,7 +30,7 @@ class Volunteer {
         $result = DbProvider::select( $query );
 
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => json_encode($result[0],JSON_UNESCAPED_UNICODE) ]
+            [ 'data' => json_encode(self::prepareData($result[0]),JSON_UNESCAPED_UNICODE) ]
         );
 
     }
@@ -53,30 +53,26 @@ class Volunteer {
 
         foreach ($result as &$vol) {
 
+            $vol = self::decode(array_filter($vol));
+
             // prepare languages string
             if (!empty($vol['languages'])) {
-                $langs = json_decode($vol['languages'], true);
-                if ( json_last_error() === JSON_ERROR_NONE ) {
-                    $langResults = [];
-                    foreach ($langs as $lang => $desc) {
-                        if (isset($desc['level'])) {
-                            $langResults[] = "{$lang} ({$desc['level']})";
-                        }
+                $langResults = [];
+                foreach ($vol['languages'] as $lang => $desc) {
+                    if (isset($desc['level'])) {
+                        $langResults[] = "{$lang} ({$desc['level']})";
                     }
-                    $vol['languages'] = implode(', ', $langResults);
                 }
+                $vol['languages'] = implode(', ', $langResults);
             }
 
             // prepare competitor experience string
             if (!empty($vol['competitorExp'])) {
-                $exp = json_decode($vol['competitorExp'], true);
-                if ( json_last_error() === JSON_ERROR_NONE ) {
-                    $expResults = [];
-                    foreach ($exp as $type => $value) {
-                        $expResults[] = "{$value} {$type} events";
-                    }
-                    $vol['competitorExp'] = 'compete in ' . implode(', ', $expResults);
+                $expResults = [];
+                foreach ($vol['competitorExp'] as $type => $value) {
+                    $expResults[] = "{$value} {$type} events";
                 }
+                $vol['competitorExp'] = 'compete in ' . implode(', ', $expResults);
             }
 
         }
@@ -107,6 +103,7 @@ class Volunteer {
             FROM volunteers
             WHERE id = {$id}";
         $result = DbProvider::select( $query );
+        $result = self::decode(array_filter($result[0]));
 
         return TemplateProvider::render('Volunteer/preview.twig',
             [ 'data' => $result ]
