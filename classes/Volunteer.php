@@ -28,9 +28,11 @@ class Volunteer extends Controller {
             FROM volunteers
             WHERE id = {$id}";
         $result = DbProvider::select( $query );
+        $result = self::prepareData($result[0]);
+        $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => json_encode(self::prepareData($result[0]),JSON_UNESCAPED_UNICODE) ]
+            [ 'data' => json_encode($result,JSON_UNESCAPED_UNICODE) ]
         );
 
     }
