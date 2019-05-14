@@ -37,4 +37,13 @@ class Platform {
         return TemplateProvider::render('error.twig', $params);
     }
 
+    public static function error404() : string {
+
+        $params = [
+            'referer' => $_SERVER['HTTP_REFERER'],
+        ];
+
+        return TemplateProvider::render('404.twig', $params);
+    }
+
 }

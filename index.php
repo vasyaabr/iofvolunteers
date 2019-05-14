@@ -39,8 +39,8 @@ $uri = rawurldecode($uri);
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::NOT_FOUND:
-        echo '404 Not Found';
-        // TODO: Implement 404 page
+//        echo '404 Not Found';
+        echo Platform::error404();
         break;
     case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];

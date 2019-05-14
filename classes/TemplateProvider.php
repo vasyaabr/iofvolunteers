@@ -35,6 +35,7 @@ class TemplateProvider {
 
         $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
         self::getInstance()->addGlobal('url', $root);
+
         return self::getInstance()->render($name, $context);
 
     }
