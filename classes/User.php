@@ -21,7 +21,7 @@ class User {
             $this->authenticate($params['login']);
         }
 
-        return $success ? 'OK' : Platform::error( 'Unexpected error' );
+        return $success ? (new Platform())->load() : Platform::error( 'Unexpected error' );
 
     }
 
@@ -125,7 +125,14 @@ class User {
 
         $success = $this->authenticate($params['login'], $params['password']);
 
-        return $success ? 'OK' : Platform::error( 'Invalid login or password' );
+        return $success ? (new Platform())->load() : Platform::error( 'Invalid login or password' );
+
+    }
+
+    public function logout() : string {
+
+        unset($_SESSION['user'],$_SESSION['auth_done']);
+        return (new Platform())->load();
 
     }
 

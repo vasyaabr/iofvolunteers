@@ -6,7 +6,6 @@ namespace iof;
 class Volunteer {
 
     private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
-    private static $dateTimeFields = ['birthdate','startO', 'timeToStart'];
     private static $actions = ['register', 'search', 'list'];
 
     public function addView() : string {
@@ -15,19 +14,21 @@ class Volunteer {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Volunteer/add.twig');
+        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => [] ]);
 
     }
 
-    public function editView(int $id) : string {
+    public function editView(array $vars = []) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
         }
 
+        error_log(var_export($vars,true)."\n");
+
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$id}";
+            WHERE id = {$vars['id']}";
         $result = DbProvider::select( $query );
 
         return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $result[0] ] );
@@ -96,7 +97,7 @@ class Volunteer {
 
     }
 
-    public function previewView(int $id) : string {
+    public function previewView(array $vars = []) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
@@ -104,7 +105,7 @@ class Volunteer {
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$id}";
+            WHERE id = {$vars['id']}";
         $result = DbProvider::select( $query );
 
         return TemplateProvider::render('Volunteer/preview.twig',
@@ -196,13 +197,6 @@ class Volunteer {
         foreach (self::$requiredFields as $key) {
             if (!isset($params[$key])) {
                 $params['errors'][] = "Required field `{$key}` is missing`";
-            }
-        }
-
-        // check datetime fields
-        foreach (self::$dateTimeFields as $key) {
-            if (isset($params[$key])) {
-                $params[$key] = "{$params[$key]}-01-01 00:00:00";
             }
         }
 

@@ -40,9 +40,12 @@
     </div>
 
     <div id="buttonsBlock">
-        <a href="#" class="custom-button" id="register">New Users</a>
-        <a href="#" class="custom-button" id="signIn">Sign In</a>
-        <a href="#" class="custom-button" id="logout" style="display:none;">Logout</a>
+        {% if loggedIn == true %}
+            <a href="{{ url }}logout" class="custom-button" id="logout">Logout</a>
+        {% else %}
+            <a href="#" class="custom-button" id="register">New Users</a>
+            <a href="#" class="custom-button" id="signIn">Sign In</a>
+        {% endif %}
     </div>
 
     <br>
@@ -127,7 +130,6 @@ $( document ).ready(function() {
         $('#registerBlock').show();
         $('#signInBlock').hide();
         $('#signIn').show();
-        $('#logout').hide();
     });
 
     $('#signIn').click(function() {
@@ -135,57 +137,6 @@ $( document ).ready(function() {
         $('#register').show();
         $('#signInBlock').show();
         $('#signIn').hide();
-        $('#logoutBlock').hide();
-    });
-
-    $("#registerForm").submit(function(e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        // TODO: pre-validate fields
-
-        var form = $(this);
-
-        $.ajax({
-            type: "POST",
-            url: form.attr('action'),
-            data: form.serialize(), // serializes the form's elements.
-            success: function(data)
-            {
-                if (data === 'OK') {
-                    document.location.reload(true);
-                } else {
-                    alert(data); // debug statement
-                    // TODO: implement error text under form
-                }
-            }
-        });
-            
-    });
-
-    $("#signinForm").submit(function(e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        // TODO: pre-validate fields
-
-        var form = $(this);
-
-        $.ajax({
-            type: "POST",
-            url: form.attr('action'),
-            data: form.serialize(), // serializes the form's elements.
-            success: function(data)
-            {
-                if (data === 'OK') {
-                    document.location.reload(true);
-                } else {
-                    alert(data); // debug statement
-                    // TODO: implement error text under form
-                }
-            }
-        });
-
     });
 
 });

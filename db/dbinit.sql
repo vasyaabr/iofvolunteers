@@ -27,7 +27,7 @@ CREATE TABLE `volunteers` (
   `skiO` tinyint(1) DEFAULT NULL,
   `mtbO` tinyint(1) DEFAULT NULL,
   `trailO` tinyint(1) DEFAULT NULL,
-  `startO` datetime DEFAULT NULL,
+  `startO` int(11) DEFAULT NULL,
   `club` varchar(60) DEFAULT NULL,
   `competitorExp` json DEFAULT NULL,
   `languages` json DEFAULT NULL,

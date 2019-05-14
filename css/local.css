@@ -4,6 +4,12 @@
     font-size: small;
 }
 
+.black-desc {
+    color: #000000;
+    font-family: Verdana, Times, serif;
+    font-size: small;
+}
+
 .big-desc {
     color: #376FA6;
     font-family: Verdana, Times, serif;

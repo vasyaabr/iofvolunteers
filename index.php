@@ -15,11 +15,14 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/countries', 'Country/getOptionList');
     $r->addRoute('POST', '/register', 'User/add');
     $r->addRoute('POST', '/signin', 'User/signIn');
+    $r->addRoute('GET', '/logout', 'User/logout');
     $r->addRoute('GET', '/volunteer/register', 'Volunteer/addView');
     $r->addRoute('POST', '/volunteer/register', 'Volunteer/add');
     $r->addRoute('GET', '/volunteer/search', 'Volunteer/searchView');
     $r->addRoute('POST', '/volunteer/search', 'Volunteer/search');
     $r->addRoute('GET', '/volunteer/list', 'Volunteer/listView');
+    $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'Volunteer/editView');
+    $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'Volunteer/previewView');
 });
 
 // Fetch method and URI from somewhere
@@ -39,7 +42,6 @@ $uri = rawurldecode($uri);
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::NOT_FOUND:
-//        echo '404 Not Found';
         echo Platform::error404();
         break;
     case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
