@@ -18,20 +18,20 @@ class Volunteer {
 
     }
 
-    public function editView(array $vars = []) : string {
+    public function editView(string $id) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
         }
 
-        error_log(var_export($vars,true)."\n");
-
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$vars['id']}";
+            WHERE id = {$id}";
         $result = DbProvider::select( $query );
 
-        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $result[0] ] );
+        return TemplateProvider::render('Volunteer/add.twig',
+            [ 'data' => json_encode($result[0],JSON_UNESCAPED_UNICODE) ]
+        );
 
     }
 
@@ -97,7 +97,7 @@ class Volunteer {
 
     }
 
-    public function previewView(array $vars = []) : string {
+    public function previewView(string $id) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
@@ -105,7 +105,7 @@ class Volunteer {
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$vars['id']}";
+            WHERE id = {$id}";
         $result = DbProvider::select( $query );
 
         return TemplateProvider::render('Volunteer/preview.twig',

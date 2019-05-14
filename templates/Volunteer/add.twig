@@ -523,7 +523,13 @@
 
         $( document ).ready(function() {
 
-            var data = {{ data }};
+            var data = JSON.parse('{{ data | raw }}');
+
+            for (var prop in data) {
+                if (data.hasOwnProperty(prop)) {
+                    console.log("prop: " + prop + " value: " + data[prop])
+                }
+            }
 
         });
 
