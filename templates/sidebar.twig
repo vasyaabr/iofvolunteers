@@ -1,10 +1,5 @@
 <td width="30%" align="center" valign="top" id="sidebar">
 
-    <div id="buttonsBlock">
-        <a href="#"><img src="{{ url }}images\button1new.jpg" name="imagen" border="0"></a>
-        <a href="#"><img src="{{ url }}images\button1signin.jpg" name="images" border="0"></a>
-    </div>
-
     <div id="registerBlock" style="display:none">
         <form id="registerForm" method="POST" action="{{ url }}register">
             <table width="300" bordercolor="#376FA6">
@@ -23,7 +18,6 @@
                 <b> If you are aleady registered, sign in here! </b>
             </font>
             <br>
-            <a href="#"><img src="{{ url }}images/button1signin.jpg" name="images" border="0"></a>
         </p>
     </div>
 
@@ -42,12 +36,13 @@
                 <b> If you are a new user, register first! </b>
             </font>
             <br>
-            <a href="#"><img src="{{ url }}images/button1new.jpg" name="imagen" border="0"></a>
         </p>
     </div>
 
-    <div id="logoutBlock" style="display:none">
-        <a href="#"><img src="{{ url }}images\button1logout.png" name="imagelogout" border="0"></a>
+    <div id="buttonsBlock">
+        <a href="#" class="custom-button" id="register">New Users</a>
+        <a href="#" class="custom-button" id="signIn">Sign In</a>
+        <a href="#" class="custom-button" id="logout" style="display:none;">Logout</a>
     </div>
 
     <br>
@@ -127,39 +122,19 @@ $( document ).ready(function() {
         }
     });
 
-
-    $('img[name=imagen]').mouseover(function() {
-        $( this ).attr('src', "{{ url }}images/button2new.jpg");
-    });
-    $('img[name=imagen]').mouseout(function() {
-        $( this ).attr('src', "{{ url }}images/button1new.jpg");
-    });
-
-    $('img[name=images]').mouseover(function() {
-        $( this ).attr('src', "{{ url }}images/button2signin.jpg");
-    });
-    $('img[name=images]').mouseout(function() {
-        $( this ).attr('src', "{{ url }}images/button1signin.jpg");
-    });
-
-    $('img[name=imagelogout]').mouseover(function() {
-        $( this ).attr('src', "{{ url }}images/button2logout.png");
-    });
-    $('img[name=imagelogout]').mouseout(function() {
-        $( this ).attr('src', "{{ url }}images/button1logout.png");
-    });
-
-    $('img[name=imagen]').click(function() {
-        $('#buttonsBlock').hide();
+    $('#register').click(function() {
+        $('#register').hide();
         $('#registerBlock').show();
         $('#signInBlock').hide();
-        $('#logoutBlock').hide();
+        $('#signIn').show();
+        $('#logout').hide();
     });
 
-    $('img[name=images]').click(function() {
-        $('#buttonsBlock').hide();
+    $('#signIn').click(function() {
         $('#registerBlock').hide();
+        $('#register').show();
         $('#signInBlock').show();
+        $('#signIn').hide();
         $('#logoutBlock').hide();
     });
 

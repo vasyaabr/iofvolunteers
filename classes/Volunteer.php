@@ -15,14 +15,6 @@ class Volunteer {
             return Platform::error( 'You are not authenticated' );
         }
 
-        // Lazy workaround to get empty array with keys
-//        $query = "SELECT *
-//            FROM volunteers
-//            LIMIT 1";
-//        $result = DbProvider::select( $query );
-//        $emptyRes = array_fill_keys(array_keys($result[0]),'');
-
-        //return TemplateProvider::render('Volunteer/add.twig', [ 'data' => $emptyRes ] );
         return TemplateProvider::render('Volunteer/add.twig');
 
     }
