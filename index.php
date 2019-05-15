@@ -1,11 +1,13 @@
 <?php
 
-namespace iof;
+require __DIR__ . '/vendor/autoload.php';
 
 use FastRoute\RouteCollector;
-
-require __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/config.php';
+use controllers;
+use controllers\Volunteer;
+use controllers\User;
+use controllers\Platform;
+use controllers\Country;
 
 session_start();
 
@@ -23,6 +25,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/volunteer/list', 'Volunteer/listView');
     $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'Volunteer/editView');
     $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'Volunteer/previewView');
+    $r->addRoute('GET', '/volunteer/contact/{id:\d+}', 'Volunteer/contact');
 });
 
 // Fetch method and URI from somewhere
@@ -53,7 +56,7 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         list($class, $method) = explode("/", $handler, 2);
-        $class =  "\iof\\{$class}";
+        $class =  "\controllers\\{$class}";
         echo call_user_func_array([new $class, $method], $vars);
         break;
 }

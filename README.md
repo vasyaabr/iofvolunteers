@@ -34,8 +34,3 @@
 ### Testing
 
 Local run: `php -S localhost:8000` 
-
-### Used packages
-
-- Fastroute
-- Twig

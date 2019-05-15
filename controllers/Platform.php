@@ -1,6 +1,6 @@
 <?php
 
-namespace iof;
+namespace controllers;
 
 class Platform {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace iof;
+namespace controllers;
 
 
 class Volunteer extends Controller {
@@ -57,31 +57,46 @@ class Volunteer extends Controller {
 
             $vol = self::decode(array_filter($vol));
 
-            // prepare languages string
-            if (!empty($vol['languages'])) {
-                $langResults = [];
-                foreach ($vol['languages'] as $lang => $desc) {
-                    if (isset($desc['level'])) {
-                        $langResults[] = "{$lang} ({$desc['level']})";
-                    }
-                }
-                $vol['languages'] = implode(', ', $langResults);
-            }
-
-            // prepare competitor experience string
-            if (!empty($vol['competitorExp'])) {
-                $expResults = [];
-                foreach ($vol['competitorExp'] as $type => $value) {
-                    $expResults[] = "{$value} {$type} events";
-                }
-                $vol['competitorExp'] = 'compete in ' . implode(', ', $expResults);
-            }
+            $vol['languages'] = $this->getLanguages($vol);
+            $vol['competitorExp'] = $this->getCompetitorExp($vol);
 
         }
 
         return TemplateProvider::render('Volunteer/list.twig',
             [ 'volunteers' => $result, 'title' => 'Volunteers list' ]
         );
+
+    }
+
+    private function getLanguages(array $data) {
+
+        $result = [];
+
+        if ( !empty($data['languages']) ) {
+            foreach ( $data['languages'] as $lang => $desc ) {
+                if ( isset( $desc['level'] ) ) {
+                    $result[] = "{$lang} ({$desc['level']})";
+                }
+            }
+        }
+
+        return implode(', ', $result);
+
+    }
+
+    private function getCompetitorExp(array $data) {
+
+        if ( !empty($data['competitorExp']) ) {
+            $result = [];
+            foreach ($data['competitorExp'] as $type => $value) {
+                $result[] = "{$value} {$type} events";
+            }
+            $result = 'compete in ' . implode(', ', $result);
+        } else {
+            $result = 'Not provided';
+        }
+
+        return $result;
 
     }
 
@@ -105,11 +120,64 @@ class Volunteer extends Controller {
             FROM volunteers
             WHERE id = {$id}";
         $result = DbProvider::select( $query );
-        $result = self::decode(array_filter($result[0]));
+        $result = self::prepareData($result[0]);
+
+        $result['languages'] = $this->getLanguages($result);
+        $result['competitorExp'] = $this->getCompetitorExp($result);
 
         return TemplateProvider::render('Volunteer/preview.twig',
             [ 'data' => $result ]
         );
+
+    }
+
+    public function contact(string $id) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        // Temporary stub
+        $projectID = 1;
+
+        $query = "SELECT * 
+            FROM invitations
+            WHERE volunteerID = {$id} AND projectID={$projectID}";
+        $result = DbProvider::select( $query );
+        if (count($result) > 0) {
+            return Platform::error( 'Volunteer already contacted for this project!' );
+        }
+
+        $query = "SELECT * 
+            FROM volunteers
+            WHERE id = {$id}";
+        $result = DbProvider::select( $query );
+        $vData = self::decode(array_filter($result[0]));
+
+        $params = [
+            'volunteerID' => $id,
+            'projectID' => $projectID,
+            'key' => md5(uniqid($id, true)),
+            'status' => 'new',
+            'authorID' => User::getUserID(),
+        ];
+
+        $query = "INSERT INTO invitations (`volunteerID`,`projectID`,`key`,`status`,`authorID`)
+                VALUES (:volunteerID,:projectID,:key,:status,:authorID)";
+        $statement = DbProvider::getInstance()->prepare( $query );
+        $success = $statement->execute( $params );
+
+        $mailText = TemplateProvider::render('Mail/invitation.twig',['volunteer' => $vData, 'key' => $params['key']]);
+        $mailSent = Mailer::send($vData['email'],$vData['name'], 'Invitation to orienteering project', $mailText);
+
+        if ($mailSent) {
+            $params['status'] = 'mail sent';
+            $query = "UPDATE invitations SET `status`=:status WHERE `key`=:key";
+            $statement = DbProvider::getInstance()->prepare( $query );
+            $success = $statement->execute( $params );
+        }
+
+        return TemplateProvider::render('Volunteer/successfulContact.twig');
 
     }
 

@@ -61,3 +61,16 @@ CREATE TABLE `maps` (
   vid INT(5),
   PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `invitations` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `volunteerID` INT UNSIGNED NOT NULL,
+  `projectID` INT UNSIGNED NOT NULL,
+  `key` VARCHAR(64) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `addDate` DATETIME NULL DEFAULT now(),
+  `authorID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `VOLUNTEER` (`volunteerID` ASC),
+  UNIQUE INDEX `key_UNIQUE` (`key` ASC),
+  INDEX `AUTHOR` (`authorID` ASC));
