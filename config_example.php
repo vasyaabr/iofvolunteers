@@ -12,3 +12,6 @@ define( 'DB_PASSWORD', 'root' );
 
 // Mail settings
 define( 'SEND_FROM' , 'www-data@opskov.ru');
+
+// Testing settings
+define('TEST_SUBFOLDER', '');

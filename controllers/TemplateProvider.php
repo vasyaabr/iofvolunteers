@@ -33,7 +33,7 @@ class TemplateProvider {
 
     public static function render(string $name, array $context = []) : string {
 
-        $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+        $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/' . TEST_SUBFOLDER;
         self::getInstance()->addGlobal('url', $root);
         self::getInstance()->addGlobal('loggedIn', User::isAuthenticated());
 

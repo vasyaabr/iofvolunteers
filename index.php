@@ -46,7 +46,9 @@ if (false !== $pos = strpos($uri, '?')) {
 }
 
 // Testing statement
-$uri = str_replace('iofvolunteers/','',$uri);
+if (!empty(TEST_SUBFOLDER)) {
+    $uri = str_replace(TEST_SUBFOLDER,'',$uri);
+}
 
 $uri = rawurldecode($uri);
 
