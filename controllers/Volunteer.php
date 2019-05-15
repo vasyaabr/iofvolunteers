@@ -93,7 +93,7 @@ class Volunteer extends Controller {
             }
             $result = 'compete in ' . implode(', ', $result);
         } else {
-            $result = 'Not provided';
+            $result = 'Competitor expirience not provided';
         }
 
         return $result;

@@ -17,7 +17,7 @@
 ### Project structure
 
 ```bash
-├── classes - PHP code
+├── controllers - PHP code
 ├── css - stylesheets
 ├── db - database init queries, which runs from install.php
 ├── images - graphics
