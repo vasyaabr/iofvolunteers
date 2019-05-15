@@ -170,14 +170,18 @@ class Volunteer extends Controller {
         $mailText = TemplateProvider::render('Mail/invitation.twig',['volunteer' => $vData, 'key' => $params['key']]);
         $mailSent = Mailer::send($vData['email'],$vData['name'], 'Invitation to orienteering project', $mailText);
 
-        if ($mailSent) {
-            $params['status'] = 'mail sent';
-            $query = "UPDATE invitations SET `status`=:status WHERE `key`=:key";
-            $statement = DbProvider::getInstance()->prepare( $query );
-            $success = $statement->execute( $params );
-        }
+        $params = [
+            'status' => $mailSent ? 'mail sent' : 'mail failed',
+            'key' => $params['key'],
+        ];
 
-        return TemplateProvider::render('Volunteer/successfulContact.twig');
+        $query = "UPDATE invitations SET `status`=:status WHERE `key`=:key";
+        $statement = DbProvider::getInstance()->prepare( $query );
+        $success = $statement->execute( $params );
+
+        return TemplateProvider::render('Volunteer/contact.twig',
+            ['result' => 'Invitation to volunteer ' . ($mailSent ? 'was sent' : 'unexpectedly failed')]
+        );
 
     }
 
@@ -199,14 +203,17 @@ class Volunteer extends Controller {
         //error_log(var_export($params,true)."\n");
 
         // prepare and run query
-        $valueMasks = implode(',',
-            array_map(function($v) { return ':'.$v; },array_keys($params))
-        );
         if (isset($params['id'])) {
+            $valueMasks = implode(',',
+                array_map(function($v) { return "{$v} = :{$v}"; },array_keys($params))
+            );
             $query = "UPDATE volunteers
                 SET {$valueMasks}
                 WHERE id= :id";
         } else {
+            $valueMasks = implode(',',
+                array_map(function($v) { return ':'.$v; },array_keys($params))
+            );
             $keys = implode(',',array_keys($params));
             $query = "INSERT INTO volunteers ({$keys})
                 VALUES ({$valueMasks})";

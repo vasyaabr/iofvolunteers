@@ -12,8 +12,11 @@ class Mailer {
         $mail = new PHPMailer(true);
 
         try {
+
             //Server settings
-            $mail->isMail();
+            $mail->SMTPDebug = 2;
+            $mail->IsSMTP();
+            $mail->Host = "localhost";
 
             //Recipients
             $mail->setFrom(SEND_FROM, 'IOF Volunteering platform');

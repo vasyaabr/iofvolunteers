@@ -1,0 +1,440 @@
+{% extends 'common.twig' %}
+
+{% block onecolumn %}
+
+    <p align="center"><b><font face="Verdana" color="#376FA6" size="3">Volunteer Request Form</font></b></p>
+
+    <form method="POST" action="new_request.php" enctype="multipart/form-data">
+
+        <table width="90%" align="center">
+            <tbody>
+            <tr>
+                <td valign="top" width="30%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Details of the
+                                        Organisation</b></font><font
+                                        color="#B30000" face="Verdana" size="1">*</font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Name of the organisation</font></td>
+                            <td><font color="#376FA6" face="Verdana" size="2">: <input type="text" name="nickname"
+                                                                                       size="20"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Status</font></td>
+                            <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="status">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="F">Federation</option>
+                                        <option value="C">Club</option>
+                                        <option value="I">Informal Group</option>
+                                    </select></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Web page (if exists) </font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="webpage" size="20"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Region</font></td>
+                            <td><font color="#376FA6" face="Verdana" size="2">: <select size="1" name="status">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="N"> North America</option>
+                                        <option value="S"> South America</option>
+                                        <option value="E"> Europe</option>
+                                        <option value="I"> Asia</option>
+                                        <option value="F"> Africa</option>
+                                        <option value="O"> Oceania</option>
+                                    </select>
+
+                                </font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Contact person</font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="position" size="20"
+                                                                       value=""></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Position in the organisation</font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="position" size="20"></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Country</font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="position" size="20"
+                                                                       value=""></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">E-mail</font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="position" size="20"
+                                                                       value=""></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Phone </font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="phone" size="10"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Native language(s)</font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="language" size="20"></font>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Details of the
+                                        Project</b></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Where will the volunteer be
+                                    working?</font><font color="#B30000" face="Verdana" size="1">*</font> <br> <font
+                                        face="Verdana" size="2"><input type="text" name="place" size="30"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">When is the volunteer expected to start?
+                                    <br>
+                                    <input type="text" name="sdate" size="10"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">For how long is the volunteer expected to
+                                    work? <br> <input type="text" name="how_long" size="10"></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">What can you offer the
+                                    volunteer?</font><font
+                                        color="#B30000" face="Verdana" size="1">*</font><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="offer[]"
+                                                                                     value="I">International travel
+                                    expenses
+                                    <br>
+                                    <input type="checkbox" name="offer[]" value="D">Domestic travel expenses<br>
+                                    <input type="checkbox" name="offer[]" value="A">Accommodation <br>
+                                    <input type="checkbox" name="offer[]" value="M">Meals <br>
+                                    <input type="checkbox" name="offer[]" value="P">Pocket money <br>
+                                    Other (please state): <input type="text" name="ooffer" size="20"> </font></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Discipline of
+                                        Project </b></font><font color="#B30000" face="Verdana" size="1">*</font></td>
+                        </tr>
+
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
+                                    &nbsp;</font>
+                            </td>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="M"> MTBO </font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp;
+                                    &nbsp;</font>
+                            </td>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="T"> Trail-O
+                                </font></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <br>
+                </td>
+                <td valign="top" width="30%">
+
+
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Skills
+                                        required</b></font><font
+                                        color="#B30000" face="Verdana" size="1"> &nbsp;(Please tick all relevant to the
+                                    project)</font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">* Mapping <br><font color="#376FA6"
+                                                                                                  face="Verdana"
+                                                                                                  size="1"><input
+                                                type="checkbox" name="sprint" value="1"> Sprint &nbsp; &nbsp;<input
+                                                type="checkbox" name="forest" value="1"> Forest </font></font></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="#376FA6" face="Verdana" size="2"><br>* Coaching<br><font color="#376FA6"
+                                                                                                      face="Verdana"
+                                                                                                      size="1"><input
+                                                type="checkbox" name="nteam" value="1"> National Team &nbsp;
+                                        &nbsp;<input
+                                                type="checkbox" name="clubs" value="1"> Clubs </font></font></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="#376FA6" face="Verdana" size="2"><br>* IT &amp; time-keeping <br><font
+                                            color="#376FA6" face="Verdana" size="1"><input type="checkbox" name="si"
+                                                                                           value="1"> SportIdent &nbsp;
+                                        &nbsp;<input type="checkbox" name="emit" value="1"> Emit &nbsp; &nbsp;<input
+                                                type="checkbox" name="gps" value="1"> GPS Tracking</font></font></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="#376FA6" face="Verdana" size="2"><br>* Event Organising <br><font
+                                            color="#376FA6" face="Verdana" size="1"><input type="checkbox" name="clubev"
+                                                                                           value="1"> Club Events &nbsp;
+                                        &nbsp;<input type="checkbox" name="localev" value="1"> Local Events &nbsp;
+                                        &nbsp;<br><input type="checkbox" name="natev" value="1"> National Events &nbsp;
+                                        &nbsp;<input type="checkbox" name="hlev" value="1"> High-Level Events
+                                    </font></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="#376FA6" face="Verdana" size="2"><br><input type="checkbox" name="material"
+                                                                                         value="1"> Development of
+                                    Educational Material</font></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <font color="#376FA6" face="Verdana" size="2"><br><input type="checkbox" name="child"
+                                                                                         value="1"> Teaching beginners
+                                    &amp;
+                                    children
+                                </font></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Experience
+                                        required</b></font><font color="#B30000" face="Verdana" size="1"> &nbsp;(Select
+                                    if
+                                    relevant to the project)</font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">National Events &nbsp;
+                                    <select size="1" name="natc">
+                                        <option selected="" value="">- select -</option>
+                                        <option value="0">none</option>
+                                        <option value="1">1 - 10</option>
+                                        <option value="2">11 - 30</option>
+                                        <option value="3">over 30</option>
+                                    </select><br>
+                                    <br>Duties:<br></font><font color="#376FA6" face="Verdana" size="1">
+
+                                    <input type="checkbox" name="dut[]" value="NE"> Event Director <br>
+                                    <input type="checkbox" name="dut[]" value="NM"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="dut[]" value="NT"> IT Director <br>
+                                    <input type="checkbox" name="dut[]" value="NA"> Event Advisor <br>
+                                    <input type="checkbox" name="dut[]" value="NJ"> Jury Member
+                                </font>
+                            </td>
+                            <td><font color="#376FA6" face="Verdana" size="2">International Events &nbsp;
+                                    <select size="1" name="intc">
+                                        <option selected="" value="">- select -</option>
+                                        <option value="0">none</option>
+                                        <option value="1">1 - 10</option>
+                                        <option value="2">11 - 20</option>
+                                        <option value="3">over 20</option>
+                                    </select><br>
+                                    <br>Duties:<br></font><font color="#376FA6" face="Verdana" size="1">
+                                    <input type="checkbox" name="idut[]" value="IE"> Event Director <br>
+                                    <input type="checkbox" name="idut[]" value="IM"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="idut[]" value="IT"> IT Director <br>
+                                    <input type="checkbox" name="idut[]" value="IA"> Event Advisor <br>
+                                    <input type="checkbox" name="idut[]" value="IJ"> Jury Member
+
+                                </font></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+
+                                    Details of the work to be done </font><font color="#B30000" face="Verdana" size="1">
+                                    *</font><br>
+                                <textarea rows="4" cols="50" name="details" id="details"></textarea><br><br>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </td>
+
+
+                <td valign="top" width="31%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Personal details of
+                                        Volunteer</b><br></font><font color="#B30000" face="Verdana" size="1"> &nbsp;(Just
+                                    skip if not important)</font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Gender </font></td>
+                            <td>: <select size="1" name="gender">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Age </font></td>
+                            <td>: <select size="1" name="age">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="1">Under 25</option>
+                                    <option value="2">25 - 35</option>
+                                    <option value="3">36 - 50</option>
+                                    <option value="3">Over 50</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">International driving license? </font>
+                            </td>
+                            <td>: <select size="1" name="license">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Language expectations </font></td>
+                            <td><font face="Verdana" size="2">: <input type="text" name="lang" size="20"></font></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>Disciplines of
+                                        experience</b></font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
+                                    &nbsp;</font>
+                            </td>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="M"> MTBO </font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp;
+                                    &nbsp;</font>
+                            </td>
+                            <td><font color="#376FA6" face="Verdana" size="2">
+                                    <input type="checkbox" name="dis[]" value="T"> Trail-O
+
+                                </font></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><font color="#376FA6" face="Verdana" size="2"><b>O-Experience</b></font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2">Years of experience </font></td>
+                            <td>: <font color="#376FA6" face="Verdana" size="2"><select size="1" name="exp">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="1">Under 5</option>
+                                        <option value="3">5 - 9</option>
+                                        <option value="3">10 - 20</option>
+                                        <option value="4">Over 20</option>
+                                    </select></font></td>
+                        </tr>
+
+
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2"><br>Competed in... </font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="comp[]"
+                                                                                     value="L"> Local events </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="comp[]"
+                                                                                     value="N"> National Championships
+                                </font></td>
+                        </tr>
+                        <tr>
+                            <td><font color="#376FA6" face="Verdana" size="2"><input type="checkbox" name="comp[]"
+                                                                                     value="I"> International
+                                    Competitions</font></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <font color="#376FA6" face="Verdana" size="2">Anything you would like to add<br>
+                        <textarea rows="4" cols="50" name="add" id="add"></textarea><br><br>
+
+                        <b>Disclaimer:</b> Disclaimer: The details above are as accurate as possible. We understand that
+                        the
+                        IOF cannot be held responsible for our finding or not finding a suitable volunteer. We also
+                        understand that should we choose to recruit a volunteer through this database, the IOF cannot be
+                        held responsible for the terms or quality of work produced.
+                        <br><br><input type="checkbox" name="ok"> I have read and understood the above.</font> <font
+                            color="#B30000" face="Verdana" size="1">*</font></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right"><input type="submit" name="newreq" value="Submit our request">
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+
+            var data = JSON.parse('{{ data | raw }}');
+
+            // reset form values from json object
+            $.each(data, function (name, val) {
+
+                var $el = $('[name="' + name + '"]'), type = $el.attr('type');
+
+                switch (type) {
+                    case 'checkbox':
+                        $el.attr('checked', 'checked');
+                        break;
+                    case 'radio':
+                        $el.filter('[value="' + val + '"]').attr('checked', 'checked');
+                        break;
+                    default:
+                        $el.val(val);
+                }
+            });
+
+        });
+
+    </script>
+
+{% endblock %}

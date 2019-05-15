@@ -3,21 +3,20 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use FastRoute\RouteCollector;
-use controllers;
-use controllers\Volunteer;
-use controllers\User;
 use controllers\Platform;
-use controllers\Country;
 
 session_start();
 
 // Available routes list
 $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
+
     $r->addRoute('GET', '/', 'Platform/load');
     $r->addRoute('GET', '/countries', 'Country/getOptionList');
     $r->addRoute('POST', '/register', 'User/add');
     $r->addRoute('POST', '/signin', 'User/signIn');
     $r->addRoute('GET', '/logout', 'User/logout');
+
+    // Volunteer routes
     $r->addRoute('GET', '/volunteer/register', 'Volunteer/addView');
     $r->addRoute('POST', '/volunteer/register', 'Volunteer/add');
     $r->addRoute('GET', '/volunteer/search', 'Volunteer/searchView');
@@ -26,6 +25,15 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'Volunteer/editView');
     $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'Volunteer/previewView');
     $r->addRoute('GET', '/volunteer/contact/{id:\d+}', 'Volunteer/contact');
+    $r->addRoute('GET', '/volunteer/visit/{key}', 'Volunteer/visit');
+    $r->addRoute('GET', '/volunteer/exclude/{key}', 'Volunteer/exclude');
+
+    // Project routes
+    $r->addRoute('GET', '/project/register', 'Project/addView');
+    $r->addRoute('POST', '/project/register', 'Project/add');
+    $r->addRoute('GET', '/project/list', 'Project/listView');
+    $r->addRoute('GET', '/project/edit/{id:\d+}', 'Project/editView');
+
 });
 
 // Fetch method and URI from somewhere
