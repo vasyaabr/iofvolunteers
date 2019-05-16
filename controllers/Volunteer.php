@@ -314,7 +314,7 @@ class Volunteer extends Controller {
 
             // convert arrays to JSON
             if (is_array($param) && $action === 'register') {
-                $param = json_encode($param, JSON_UNESCAPED_UNICODE);
+                $param = str_replace('\"','\\\\"',json_encode($param, JSON_UNESCAPED_UNICODE));
             }
 
         }
@@ -411,41 +411,44 @@ class Volunteer extends Controller {
         $params = $this->validate($_POST, 'search');
 
         // prepare and run query
-        $conditions = [];
-        foreach ($params as $key => $value) {
-            $conditions[] = $this->createCondition($key, $value);
-        }
-        $conditions = implode(' AND ', $conditions);
+        $conditions = '';
+        if (!empty($params)) {
+            $conditions = [];
+            foreach ($params as $key => $value) {
+                $conditions[] = $this->createCondition($key, $value);
+            }
+            $conditions = 'WHERE ' . implode(' AND ', $conditions);
 
-        foreach ($params as $key => &$value) {
-            switch ($key) {
-                // 1-dimension json arrays
-                case 'competitorExp':
-                case 'teacherDesc':
-                    foreach ($value as $key2 => $value2) {
-                        $params["{$key}_{$key2}"] = $value2;
-                    }
-                    unset($params[$key]);
-                    break;
-                // 2-dimension json arrays
-                case 'languages':
-                    foreach ($value as $key2 => $value2) {
-                        if (strpos($key2,'Other') !== false) {
-                            $params["{$key}_{$key2}"] = "'%$value2%'";
-                        } else {
-                            foreach ($value2 as $key3 => $value3) {
-                                $params["{$key}_{$key2}_{$key3}"] = $value3;
+            foreach ($params as $key => &$value) {
+                switch ($key) {
+                    // 1-dimension json arrays
+                    case 'competitorExp':
+                    case 'teacherDesc':
+                        foreach ($value as $key2 => $value2) {
+                            $params["{$key}_{$key2}"] = $value2;
+                        }
+                        unset($params[$key]);
+                        break;
+                    // 2-dimension json arrays
+                    case 'languages':
+                        foreach ($value as $key2 => $value2) {
+                            if (strpos($key2, 'Other') !== false) {
+                                $params["{$key}_{$key2}"] = "'%$value2%'";
+                            } else {
+                                foreach ($value2 as $key3 => $value3) {
+                                    $params["{$key}_{$key2}_{$key3}"] = $value3;
+                                }
                             }
                         }
-                    }
-                    unset($params[$key]);
-                    break;
+                        unset($params[$key]);
+                        break;
+                }
             }
         }
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE {$conditions}
+            {$conditions}
             ORDER BY id";
         $found = DbProvider::select( $query , $params );
 
