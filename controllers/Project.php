@@ -53,9 +53,7 @@ class Project extends Controller {
         }
 
         foreach ($result as &$vol) {
-
             $vol = self::decode(array_filter($vol));
-
         }
 
         return TemplateProvider::render('Project/list.twig',
@@ -147,6 +145,20 @@ class Project extends Controller {
         }
 
         return $params;
+
+    }
+
+    public static function getOptionList() : string {
+
+        return implode("\n",
+            array_column(
+                DbProvider::select("SELECT concat('<option value=\"',id,'\">',name,' - ',place,'</option>') AS opt 
+                    FROM projects
+                    WHERE userID = ".User::getUserID()." 
+                    ORDER BY id"),
+                'opt'
+            )
+        );
 
     }
 

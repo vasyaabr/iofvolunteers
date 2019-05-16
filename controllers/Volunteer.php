@@ -171,20 +171,24 @@ class Volunteer extends Controller {
         $result['age'] = $this->getAge($result);
         $result['skills'] = $this->getSkills($result);
 
-        return TemplateProvider::render('Volunteer/preview.twig',
-            [ 'data' => $result ]
-        );
+        $render = [
+            'data' => $result,
+            'projects' => Project::getOptionList()
+        ];
+        error_log(var_export($render,true)."\n");
+
+        return TemplateProvider::render('Volunteer/preview.twig', $render);
 
     }
 
-    public function contact(string $id) : string {
+    public function contact() : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
         }
 
-        // Temporary stub
-        $projectID = 1;
+        $id = $_POST['id'];
+        $projectID = $_POST['project'];
 
         $query = "SELECT * 
             FROM invitations
@@ -200,6 +204,12 @@ class Volunteer extends Controller {
         $result = DbProvider::select( $query );
         $vData = self::decode(array_filter($result[0]));
 
+        $query = "SELECT * 
+            FROM projects
+            WHERE id = {$projectID}";
+        $result = DbProvider::select( $query );
+        $pData = self::decode(array_filter($result[0]));
+
         $params = [
             'volunteerID' => $id,
             'projectID' => $projectID,
@@ -213,7 +223,7 @@ class Volunteer extends Controller {
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
-        $mailText = TemplateProvider::render('Mail/invitation.twig',['volunteer' => $vData, 'key' => $params['key']]);
+        $mailText = TemplateProvider::render('Mail/invitation.twig',['volunteer' => $vData, 'key' => $params['key'], 'project' => $pData]);
         $mailSent = Mailer::send($vData['email'],$vData['name'], 'Invitation to orienteering project', $mailText);
 
         $params = [
@@ -440,6 +450,18 @@ class Volunteer extends Controller {
         return TemplateProvider::render('Volunteer/list.twig',
             [ 'volunteers' => $found, 'title' => 'Search results' ]
         );
+
+    }
+
+    public function visitView(string $key) : string {
+
+        return TemplateProvider::render('Volunteer/visit.twig');
+
+    }
+
+    public function excludeView(string $key) : string {
+
+        return TemplateProvider::render('Volunteer/exclude.twig');
 
     }
 

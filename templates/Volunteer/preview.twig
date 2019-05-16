@@ -128,8 +128,16 @@
         </tbody>
     </table>
 
-    <div align="center">
-        <input type="button" style="margin-top: 15px;" onclick="location.href='{{ url }}volunteer/contact/{{ data.id }}';" value="Contact volunteer"/>
+    <div align="center" style="margin-top: 15px;">
+        <form method="POST" action="{{ url }}volunteer/contact" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ data.id }}">
+            Invite volunteer to project:
+            <select size="1" name="project">
+                <option selected="" value="">--- select ---</option>
+                {{ projects|raw }}
+            </select>
+        <input type="submit" value="Contact volunteer"/>
+        </form>
     </div>
 
 {% endblock %}
