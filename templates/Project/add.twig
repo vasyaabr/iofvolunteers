@@ -5,6 +5,7 @@
     <p align="center" class="title">Volunteer Request Form</p>
 
     <form method="POST" action="{{ url }}project/register" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="">
 
         <table width="90%" align="center">
             <tbody>
@@ -19,17 +20,17 @@
                         </tr>
                         <tr>
                             <td class="desc">Name of the organisation</td>
-                            <td class="desc">: <input type="text" name="nickname"
-                                                      size="20"></td>
+                            <td class="desc">: <input type="text" name="name" size="20"></td>
                         </tr>
                         <tr>
                             <td class="desc">Status</td>
                             <td class="desc">: <select size="1" name="status">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="F">Federation</option>
-                                    <option value="C">Club</option>
-                                    <option value="I">Informal Group</option>
-                                </select></td>
+                                    <option value="Federation">Federation</option>
+                                    <option value="Club">Club</option>
+                                    <option value="Informal Group">Informal Group</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="desc">Web page (if exists)</td>
@@ -37,37 +38,33 @@
                         </tr>
                         <tr>
                             <td class="desc">Region</td>
-                            <td class="desc">: <select size="1" name="status">
+                            <td class="desc">: <select size="1" name="region">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="N"> North America</option>
-                                    <option value="S"> South America</option>
-                                    <option value="E"> Europe</option>
-                                    <option value="I"> Asia</option>
-                                    <option value="F"> Africa</option>
-                                    <option value="O"> Oceania</option>
+                                    <option value="North America"> North America</option>
+                                    <option value="South America"> South America</option>
+                                    <option value="Europe"> Europe</option>
+                                    <option value="Asia"> Asia</option>
+                                    <option value="Africa"> Africa</option>
+                                    <option value="Oceania"> Oceania</option>
                                 </select>
 
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">Contact person</td>
-                            <td class="desc">: <input type="text" name="position" size="20"
-                                                      value=""></td>
+                            <td class="desc">: <input type="text" name="contact" size="20" value=""></td>
                         </tr>
                         <tr>
                             <td class="desc">Position in the organisation</td>
-                            <td class="desc">: <input type="text" name="position" size="20">
-                            </td>
+                            <td class="desc">: <input type="text" name="position" size="20"></td>
                         </tr>
                         <tr>
                             <td class="desc">Country</td>
-                            <td class="desc">: <input type="text" name="position" size="20"
-                                                      value=""></td>
+                            <td class="desc">: <select type="text" name="country" id="country" size="1" value=""></select></td>
                         </tr>
                         <tr>
                             <td class="desc">E-mail</td>
-                            <td class="desc">: <input type="text" name="position" size="20"
-                                                      value=""></td>
+                            <td class="desc">: <input type="text" name="email" size="20" value=""></td>
                         </tr>
                         <tr>
                             <td class="desc">Phone</td>
@@ -78,19 +75,16 @@
                             <td class="desc">: <input type="text" name="language" size="20">
                             </td>
                         </tr>
-
                         </tbody>
                     </table>
                     <br>
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Details of the
-                                    Project</b></td>
+                            <td colspan="2" class="desc"><b>Details of the Project</b></td>
                         </tr>
                         <tr>
-                            <td class="desc">Where will the volunteer be
-                                working?
+                            <td class="desc">Where will the volunteer be working?
                                 <div class="warn">*</div>
                                 <br>
                                 <div class="desc"><input type="text" name="place" size="30"></div>
@@ -99,29 +93,26 @@
                         <tr>
                             <td class="desc">When is the volunteer expected to start?
                                 <br>
-                                <input type="text" name="sdate" size="10"></td>
+                                <input type="text" name="startDate" size="10" class="datepicker"></td>
                         </tr>
                         <tr>
-                            <td class="desc">For how long is the volunteer expected to
-                                work? <br> <input type="text" name="how_long" size="10"></td>
+                            <td class="desc">For how long is the volunteer expected to work (weeks)?
+                                <br> <input type="text" name="how_long" size="10"></td>
                         </tr>
                         <tr>
-                            <td class="desc">What can you offer the
-                                volunteer?
+                            <td class="desc">What can you offer the volunteer?
                                 <div class="warn">*</div>
                                 <br>
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="offer[]"
-                                                    value="I">International travel
-                                expenses
-                                <br>
-                                <input type="checkbox" name="offer[]" value="D">Domestic travel expenses<br>
-                                <input type="checkbox" name="offer[]" value="A">Accommodation <br>
-                                <input type="checkbox" name="offer[]" value="M">Meals <br>
-                                <input type="checkbox" name="offer[]" value="P">Pocket money <br>
-                                Other (please state): <input type="text" name="ooffer" size="20"></td>
+                            <td class="desc">
+                                <input type="checkbox" name="offer[international_travel_expenses]" value="1">International travel expenses<br>
+                                <input type="checkbox" name="offer[domestic_travel_expenses]" value="1">Domestic travel expenses<br>
+                                <input type="checkbox" name="offer[accommodation]" value="1">Accommodation <br>
+                                <input type="checkbox" name="offer[meals]" value="1">Meals <br>
+                                <input type="checkbox" name="offer[pocket_money]" value="1">Pocket money <br>
+                                Other (please state): <input type="text" name="offer[other]" size="20"></td>
                             <td></td>
                         </tr>
                         </tbody>
@@ -131,28 +122,26 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Discipline of
-                                    Project </b>
+                            <td colspan="2" class="desc"><b>Discipline of Project </b>
                                 <div class="warn">*</div>
                             </td>
                         </tr>
-
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
+                                <input type="checkbox" name="footO" value="1"> Foot-O &nbsp; &nbsp; &nbsp;
                                 &nbsp;
                             </td>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="M"> MTBO
+                                <input type="checkbox" name="mtbO" value="1"> MTBO
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp;
+                                <input type="checkbox" name="skiO" value="1"> Ski-O &nbsp; &nbsp; &nbsp;
                                 &nbsp;
                             </td>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="T"> Trail-O
+                                <input type="checkbox" name="trailO" value="1"> Trail-O
                             </td>
                         </tr>
                         </tbody>
@@ -161,33 +150,29 @@
                     <br>
                 </td>
                 <td valign="top" width="30%">
-
-
                     <table>
                         <tbody>
                         <tr valign="top">
                             <td colspan="2" class="desc"><b>Skills
                                     required</b>
-                                <div class="warn"> &nbsp;(Please tick all relevant to the
-                                    project)
+                                <div class="warn"> &nbsp;(Please tick all relevant to the project)
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">* Mapping <br>
-                                <div class="smradio"><input
-                                            type="checkbox" name="sprint" value="1"> Sprint &nbsp; &nbsp;<input
-                                            type="checkbox" name="forest" value="1"> Forest
+                                <div class="smradio">
+                                    <input type="checkbox" name="mappingDesc[Sprint]" value="1"> Sprint<br>
+                                    <input type="checkbox" name="mappingDesc[Forest]" value="1"> Forest
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="desc"><br>* Coaching<br>
-                                    <div class="smradio"><input
-                                                type="checkbox" name="nteam" value="1"> National Team &nbsp;
-                                        &nbsp;<input
-                                                type="checkbox" name="clubs" value="1"> Clubs
+                                    <div class="smradio">
+                                        <input type="checkbox" name="coachDesc[nationalTeam]" value="1"> National Team<br>
+                                        <input type="checkbox" name="coachDesc[clubs]" value="1"> Clubs
                                     </div>
                                 </div>
                             </td>
@@ -195,10 +180,10 @@
                         <tr>
                             <td>
                                 <div class="desc"><br>* IT &amp; time-keeping <br>
-                                    <div class="smradio"><input type="checkbox" name="si"
-                                                                value="1"> SportIdent &nbsp;
-                                        &nbsp;<input type="checkbox" name="emit" value="1"> Emit &nbsp; &nbsp;<input
-                                                type="checkbox" name="gps" value="1"> GPS Tracking
+                                    <div class="smradio">
+                                        <input type="checkbox" name="itDesc[si]" value="1"> SportIdent <br>
+                                        <input type="checkbox" name="itDesc[emit]" value="1"> Emit <br>
+                                        <input type="checkbox" name="itDesc[gps]" value="1"> GPS Tracking
                                     </div>
                                 </div>
                             </td>
@@ -206,29 +191,26 @@
                         <tr>
                             <td>
                                 <div class="desc"><br>* Event Organising <br>
-                                    <div class="smradio"><input type="checkbox" name="clubev"
-                                                                value="1"> Club Events &nbsp;
-                                        &nbsp;<input type="checkbox" name="localev" value="1"> Local Events &nbsp;
-                                        &nbsp;<br><input type="checkbox" name="natev" value="1"> National Events &nbsp;
-                                        &nbsp;<input type="checkbox" name="hlev" value="1"> High-Level Events
+                                    <div class="smradio">
+                                        <input type="checkbox" name="eventDesc[club]" value="1"> Club &nbsp; &nbsp;<br>
+                                        <input type="checkbox" name="eventDesc[local]" value="1"> Local &nbsp; &nbsp;<br>
+                                        <input type="checkbox" name="eventDesc[national]" value="1"> National &nbsp; &nbsp;<br>
+                                        <input type="checkbox" name="eventDesc[highLevel]" value="1"> High-Level
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div class="desc"><br><input type="checkbox" name="material"
-                                                             value="1"> Development of
-                                    Educational Material
+                                <div class="desc"><br>
+                                    <input type="checkbox" name="teacherDesc[materials]" value="1"> Development of Educational Material
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <div class="desc"><br><input type="checkbox" name="child"
-                                                             value="1"> Teaching beginners
-                                    &amp;
-                                    children
+                                <div class="desc">
+                                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children
                                 </div>
                             </td>
                         </tr>
@@ -238,44 +220,47 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Experience required</b>
+                            <td colspan="2" class="big-desc">Experience required
                                 <div class="warn"> &nbsp;(Select if relevant to the project)</div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc">National Events &nbsp;
-                                <select size="1" name="natc">
+                            <td class="desc">Local / National Events
+                                <select size="1" name="oworkLocalExp[experience]">
                                     <option selected="" value="">- select -</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 10</option>
-                                    <option value="2">11 - 30</option>
-                                    <option value="3">over 30</option>
+                                    <option value="none">none</option>
+                                    <option value="1 - 10">1 - 10</option>
+                                    <option value="11 - 30">11 - 30</option>
+                                    <option value="over 30">over 30</option>
                                 </select><br>
                                 <br>Duties:<br>
                                 <div class="smradio">
-
-                                    <input type="checkbox" name="dut[]" value="NE"> Event Director <br>
-                                    <input type="checkbox" name="dut[]" value="NM"> Mapper / Course Planner <br>
-                                    <input type="checkbox" name="dut[]" value="NT"> IT Director <br>
-                                    <input type="checkbox" name="dut[]" value="NA"> Event Advisor <br>
-                                    <input type="checkbox" name="dut[]" value="NJ"> Jury Member
+                                    <input type="checkbox" name="oworkLocalExp[director]" value="1"> Event Director <br>
+                                    <input type="checkbox" name="oworkLocalExp[mapper]" value="1"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="oworkLocalExp[it]" value="1"> IT Director <br>
+                                    <input type="checkbox" name="oworkLocalExp[advisor]" value="1"> Event Advisor <br>
+                                    <input type="checkbox" name="oworkLocalExp[jury]" value="1"> Jury Member <br>
+                                    Other duties? State below...<br>
+                                    <input type="text" name="oworkLocalExp[other]" value="" size="20">
                                 </div>
                             </td>
                             <td class="desc">International Events &nbsp;
-                                <select size="1" name="intc">
+                                <select size="1" name="oworkInternationalExp[experience]">
                                     <option selected="" value="">- select -</option>
-                                    <option value="0">none</option>
-                                    <option value="1">1 - 10</option>
-                                    <option value="2">11 - 20</option>
-                                    <option value="3">over 20</option>
+                                    <option value="none">none</option>
+                                    <option value="1 - 10">1 - 10</option>
+                                    <option value="11 - 20">11 - 20</option>
+                                    <option value="over 20">over 20</option>
                                 </select><br>
                                 <br>Duties:<br>
                                 <div class="smradio">
-                                    <input type="checkbox" name="idut[]" value="IE"> Event Director <br>
-                                    <input type="checkbox" name="idut[]" value="IM"> Mapper / Course Planner <br>
-                                    <input type="checkbox" name="idut[]" value="IT"> IT Director <br>
-                                    <input type="checkbox" name="idut[]" value="IA"> Event Advisor <br>
-                                    <input type="checkbox" name="idut[]" value="IJ"> Jury Member
+                                    <input type="checkbox" name="oworkInternationalExp[director]" value="1"> Event Director <br>
+                                    <input type="checkbox" name="oworkInternationalExp[mapper]" value="1"> Mapper / Course Planner <br>
+                                    <input type="checkbox" name="oworkInternationalExp[it]" value="1"> IT Director <br>
+                                    <input type="checkbox" name="oworkInternationalExp[advisor]" value="1"> Event Advisor <br>
+                                    <input type="checkbox" name="oworkInternationalExp[jury]" value="1"> Jury Member <br>
+                                    Other duties? State below...<br>
+                                    <input type="text" name="oworkInternationalExp[info]" value="" size="20">
                                 </div>
                             </td>
                         </tr>
@@ -285,29 +270,20 @@
                     <table>
                         <tbody>
                         <tr>
-                            <td class="desc">
-
-                                Details of the work to be done
-                                <div class="warn">
-                                    *
-                                </div>
+                            <td class="desc">Details of the work to be done
+                                <div class="warn">*</div>
                                 <br>
                                 <textarea rows="4" cols="50" name="details" id="details"></textarea><br><br>
-
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
                 </td>
-
-
                 <td valign="top" width="31%">
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Personal details of
-                                    Volunteer</b><br>
+                            <td colspan="2" class="desc"><b>Personal details of Volunteer</b><br>
                                 <div class="warn"> &nbsp;(Just skip if not important)</div>
                             </td>
                         </tr>
@@ -317,30 +293,32 @@
                                     <option selected="" value="">--- select ---</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
-                                </select></td>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="desc">Age</td>
                             <td>: <select size="1" name="age">
                                     <option selected="" value="">--- select ---</option>
-                                    <option value="1">Under 25</option>
-                                    <option value="2">25 - 35</option>
-                                    <option value="3">36 - 50</option>
-                                    <option value="3">Over 50</option>
-                                </select></td>
+                                    <option value="Under 25">Under 25</option>
+                                    <option value="25 - 35">25 - 35</option>
+                                    <option value="36 - 50">36 - 50</option>
+                                    <option value="Over 50">Over 50</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="desc">International driving license?
-                            </td>
+                            <td class="desc">International driving license?</td>
                             <td>: <select size="1" name="license">
                                     <option selected="" value="">--- select ---</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
-                                </select></td>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="desc">Language expectations</td>
-                            <td class="desc">: <input type="text" name="lang" size="20"></td>
+                            <td class="desc">: <input type="text" name="expectedLanguage" size="20"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -348,26 +326,22 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Disciplines of
-                                    experience</b></td>
+                            <td colspan="2" class="big-desc">Disciplines of experience</td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="F"> Foot-O &nbsp; &nbsp; &nbsp;
-                                &nbsp;
+                                <input type="checkbox" name="expectedDisciplines[footO]" value="1"> Foot-O
                             </td>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="M"> MTBO
+                                <input type="checkbox" name="expectedDisciplines[mtbO]" value="1"> MTBO
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="S"> Ski-O &nbsp; &nbsp; &nbsp;
-                                &nbsp;
+                                <input type="checkbox" name="expectedDisciplines[skiO]" value="1"> Ski-O
                             </td>
                             <td class="desc">
-                                <input type="checkbox" name="dis[]" value="T"> Trail-O
-
+                                <input type="checkbox" name="expectedDisciplines[trailO]" value="1"> Trail-O
                             </td>
                         </tr>
                         </tbody>
@@ -377,40 +351,34 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>O-Experience</b>
-                            </td>
+                            <td colspan="2" class="big-desc">O-Experience</td>
                         </tr>
                         <tr>
                             <td class="desc">Years of experience</td>
                             <td>:
-                                <div class="desc"><select size="1" name="exp">
+                                <div class="desc"><select size="1" name="expirience[years]">
                                         <option selected="" value="">--- select ---</option>
-                                        <option value="1">Under 5</option>
-                                        <option value="3">5 - 9</option>
-                                        <option value="3">10 - 20</option>
-                                        <option value="4">Over 20</option>
-                                    </select></div>
+                                        <option value="Under 5">Under 5</option>
+                                        <option value="5 - 9">5 - 9</option>
+                                        <option value="10 - 20">10 - 20</option>
+                                        <option value="Over 20">Over 20</option>
+                                    </select>
+                                </div>
                             </td>
                         </tr>
-
-
                         <tr>
                             <td class="desc"><br>Competed in...</td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="comp[]"
-                                                    value="L"> Local events
+                            <td class="desc"><input type="checkbox" name="expirience[local]" value="1"> Local events
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="comp[]"
-                                                    value="N"> National Championships
+                            <td class="desc"><input type="checkbox" name="expirience[national]" value="1"> National Championships
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc"><input type="checkbox" name="comp[]"
-                                                    value="I"> International
-                                Competitions
+                            <td class="desc"><input type="checkbox" name="expirience[international]" value="1"> International Competitions
                             </td>
                         </tr>
 
@@ -418,22 +386,23 @@
                     </table>
                     <br>
                     <div class="desc">Anything you would like to add<br>
-                        <textarea rows="4" cols="50" name="add" id="add"></textarea><br><br>
+                        <textarea rows="4" cols="50" name="other"></textarea>
+                        <br><br>
 
                         <b>Disclaimer:</b> Disclaimer: The details above are as accurate as possible. We understand that
                         the
                         IOF cannot be held responsible for our finding or not finding a suitable volunteer. We also
                         understand that should we choose to recruit a volunteer through this database, the IOF cannot be
                         held responsible for the terms or quality of work produced.
-                        <br><br><input type="checkbox" name="ok"> I have read and understood the above.
+                        <br><br><input type="checkbox" name="iAgreeWithTerms"> I have read and understood the above.
                         <div class="warn">*</div>
                     </div>
                 </td>
                 <td></td>
             </tr>
             <tr>
-                <td colspan="4" align="right"><input type="submit" value="Submit our request">
-
+                <td colspan="4" align="right">
+                    <input type="submit" value="Submit our request">
                 </td>
             </tr>
             </tbody>
@@ -444,6 +413,7 @@
 
         $(document).ready(function () {
 
+            {% if data %}
             var data = JSON.parse('{{ data | raw }}');
 
             // reset form values from json object
@@ -460,6 +430,17 @@
                         break;
                     default:
                         $el.val(val);
+                }
+            });
+            {% endif %}
+
+            // load countries list
+            $.ajax({
+                type: "GET",
+                url: '{{ url }}countries',
+                success: function(data)
+                {
+                    $('#country').empty().append(data);
                 }
             });
 

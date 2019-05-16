@@ -5,8 +5,8 @@
     <div align="center">
         <div class="title">{{ title }}</div>
         <br>
-        <div class="maincol">Click on Volunteer Nickname for more details</div>
-        <br><br>
+        {#<div class="maincol">Click on Project name for more details</div>#}
+        {#<br><br>#}
     </div>
 
     <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
@@ -14,26 +14,20 @@
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
             <tr>
-                <td class="big-desc">Nickname</td>
-                <td class="big-desc">Languages</td>
-                <td class="big-desc">When can start</td>
-                <td class="big-desc">Duration available</td>
-                <td class="big-desc">O-Experience</td>
+                <td class="big-desc">Organisation</td>
+                <td class="big-desc">Place</td>
+                <td class="big-desc">Start date</td>
+                <td class="big-desc">How long</td>
                 <td class="big-desc"></td>
             </tr>
-            {% for volunteer in volunteers %}
+            {% for project in projects %}
                 <tr>
-                    <td align="center" class="maincol">
-                        <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
-                            <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
-                        </a>
-                    </td>
-                    <td class="desc"> {{ volunteer.languages }}</td>
-                    <td class="desc">{{ volunteer.timeToStart|slice(0,10) }}</td>
-                    <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
-                    <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
+                    <td class="desc"> {{ project.name }}</td>
+                    <td class="desc">{{ project.place }}</td>
+                    <td class="desc">{{ project.startDate }}</td>
+                    <td class="desc">{{ project.how_long }}</td>
                     <td class="desc">
-                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ volunteer.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
                     </td>
                 </tr>
             {% endfor %}

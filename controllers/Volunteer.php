@@ -14,7 +14,7 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Volunteer/add.twig', [ 'data' => [] ]);
+        return TemplateProvider::render('Volunteer/add.twig');
 
     }
 
@@ -124,7 +124,7 @@ class Volunteer extends Controller {
         }
 
         if (!empty($data['otherSkills'])) {
-            $result['otherSkills'] = $data['otherSkills'];
+            $result['otherSkills'] = '<b>Other: ' . $data['otherSkills'] . ' </b>';
         }
 
         $result = implode('<br>',$result);

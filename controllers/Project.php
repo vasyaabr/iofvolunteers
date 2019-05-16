@@ -13,7 +13,7 @@ class Project extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('project/add.twig', [ 'data' => [] ]);
+        return TemplateProvider::render('Project/add.twig');
 
     }
 
@@ -25,8 +25,8 @@ class Project extends Controller {
 
         $query = "SELECT * 
             FROM projects
-            WHERE id = {$id}";
-        $result = DbProvider::select( $query );
+            WHERE id = :id AND userID = :userID";
+        $result = DbProvider::select( $query, ['id' => $id, 'userID' => User::getUserID()] );
         $result = self::prepareData($result[0]);
         $result['iAgreeWithTerms'] = 1;
 
@@ -56,9 +56,6 @@ class Project extends Controller {
 
             $vol = self::decode(array_filter($vol));
 
-            $vol['languages'] = $this->getLanguages($vol);
-            $vol['competitorExp'] = $this->getCompetitorExp($vol);
-
         }
 
         return TemplateProvider::render('Project/list.twig',
@@ -81,14 +78,17 @@ class Project extends Controller {
         }
 
         // prepare and run query
-        $valueMasks = implode(',',
-            array_map(function($v) { return ':'.$v; },array_keys($params))
-        );
         if (isset($params['id'])) {
+            $valueMasks = implode(',',
+                array_map(function($v) { return "{$v} = :{$v}"; },array_keys($params))
+            );
             $query = "UPDATE projects
                 SET {$valueMasks}
                 WHERE id= :id";
         } else {
+            $valueMasks = implode(',',
+                array_map(function($v) { return ':'.$v; },array_keys($params))
+            );
             $keys = implode(',',array_keys($params));
             $query = "INSERT INTO projects ({$keys})
                 VALUES ({$valueMasks})";
@@ -111,10 +111,6 @@ class Project extends Controller {
      * @throws \Exception
      */
     private function validate(array $params, string $action) : array {
-
-        if ( empty($action) || !in_array($action,self::$actions,true) ) {
-            throw new \Exception('Invalid validate action');
-        }
 
         foreach ($params as $key => &$param) {
 
@@ -149,13 +145,6 @@ class Project extends Controller {
         } else {
             unset($params["iAgreeWithTerms"]);
         }
-
-        // fill tech fields
-        if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
-        if (isset($params['coachDesc'])) { $params['coachSkilled'] = 1; }
-        if (isset($params['itDesc'])) { $params['itSkilled'] = 1; }
-        if (isset($params['eventDesc'])) { $params['eventSkilled'] = 1; }
-        if (isset($params['teacherDesc'])) { $params['teacherSkilled'] = 1; }
 
         return $params;
 
