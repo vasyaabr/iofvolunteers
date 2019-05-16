@@ -112,14 +112,17 @@ class Volunteer extends Controller {
         $skillKeys = ['mappingDesc', 'coachDesc','itDesc','eventDesc','teacherDesc'];
         foreach ($skillKeys as $skill) {
             if ( ! empty( $data[$skill] ) ) {
+                $info = '';
                 foreach ( $data[$skill] as $key => $value ) {
                     if ( $key === 'info' ) {
-                        $result[$skill][] = "{$key}: {$value}";
+                        $info = "{$key}: {$value}";
                     } else {
                         $result[$skill][] = ucfirst($key);
                     }
                 }
-                $result[$skill] = '<b>' . ucfirst(str_replace('Desc','',$skill)).' </b>: ' . implode( ', ', $result[$skill] );
+                $result[$skill] = '<b>' . ucfirst(str_replace('Desc','',$skill)).' </b>: '
+                    . implode( ', ', $result[$skill] )
+                    . (empty($info) ? '' : ", {$info}");
             }
         }
 
