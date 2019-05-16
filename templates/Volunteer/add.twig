@@ -12,6 +12,7 @@
 
     <form method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
         <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
 
         <table width="90%" align="center">
             <tbody>
@@ -476,9 +477,9 @@
                                 Skilled in mapping? <br>Upload your "best" maps here...<br>
                                 <div class="warn">Required for mappers!</div>
                                 <br>(At most 3 maps in PDF format)<br><br>
-                                <input name="map1" type="file"><br><br>
-                                <input name="map2" type="file"><br><br>
-                                <input name="map3" type="file"><br><br>
+                                <input name="maps[]" type="file"><br><br>
+                                <input name="maps[]" type="file"><br><br>
+                                <input name="maps[]" type="file"><br><br>
 
                                 Explain how you can help as a volunteer <br>
                                 <div class="warn">(required)<br></div>
