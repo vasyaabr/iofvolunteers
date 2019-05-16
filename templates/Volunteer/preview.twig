@@ -20,7 +20,7 @@
                     </tr>
 
                     <tr>
-                        <td>
+                        <td class="desc">
                             Country: {{ data.country }}
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td colspan="2" class="big-desc"><br>Work Preferences</font>
+                        <td colspan="2" class="big-desc"><br>Work Preferences
                         </td>
                     </tr>
 
@@ -67,11 +67,15 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td class="big-desc">Disciplines of experience</font>
-                        </td>
+                        <td class="big-desc">Disciplines of experience</td>
                     </tr>
                     <tr>
-                        <td class="desc">{{ data.disciplines }}</td>
+                        <td class="desc">
+                            {% if data.footO %} Foot-O<br> {% endif %}
+                            {% if data.mtbO %} MTBO<br> {% endif %}
+                            {% if data.skiO %} Ski-O<br> {% endif %}
+                            {% if data.trailO %} Trail-O<br> {% endif %}
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -79,20 +83,16 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td class="big-desc">O-Experience</font>
+                        <td class="big-desc">O-Experience
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="desc">{{ data.competitorExp }}
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <br>
-
-                <table>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
             </td>
 
             <td valign="top" width="35%">
@@ -103,7 +103,7 @@
                     </tr>
 
                     <tr>
-                        <td class="desc">{{ data.skills }}</td>
+                        <td class="desc">{{ data.skills|raw }}</td>
                     </tr>
                     <tr>
                         <td class="desc">

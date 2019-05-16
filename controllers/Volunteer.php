@@ -100,6 +100,49 @@ class Volunteer extends Controller {
 
     }
 
+    private function getPreferredContinents(array $data) {
+
+        return empty($data['preferredContinents']) ? '' : implode(', ', array_keys($data['preferredContinents']));
+
+    }
+
+    private function getSkills(array $data) {
+
+        $result = [];
+        $skillKeys = ['mappingDesc', 'coachDesc','itDesc','eventDesc','teacherDesc'];
+        foreach ($skillKeys as $skill) {
+            if ( ! empty( $data[$skill] ) ) {
+                foreach ( $data[$skill] as $key => $value ) {
+                    if ( $key === 'info' ) {
+                        $result[$skill][] = "{$key}: {$value}";
+                    } else {
+                        $result[$skill][] = ucfirst($key);
+                    }
+                }
+                $result[$skill] = '<b>' . ucfirst(str_replace('Desc','',$skill)).' </b>: ' . implode( ', ', $result[$skill] );
+            }
+        }
+
+        if (!empty($data['otherSkills'])) {
+            $result['otherSkills'] = $data['otherSkills'];
+        }
+
+        $result = implode('<br>',$result);
+
+        return $result;
+
+    }
+
+    private function getAge(array $data) {
+        if ( ! empty( $data['birthdate'] ) ) {
+            $d1 = \DateTime::createFromFormat('Y-m-d H:i:s', $data['birthdate']);
+            $d2 = new \DateTime();
+            $diff = $d2->diff( $d1 );
+            return $diff->y;
+        }
+        return 0;
+    }
+
     public function searchView() : string {
 
         if (!User::isAuthenticated()) {
@@ -120,10 +163,14 @@ class Volunteer extends Controller {
             FROM volunteers
             WHERE id = {$id}";
         $result = DbProvider::select( $query );
-        $result = self::prepareData($result[0]);
+        $result = self::decode(array_filter($result[0]));
 
         $result['languages'] = $this->getLanguages($result);
         $result['competitorExp'] = $this->getCompetitorExp($result);
+        $result['preferredContinents'] = $this->getPreferredContinents($result);
+        $result['age'] = $this->getAge($result);
+        $result['skills'] = $this->getSkills($result);
+        error_log(var_export($result,true)."\n");
 
         return TemplateProvider::render('Volunteer/preview.twig',
             [ 'data' => $result ]
