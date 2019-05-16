@@ -26,8 +26,8 @@ class Volunteer extends Controller {
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$id}";
-        $result = DbProvider::select( $query );
+            WHERE id = :id AND userID = :userID";
+        $result = DbProvider::select( $query, ['id' => $id, 'userID' => User::getUserID()] );
         $result = self::prepareData($result[0]);
         $result['iAgreeWithTerms'] = 1;
 
@@ -63,7 +63,7 @@ class Volunteer extends Controller {
         }
 
         return TemplateProvider::render('Volunteer/list.twig',
-            [ 'volunteers' => $result, 'title' => 'Volunteers list' ]
+            [ 'volunteers' => $result, 'title' => 'Volunteers list', 'edit' => true ]
         );
 
     }
@@ -161,8 +161,8 @@ class Volunteer extends Controller {
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE id = {$id}";
-        $result = DbProvider::select( $query );
+            WHERE id = :id";
+        $result = DbProvider::select( $query, ['id' => $id] );
         $result = self::decode(array_filter($result[0]));
 
         $result['languages'] = $this->getLanguages($result);
@@ -170,7 +170,6 @@ class Volunteer extends Controller {
         $result['preferredContinents'] = $this->getPreferredContinents($result);
         $result['age'] = $this->getAge($result);
         $result['skills'] = $this->getSkills($result);
-        error_log(var_export($result,true)."\n");
 
         return TemplateProvider::render('Volunteer/preview.twig',
             [ 'data' => $result ]
@@ -344,15 +343,9 @@ class Volunteer extends Controller {
      *
      * @return string
      */
-    private function createCondition(string $param) : string {
+    private function createCondition(string $param, $value) : string {
 
-        $searchParam = trim($param);
-        $bracketPos = strpos($searchParam,'[');
-        if ($bracketPos !== false) {
-            $searchParam = substr($searchParam,0,$bracketPos);
-        }
-
-        switch ($searchParam) {
+        switch ($param) {
             case 'minage':
                 $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) >= :{$param}";
                 break;
@@ -360,7 +353,7 @@ class Volunteer extends Controller {
                 $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) <= :{$param}";
                 break;
             case 'oyears':
-                $condition = "YEAR(now()) - oStart >= :{$param}";
+                $condition = "YEAR(now()) - startO >= :{$param}";
                 break;
             case 'maxWorkDuration':
                 $condition = "{$param} >= :{$param}";
@@ -368,17 +361,25 @@ class Volunteer extends Controller {
             case 'timeToStart':
                 $condition = "DATE_FORMAT('{$param}' ,'%Y-%m-01') >= :{$param}";
                 break;
+            // json arrays
             case 'competitorExp':
             case 'teacherDesc':
-
-                $condition = str_replace(['[',']'],['->>"$.','"'],$param) . " = :{$param}";
-                break;
             case 'languages':
-                if (strpos($param,'Other') !== false) {
-                    $condition = str_replace(['[',']'],['->>"$.','"'],$param) . " like '%:{$param}%'";
-                } else {
-                    $condition = str_replace(['][', '[', ']'], ['.', '->>"$.', '"'], $param) . " = :{$param}";
+                $condition = [];
+                foreach ($value as $key2 => $value2) {
+                    if (is_array($value2)) {
+                        foreach ($value2 as $key3 => $value3) {
+                            $condition[] = "{$param}->>\"$.{$key2}.{$key3}\" = :{$param}_{$key2}_{$key3}";
+                        }
+                    } else {
+                        if (strpos($key2,'Other') !== false) {
+                            $condition[] = "{$param}->>\"$.{$key2}\" LIKE :{$param}_{$key2}";
+                        } else {
+                            $condition[] = "{$param}->>\"$.{$key2}\" = :{$param}_{$key2}";
+                        }
+                    }
                 }
+                $condition = implode(' AND ', $condition);
                 break;
             default:
                 $condition = "{$param} = :{$param}";
@@ -395,23 +396,45 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $params = self::flatten($this->validate($_POST, 'search'));
-
-        error_log(var_export($params,true)."\n");
+        $params = $this->validate($_POST, 'search');
 
         // prepare and run query
-        $conditions = implode(' AND ',
-            array_map(
-                array($this, 'createCondition') ,
-                array_keys($params)
-            )
-        );
-        error_log("{$conditions}\n");
+        $conditions = [];
+        foreach ($params as $key => $value) {
+            $conditions[] = $this->createCondition($key, $value);
+        }
+        $conditions = implode(' AND ', $conditions);
+
+        foreach ($params as $key => &$value) {
+            switch ($key) {
+                // 1-dimension json arrays
+                case 'competitorExp':
+                case 'teacherDesc':
+                    foreach ($value as $key2 => $value2) {
+                        $params["{$key}_{$key2}"] = $value2;
+                    }
+                    unset($params[$key]);
+                    break;
+                // 2-dimension json arrays
+                case 'languages':
+                    foreach ($value as $key2 => $value2) {
+                        if (strpos($key2,'Other') !== false) {
+                            $params["{$key}_{$key2}"] = "'%$value2%'";
+                        } else {
+                            foreach ($value2 as $key3 => $value3) {
+                                $params["{$key}_{$key2}_{$key3}"] = $value3;
+                            }
+                        }
+                    }
+                    unset($params[$key]);
+                    break;
+            }
+        }
 
         $query = "SELECT * 
             FROM volunteers
-            WHERE {$conditions}";
-        error_log("{$query}\n");
+            WHERE {$conditions}
+            ORDER BY id";
         $found = DbProvider::select( $query , $params );
 
         return TemplateProvider::render('Volunteer/list.twig',

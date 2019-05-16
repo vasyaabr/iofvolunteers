@@ -41,6 +41,7 @@ abstract class Controller
      */
     public static function flatten(array $values) : array {
 
+        // TODO: rewrite to recursive function
         foreach ($values as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $key2 => $value2) {

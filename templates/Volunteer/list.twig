@@ -9,7 +9,9 @@
         <br><br>
     </div>
 
-    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}volunteer/register';" value="Add volunteer" />
+    {% if edit %}
+        <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}volunteer/register';" value="Add volunteer" />
+    {% endif %}
 
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
@@ -19,7 +21,9 @@
                 <td class="big-desc">When can start</td>
                 <td class="big-desc">Duration available</td>
                 <td class="big-desc">O-Experience</td>
+                {% if edit %}
                 <td class="big-desc"></td>
+                {% endif %}
             </tr>
             {% for volunteer in volunteers %}
                 <tr>
@@ -32,9 +36,11 @@
                     <td class="desc">{{ volunteer.timeToStart|slice(0,10) }}</td>
                     <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
                     <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
+                    {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}volunteer/edit/{{ volunteer.id }}';" value="Edit" />
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
