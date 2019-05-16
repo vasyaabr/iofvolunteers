@@ -161,8 +161,9 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $query = "SELECT * 
-            FROM volunteers
+        $query = "SELECT v.*, c.name AS countryName 
+            FROM volunteers v
+                LEFT JOIN countries c ON v.country=c.id
             WHERE id = :id";
         $result = DbProvider::select( $query, ['id' => $id] );
         $result = self::decode(array_filter($result[0]));
