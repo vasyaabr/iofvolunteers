@@ -93,7 +93,7 @@ class Volunteer extends Controller {
             }
             $result = 'compete in ' . implode(', ', $result);
         } else {
-            $result = 'Not provided';
+            $result = 'Competitor expirience not provided';
         }
 
         return $result;
@@ -346,7 +346,13 @@ class Volunteer extends Controller {
      */
     private function createCondition(string $param) : string {
 
-        switch (trim($param)) {
+        $searchParam = trim($param);
+        $bracketPos = strpos($searchParam,'[');
+        if ($bracketPos !== false) {
+            $searchParam = substr($searchParam,0,$bracketPos);
+        }
+
+        switch ($searchParam) {
             case 'minage':
                 $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) >= :{$param}";
                 break;
@@ -354,18 +360,26 @@ class Volunteer extends Controller {
                 $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) <= :{$param}";
                 break;
             case 'oyears':
-                $condition = "YEAR(now()) - YEAR(oStart) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(oStart, '%m%d')) >= :{$param}";
+                $condition = "YEAR(now()) - oStart >= :{$param}";
                 break;
             case 'maxWorkDuration':
                 $condition = "{$param} >= :{$param}";
                 break;
-            case 'timeToStart_m':
-            case 'timeToStart_y':
+            case 'timeToStart':
+                $condition = "DATE_FORMAT('{$param}' ,'%Y-%m-01') >= :{$param}";
+                break;
             case 'competitorExp':
-            case 'languages':
             case 'teacherDesc':
-                // TODO
-                //break;
+
+                $condition = str_replace(['[',']'],['->>"$.','"'],$param) . " = :{$param}";
+                break;
+            case 'languages':
+                if (strpos($param,'Other') !== false) {
+                    $condition = str_replace(['[',']'],['->>"$.','"'],$param) . " like '%:{$param}%'";
+                } else {
+                    $condition = str_replace(['][', '[', ']'], ['.', '->>"$.', '"'], $param) . " = :{$param}";
+                }
+                break;
             default:
                 $condition = "{$param} = :{$param}";
                 break;
@@ -381,7 +395,7 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $params = $this->validate($_POST, 'search');
+        $params = self::flatten($this->validate($_POST, 'search'));
 
         error_log(var_export($params,true)."\n");
 

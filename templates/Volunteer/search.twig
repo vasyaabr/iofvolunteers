@@ -19,10 +19,10 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b><br>Personal Information</b></td>
+                            <td colspan="2" class="desc"><b>Personal Information</b></td>
                         </tr>
                         <tr>
-                            <td class="desc">Gender </td>
+                            <td width="50%" class="desc">Gender </td>
                             <td>: <select size="1" name="gender">
                                     <option selected="" value="">--- select ---</option>
                                     <option value="M">Male</option>
@@ -31,11 +31,10 @@
                         </tr>
                         <tr>
                             <td class="desc">Age </td>
-                            <td>: <div class="desc"> at least
-                                    <input type="number" name="minage" size="2">
-                                    at most
-                                    <input type="number" name="maxage" size="2">
-                                </div>
+                            <td>: <span class="desc">
+                                    at least <input type="text" name="minage" size="2"><br>
+                                    at most <input type="text" name="maxage" size="2">
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -48,7 +47,7 @@
                                 International driving license?
                             </td>
                             <td>: <input type="checkbox" name="license" value="1">
-                                <div class="desc"> Check if required </div>
+                                <span class="smradio"> Check if required </span>
                             </td>
                         </tr>
                         </tbody>
@@ -87,9 +86,7 @@
                         <tr>
                             <td class="desc">Years in orienteering </td>
                             <td>:<div class="desc">
-                                    at least
-                                    <input type="number" name="oyears" size="2">
-                                    years
+                                    at least <input type="text" name="oyears" size="2"> years
                                 </div>
                             </td>
                         </tr>
@@ -103,31 +100,34 @@
                                     Local events </td>
                             <td class="desc">: <select size="1" name="competitorExp[local]">
                                         <option selected="" value="">--- select ---</option>
-                                        <option value="0">none</option>
-                                        <option value="1">1 - 50</option>
-                                        <option value="2">51 - 100</option>
-                                        <option value="3">over 100</option>
-                                    </select></td>
+                                        <option value="none">none</option>
+                                        <option value="1 - 50">1 - 50</option>
+                                        <option value="51 - 100">51 - 100</option>
+                                        <option value="over 100">over 100</option>
+                                    </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="desc">National Championships </td>
                             <td class="desc">: <select size="1" name="competitorExp[national]">
                                         <option selected="" value="">--- select ---</option>
-                                        <option value="0">none</option>
-                                        <option value="1">1 - 50</option>
-                                        <option value="2">51 - 100</option>
-                                        <option value="3">over 100</option>
-                                    </select></td>
+                                        <option value="none">none</option>
+                                        <option value="1 - 50">1 - 50</option>
+                                        <option value="51 - 100">51 - 100</option>
+                                        <option value="over 100">over 100</option>
+                                    </select>
+                            </td>
                         </tr>
                         <tr>
                             <td class="desc">International Competitions </td>
                             <td class="desc">: <select size="1" name="competitorExp[international]">
                                         <option selected="" value="">--- select ---</option>
-                                        <option value="0">none</option>
-                                        <option value="1">1 - 20</option>
-                                        <option value="2">21 - 50</option>
-                                        <option value="3">over 50</option>
-                                    </select></td>
+                                        <option value="none">none</option>
+                                        <option value="1 - 20">1 - 20</option>
+                                        <option value="21 - 50">21 - 50</option>
+                                        <option value="over 50">over 50</option>
+                                    </select>
+                            </td>
                         </tr>
 
                         </tbody>
@@ -141,7 +141,6 @@
                             <td colspan="2"><div class="desc">
                                     <b>Languages required</b>
                                 </div>
-                                <br>
                                 <div class="warn">
                                     Tick only the <u>most important</u> one or two to increase search results
                                 </div>
@@ -168,6 +167,9 @@
                         <tr>
                             <td class="desc"><input type="checkbox" name="languages[Scandinavian][known]" value="1"> "Scandinavian"</td>
                         </tr>
+                        <tr>
+                            <td class="desc">Other: <input type="text" name="languages[Other]" value=""></td>
+                        </tr>
                         </tbody>
                     </table>
                     <br>
@@ -178,13 +180,12 @@
                         </tr>
                         <tr>
                             <td class="desc">When to start?
-                                <input type="text" size="2" name="timeToStart_m" value="mm"> /
-                                <input type="text" size="10" name="timeToStart_y" value="yyyy">
+                                <input type="text" size="10" name="timeToStart" value="" class="datepicker">
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">Must stay for at least
-                                <input type="text" size="3" name="maxWorkDuration" value="">
+                                <input type="text" size="7" name="maxWorkDuration" value="">
                                 weeks
                             </td>
                         </tr>
@@ -205,19 +206,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="mappingSkilled" value="1"><div class="desc"> Mapping </div></td>
+                            <td><input type="checkbox" name="mappingSkilled" value="1"><span class="desc"> Mapping </span></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="coachSkilled" value="1"><div class="desc"> Coaching </div></td>
+                            <td><input type="checkbox" name="coachSkilled" value="1"><span class="desc"> Coaching </span></td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" name="itSkilled" value="1"><div class="desc"> IT &amp; timekeeping </div>
+                                <input type="checkbox" name="itSkilled" value="1"><span class="desc"> IT &amp; timekeeping </span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" name="eventSkilled" value="1"><div class="desc"> Event Organising </div>
+                                <input type="checkbox" name="eventSkilled" value="1"><span class="desc"> Event Organising </span>
                             </td>
                         </tr>
                         <tr>
