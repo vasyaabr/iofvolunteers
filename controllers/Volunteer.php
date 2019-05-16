@@ -452,6 +452,15 @@ class Volunteer extends Controller {
             ORDER BY id";
         $found = DbProvider::select( $query , $params );
 
+        foreach ($found as &$vol) {
+
+            $vol = self::decode(array_filter($vol));
+
+            $vol['languages'] = $this->getLanguages($vol);
+            $vol['competitorExp'] = $this->getCompetitorExp($vol);
+
+        }
+
         return TemplateProvider::render('Volunteer/list.twig',
             [ 'volunteers' => $found, 'title' => 'Search results' ]
         );
