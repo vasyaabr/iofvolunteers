@@ -136,9 +136,11 @@ class Volunteer extends Controller {
     private function getAge(array $data) {
         if ( ! empty( $data['birthdate'] ) ) {
             $d1 = \DateTime::createFromFormat('Y-m-d', $data['birthdate']);
-            $d2 = new \DateTime();
-            $diff = $d2->diff( $d1 );
-            return $diff->y;
+            if ($d1) {
+                $d2   = new \DateTime();
+                $diff = $d2->diff( $d1 );
+                return $diff->y;
+            }
         }
         return 0;
     }
