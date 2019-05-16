@@ -5,6 +5,8 @@ require __DIR__ . '/vendor/autoload.php';
 use FastRoute\RouteCollector;
 use controllers\Platform;
 
+Sentry\init(['dsn' => 'https://f7b4bee347de4d13ad3a7df04370f6b0@sentry.io/1461060' ]);
+
 session_start();
 
 // Available routes list
