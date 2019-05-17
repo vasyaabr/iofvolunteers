@@ -31,7 +31,7 @@ class Project extends Controller {
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Project/add.twig',
-            [ 'data' => json_encode($result,JSON_UNESCAPED_UNICODE) ]
+            [ 'data' => self::json_enc($result) ]
         );
 
     }
@@ -124,7 +124,7 @@ class Project extends Controller {
 
             // convert arrays to JSON
             if (is_array($param)) {
-                $param = json_encode($param, JSON_UNESCAPED_UNICODE);
+                $param = self::json_enc($param);
             }
 
         }

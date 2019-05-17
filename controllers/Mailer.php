@@ -14,10 +14,7 @@ class Mailer {
         try {
 
             //Server settings
-            $mail->SMTPDebug = 2;
             $mail->isMail();
-//            $mail->IsSMTP();
-//            $mail->Host = "localhost";
 
             //Recipients
             $mail->setFrom(SEND_FROM, 'IOF Volunteering platform');

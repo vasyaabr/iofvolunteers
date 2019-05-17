@@ -8,6 +8,21 @@ class Volunteer extends Controller {
     private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
     private static $actions = ['register', 'search', 'list'];
 
+    private function getData($id , $restrict = true) : array {
+
+        $query = 'SELECT * 
+            FROM volunteers
+            WHERE id = :id' . ($restrict ? ' AND userID = :userID' : '');
+        $params = ['id' => $id];
+        if ($restrict) {
+            $params['userID'] = User::getUserID();
+        }
+        $result = DbProvider::select( $query, $params );
+
+        return count($result) === 1 ? $result[0] : [];
+
+    }
+
     public function addView() : string {
 
         if (!User::isAuthenticated()) {
@@ -24,15 +39,11 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $query = "SELECT * 
-            FROM volunteers
-            WHERE id = :id AND userID = :userID";
-        $result = DbProvider::select( $query, ['id' => $id, 'userID' => User::getUserID()] );
-        $result = self::prepareData($result[0]);
+        $result = self::prepareData($this->getData($id));
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => str_replace('\"','\\\\"',json_encode($result, JSON_UNESCAPED_UNICODE)) ]
+            [ 'data' => self::json_enc($result) ]
         );
 
     }
@@ -43,11 +54,11 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $query = "SELECT * 
+        $query = 'SELECT * 
             FROM volunteers
-            WHERE userID = " . User::getUserID() . "
-            ORDER BY id";
-        $result = DbProvider::select( $query );
+            WHERE userID = :userID
+            ORDER BY id';
+        $result = DbProvider::select( $query, ['userID' => User::getUserID() ] );
 
         if (count($result) === 0) {
             return $this->addView();
@@ -203,16 +214,12 @@ class Volunteer extends Controller {
             return Platform::error( 'Volunteer already contacted for this project!' );
         }
 
-        $query = "SELECT * 
-            FROM volunteers
-            WHERE id = {$id}";
-        $result = DbProvider::select( $query );
-        $vData = self::decode(array_filter($result[0]));
+        $vData = self::decode(array_filter($this->getData($id, false)));
 
-        $query = "SELECT * 
+        $query = 'SELECT * 
             FROM projects
-            WHERE id = {$projectID}";
-        $result = DbProvider::select( $query );
+            WHERE id = :projectID AND userID = :userID';
+        $result = DbProvider::select( $query, ['projectID' => $projectID, 'userID' => User::getUserID()] );
         $pData = self::decode(array_filter($result[0]));
 
         $params = [
@@ -227,6 +234,10 @@ class Volunteer extends Controller {
                 VALUES (:volunteerID,:projectID,:key,:status,:authorID)";
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
+
+        if (!$success) {
+            return Platform::error( 'Error in creating inivitation!' );
+        }
 
         $mailText = TemplateProvider::render('Mail/invitation.twig',['volunteer' => $vData, 'key' => $params['key'], 'project' => $pData]);
         $mailSent = Mailer::send($vData['email'],$vData['name'], 'Invitation to orienteering project', $mailText);
@@ -263,19 +274,23 @@ class Volunteer extends Controller {
 
         // prepare and run query
         if (isset($params['id'])) {
+
             $valueMasks = implode(',',
                 array_map(function($v) { return "{$v} = :{$v}"; },array_keys($params))
             );
             $query = "UPDATE volunteers
                 SET {$valueMasks}
                 WHERE id= :id";
+
         } else {
+
             $valueMasks = implode(',',
                 array_map(function($v) { return ':'.$v; },array_keys($params))
             );
             $keys = implode(',',array_keys($params));
             $query = "INSERT INTO volunteers ({$keys})
                 VALUES ({$valueMasks})";
+
         }
 
         $statement = DbProvider::getInstance()->prepare( $query );
@@ -314,7 +329,7 @@ class Volunteer extends Controller {
 
             // convert arrays to JSON
             if (is_array($param) && $action === 'register') {
-                $param = str_replace('\"','\\"',json_encode($param, JSON_UNESCAPED_UNICODE));
+                $param = self::json_enc($param);
             }
 
         }

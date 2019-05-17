@@ -61,4 +61,16 @@ abstract class Controller
 
     }
 
+    /**
+     * Custom json encoder
+     * @param array $value
+     *
+     * @return string
+     */
+    public static function json_enc(array $value) : string {
+
+        return str_replace('\"','\\"',json_encode($value, JSON_UNESCAPED_UNICODE));
+
+    }
+
 }
