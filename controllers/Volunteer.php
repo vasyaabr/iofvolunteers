@@ -32,7 +32,7 @@ class Volunteer extends Controller {
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => json_encode($result,JSON_UNESCAPED_UNICODE) ]
+            [ 'data' => str_replace('\"','\\\\"',json_encode($result, JSON_UNESCAPED_UNICODE)) ]
         );
 
     }
@@ -167,7 +167,7 @@ class Volunteer extends Controller {
         $query = "SELECT v.*, c.name AS countryName 
             FROM volunteers v
                 LEFT JOIN countries c ON v.country=c.id
-            WHERE id = :id";
+            WHERE v.id = :id";
         $result = DbProvider::select( $query, ['id' => $id] );
         $result = self::decode(array_filter($result[0]));
 
@@ -181,7 +181,6 @@ class Volunteer extends Controller {
             'data' => $result,
             'projects' => Project::getOptionList()
         ];
-        error_log(var_export($render,true)."\n");
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);
 
@@ -253,8 +252,6 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        //error_log(var_export($_POST,true)."\n");
-
         $params = $this->validate($_POST, 'register');
 
         // show validation errors
@@ -280,7 +277,6 @@ class Volunteer extends Controller {
             $query = "INSERT INTO volunteers ({$keys})
                 VALUES ({$valueMasks})";
         }
-        //error_log("{$query}\n");
 
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
@@ -318,7 +314,7 @@ class Volunteer extends Controller {
 
             // convert arrays to JSON
             if (is_array($param) && $action === 'register') {
-                $param = str_replace('\"','\\\\"',json_encode($param, JSON_UNESCAPED_UNICODE));
+                $param = str_replace('\"','\\"',json_encode($param, JSON_UNESCAPED_UNICODE));
             }
 
         }
@@ -341,6 +337,7 @@ class Volunteer extends Controller {
         } else {
             unset($params["iAgreeWithTerms"]);
         }
+        unset($params['MAX_FILE_SIZE']);
 
         // fill tech fields
         if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
