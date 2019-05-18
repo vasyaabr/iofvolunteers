@@ -272,6 +272,29 @@ class Volunteer extends Controller {
 
         //error_log(var_export($params,true)."\n");
 
+        // process uploaded maps
+        $files = [];
+        if (!empty($_FILES["maps"])) {
+
+            $uploads_dir = __DIR__ . '../upload';
+
+            if (!file_exists($uploads_dir)) {
+                mkdir($uploads_dir, 0755, true);
+            }
+
+            foreach ($_FILES["maps"]["error"] as $key => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    $tmp_name = $_FILES["maps"]["tmp_name"][$key];
+                    $name = basename($_FILES["maps"]["name"][$key]);
+                    $uploaded = move_uploaded_file($tmp_name, $uploads_dir . "/{$name}");
+                    if ($uploaded) {
+                        $files[] = $uploads_dir . "/{$name}";
+                    }
+                }
+            }
+
+        }
+
         // prepare and run query
         if (isset($params['id'])) {
 
