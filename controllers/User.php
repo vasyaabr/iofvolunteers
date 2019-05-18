@@ -4,6 +4,8 @@ namespace controllers;
 
 class User {
 
+    private static $requiredFields = ['name','country', 'email', 'login', 'password'];
+
     public function add() : string {
 
         $params = $this->validate($_POST);
@@ -97,15 +99,26 @@ class User {
 
         /**
          * TODO: validate params, which is set
-         * - name not empty, set first letter capital
-         * - country code in list of countries
          * - email is not empty, valid and unique
          * - login not empty and unique
-         * - password not empty
          */
+
+        foreach (self::$requiredFields as $key) {
+            if (!isset($params[$key])) {
+                $params['errors'][] = "Required field `{$key}` is missing`";
+            }
+        }
+
+        if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
+            $params['errors'][] = 'Invalid email';
+        }
 
         if (isset($params['password'])) {
             $params['password'] = self::encodePassword( $params['password'] );
+        }
+
+        if (isset($params['name'])) {
+            $params['name'] = ucfirst($params['name']);
         }
 
         return $params;

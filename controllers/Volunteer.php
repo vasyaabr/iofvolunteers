@@ -347,6 +347,10 @@ class Volunteer extends Controller {
             }
         }
 
+        if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
+            $params['errors'][] = 'Invalid email';
+        }
+
         if (empty($params["iAgreeWithTerms"])) {
             $params['errors'][] = "You are not agreed with disclaimer";
         } else {
