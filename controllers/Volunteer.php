@@ -7,6 +7,7 @@ class Volunteer extends Controller {
 
     private static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
     private static $actions = ['register', 'search', 'list'];
+    private const MAX_FILE_SIZE = 5242880;
 
     private function getData($id , $restrict = true) : array {
 
@@ -29,7 +30,9 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Volunteer/add.twig');
+        return TemplateProvider::render('Volunteer/add.twig',
+            ['MAX_FILE_SIZE' => self::MAX_FILE_SIZE]
+        );
 
     }
 
@@ -42,8 +45,18 @@ class Volunteer extends Controller {
         $result = self::prepareData($this->getData($id));
         $result['iAgreeWithTerms'] = 1;
 
+        $maps = [];
+        $dir = dirname(__DIR__);
+        if (!empty($result['maps[0]'])) {  $maps[0] = str_replace($dir,'',$result['maps[0]']); }
+        if (!empty($result['maps[1]'])) {  $maps[1] = str_replace($dir,'',$result['maps[1]']); }
+        if (!empty($result['maps[2]'])) {  $maps[2] = str_replace($dir,'',$result['maps[2]']); }
+
+        error_log(var_export($result,true)."\n");
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => self::json_enc($result) ]
+            [ 'data' => self::json_enc($result),
+              'MAX_FILE_SIZE' => self::MAX_FILE_SIZE,
+                'maps' => $maps
+            ]
         );
 
     }
@@ -133,7 +146,7 @@ class Volunteer extends Controller {
                 }
                 $result[$skill] = '<b>' . ucfirst(str_replace('Desc','',$skill)).' </b>: '
                     . implode( ', ', $result[$skill] )
-                    . (empty($info) ? '' : ", {$info}");
+                    . $info;
             }
         }
 
@@ -247,12 +260,12 @@ class Volunteer extends Controller {
             'key' => $params['key'],
         ];
 
-        $query = "UPDATE invitations SET `status`=:status WHERE `key`=:key";
+        $query = "UPDATE invitations SET `status`=:status, `editDate`=now() WHERE `key`=:key";
         $statement = DbProvider::getInstance()->prepare( $query );
         $success = $statement->execute( $params );
 
         return TemplateProvider::render('Volunteer/contact.twig',
-            ['result' => 'Invitation to volunteer ' . ($mailSent ? 'was sent' : 'unexpectedly failed')]
+            ['result' => 'Invitation to volunteer ' . ($mailSent && $success ? 'was sent' : 'unexpectedly failed')]
         );
 
     }
@@ -276,7 +289,7 @@ class Volunteer extends Controller {
         $files = [];
         if (!empty($_FILES["maps"])) {
 
-            $uploads_dir = __DIR__ . '../upload';
+            $uploads_dir = dirname(__DIR__) . '/upload';
 
             if (!file_exists($uploads_dir)) {
                 mkdir($uploads_dir, 0755, true);
@@ -284,6 +297,12 @@ class Volunteer extends Controller {
 
             foreach ($_FILES["maps"]["error"] as $key => $error) {
                 if ($error == UPLOAD_ERR_OK) {
+
+                    if ($_FILES["maps"]['size'][$key] > self::MAX_FILE_SIZE) {
+                        $params['errors'][] = "File is too big {$_FILES["maps"]["name"][$key]}";
+                        continue;
+                    }
+
                     $tmp_name = $_FILES["maps"]["tmp_name"][$key];
                     $name = basename($_FILES["maps"]["name"][$key]);
                     $uploaded = move_uploaded_file($tmp_name, $uploads_dir . "/{$name}");
@@ -293,6 +312,15 @@ class Volunteer extends Controller {
                 }
             }
 
+        }
+
+        // show files errors
+        if (!empty($params['errors'])) {
+            return Platform::error( $params['errors'] );
+        }
+
+        if (!empty($files)) {
+            $params['maps'] = self::json_enc($files);
         }
 
         // prepare and run query

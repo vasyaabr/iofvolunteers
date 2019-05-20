@@ -51,16 +51,10 @@ CREATE TABLE `volunteers` (
   `expectations` longtext,
   `abroadExp` longtext,
   `learning` longtext,
+  `maps` json DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `maps` (
-  id INT(6) AUTO_INCREMENT,
-  map LONGBLOB,
-  vid INT(5),
-  PRIMARY KEY (id)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
 CREATE TABLE `invitations` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -68,8 +62,9 @@ CREATE TABLE `invitations` (
   `projectID` INT UNSIGNED NOT NULL,
   `key` VARCHAR(64) NOT NULL,
   `status` VARCHAR(45) NOT NULL,
-  `addDate` DATETIME NULL DEFAULT now(),
   `authorID` INT NOT NULL,
+  `addDate` DATETIME NULL DEFAULT now(),
+  `editDate` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `VOLUNTEER` (`volunteerID` ASC),
   UNIQUE INDEX `key_UNIQUE` (`key` ASC),

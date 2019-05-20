@@ -8,7 +8,7 @@ class User {
 
     public function add() : string {
 
-        $params = $this->validate($_POST);
+        $params = $this->validate($_POST, 'register');
 
         if (!empty($params['errors'])) {
             return Platform::error( $params['errors'] );
@@ -95,15 +95,16 @@ class User {
      *
      * @return array
      */
-    private function validate(array $params) : array {
+    private function validate(array $params, string $action) : array {
 
         /**
          * TODO: validate params, which is set
-         * - email is not empty, valid and unique
-         * - login not empty and unique
+         * - email unique
+         * - login unique
          */
 
-        foreach (self::$requiredFields as $key) {
+        $required = $action === 'register' ? self::$requiredFields : ['login','password'];
+        foreach ($required as $key) {
             if (!isset($params[$key])) {
                 $params['errors'][] = "Required field `{$key}` is missing`";
             }
@@ -130,10 +131,10 @@ class User {
         $params = $this->validate([
             'login' => $_POST['login'] ?? null,
             'password'    => $_POST['password'] ?? null,
-        ]);
+        ], 'signin');
 
         if (!empty($params['errors'])) {
-            return implode(', ', $params['errors']);
+            return Platform::error( $params['errors'] );
         }
 
         $success = $this->authenticate($params['login'], $params['password']);
