@@ -51,7 +51,6 @@ class Volunteer extends Controller {
         if (!empty($result['maps[1]'])) {  $maps[1] = str_replace($dir,'',$result['maps[1]']); }
         if (!empty($result['maps[2]'])) {  $maps[2] = str_replace($dir,'',$result['maps[2]']); }
 
-        error_log(var_export($result,true)."\n");
         return TemplateProvider::render('Volunteer/add.twig',
             [ 'data' => self::json_enc($result),
               'MAX_FILE_SIZE' => self::MAX_FILE_SIZE,
@@ -283,7 +282,7 @@ class Volunteer extends Controller {
             return Platform::error( $params['errors'] );
         }
 
-        //error_log(var_export($params,true)."\n");
+        //error_log(var_export($_FILES,true)."\n");
 
         // process uploaded maps
         $files = [];
@@ -309,6 +308,8 @@ class Volunteer extends Controller {
                     if ($uploaded) {
                         $files[] = $uploads_dir . "/{$name}";
                     }
+                } else if ($error === UPLOAD_ERR_INI_SIZE) {
+                    $params['errors'][] = "File `{$_FILES["maps"]["name"][$key]}` is too big";
                 }
             }
 

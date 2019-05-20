@@ -5,6 +5,11 @@ require __DIR__ . '/vendor/autoload.php';
 use FastRoute\RouteCollector;
 use controllers\Platform;
 
+ini_set('upload_max_filesize', '5M');
+ini_set('post_max_size', '16M');
+ini_set('max_input_time', 300);
+ini_set('max_execution_time', 300);
+
 Sentry\init(['dsn' => 'https://f7b4bee347de4d13ad3a7df04370f6b0@sentry.io/1461060' ]);
 
 session_start();
