@@ -36,17 +36,33 @@ class Project extends Controller {
 
     }
 
+    /**
+     * Return projects list for current user
+     * @return array
+     * @throws \Error
+     */
+    public static function getByUser() : array {
+
+        if (!User::isAuthenticated()) {
+            return [];
+        }
+
+        $query = "SELECT * 
+            FROM projects
+            WHERE userID = :userID
+            ORDER by id";
+
+        return DbProvider::select( $query, ['userID' => User::getUserID()] );
+
+    }
+
     public function listView() : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $query = "SELECT * 
-            FROM projects
-            WHERE userID = " . User::getUserID() . "
-            ORDER BY id";
-        $result = DbProvider::select( $query );
+        $result = self::getByUser();
 
         if (count($result) === 0) {
             return $this->addView();

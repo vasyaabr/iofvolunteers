@@ -177,6 +177,10 @@ class Volunteer extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
+        if (empty(Project::getByUser())) {
+            return Platform::error( 'You have not any projects, please create one.' );
+        }
+
         return TemplateProvider::render('Volunteer/search.twig');
 
     }
@@ -288,10 +292,10 @@ class Volunteer extends Controller {
         $files = [];
         if (!empty($_FILES["maps"])) {
 
-            $uploads_dir = dirname(__DIR__) . '/upload';
+            $uploads_dir = dirname(__DIR__) . '/upload/' . (new \DateTime())->format('Y/m');
 
             if (!file_exists($uploads_dir)) {
-                mkdir($uploads_dir, 0755, true);
+                !is_dir($uploads_dir) && !mkdir($uploads_dir, 0755, true) && !is_dir($uploads_dir);
             }
 
             foreach ($_FILES["maps"]["error"] as $key => $error) {
@@ -303,10 +307,10 @@ class Volunteer extends Controller {
                     }
 
                     $tmp_name = $_FILES["maps"]["tmp_name"][$key];
-                    $name = basename($_FILES["maps"]["name"][$key]);
-                    $uploaded = move_uploaded_file($tmp_name, $uploads_dir . "/{$name}");
+                    $filename = uniqid('map-', true) . pathinfo($_FILES["maps"]["name"][$key], PATHINFO_EXTENSION);
+                    $uploaded = move_uploaded_file($tmp_name, $uploads_dir . "/{$filename}");
                     if ($uploaded) {
-                        $files[] = $uploads_dir . "/{$name}";
+                        $files[] = $uploads_dir . "/{$filename}";
                     }
                 } else if ($error === UPLOAD_ERR_INI_SIZE) {
                     $params['errors'][] = "File `{$_FILES["maps"]["name"][$key]}` is too big";
@@ -401,6 +405,13 @@ class Volunteer extends Controller {
 
         if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
             $params['errors'][] = 'Invalid email';
+        }
+
+        if (isset($params['birthdate']) && !\DateTime::createFromFormat('Y-m-d',$params['birthdate'])) {
+            $params['errors'][] = 'Invalid date of birth format (should be yyyy-mm-dd)';
+        }
+        if (isset($params['timeToStart']) && !\DateTime::createFromFormat('Y-m-d',$params['timeToStart'])) {
+            $params['errors'][] = 'Invalid "When you can start" format (should be yyyy-mm-dd)';
         }
 
         if (empty($params["iAgreeWithTerms"])) {

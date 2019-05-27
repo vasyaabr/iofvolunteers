@@ -27,7 +27,6 @@
 ├── config_example.php - site config (mysql credentials)
 ├── index.php
 ├── install.php
-├── phpinfo.php
 └── README.md - this file
 ```
 

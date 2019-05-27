@@ -34,6 +34,8 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('POST', '/volunteer/contact', 'Volunteer/contact');
     $r->addRoute('GET', '/volunteer/visit/{key}', 'Volunteer/visitView');
     $r->addRoute('GET', '/volunteer/exclude/{key}', 'Volunteer/excludeView');
+    $r->addRoute('GET', '/volunteer/agree/{key}', 'Volunteer/agree');
+    $r->addRoute('GET', '/volunteer/decline/{key}', 'Volunteer/decline');
 
     // Project routes
     $r->addRoute('GET', '/project/register', 'Project/addView');
