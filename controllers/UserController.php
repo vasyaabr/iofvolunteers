@@ -2,9 +2,10 @@
 
 namespace controllers;
 
-class User {
+use models;
+use models\User;
 
-    private static $requiredFields = ['name','country', 'email', 'login', 'password'];
+class UserController {
 
     public function add() : string {
 
@@ -14,10 +15,7 @@ class User {
             return Platform::error( $params['errors'] );
         }
 
-        $query = 'INSERT INTO users (id,name,country,email,login,password)
-                VALUES (DEFAULT, :name, :country, :email, :login, :password)';
-        $statement = DbProvider::getInstance()->prepare( $query );
-        $success = $statement->execute( $params );
+        $success = User::add($params);
 
         if ($success) {
             $this->authenticate($params['login']);
@@ -37,55 +35,19 @@ class User {
      */
     private function authenticate(string $login, string $passwordHash = '') : bool {
 
-        if (empty($passwordHash)) {
-            $params = [':login' => $login];
-            $query = "SELECT * FROM users WHERE login=:login OR email=:login";
-        } else {
-            $params = [':login' => $login, ':passwordHash' => $passwordHash ];
-            $query = "SELECT * FROM users WHERE (login=:login OR email=:login) and password=:passwordHash";
+        $params = [['login' => $login, 'email' => $login]];
+        if (!empty($passwordHash)) {
+            $params += ['passwordHash' => $passwordHash];
         }
 
-        $users = DbProvider::select($query, $params);
-        $success = count($users) === 1;
+        $user = User::getSingle($params);
 
-        if ($success) {
-            $_SESSION['user'] = $users[0];
+        if (!empty($user)) {
+            $_SESSION['user'] = $user;
             $_SESSION['auth_done'] = true;
         }
 
-        return $success;
-
-    }
-
-    /**
-     * Return true, if user is authenticated
-     * @return bool
-     */
-    public static function isAuthenticated() : bool {
-
-        return !empty($_SESSION['user']);
-
-    }
-
-    /**
-     * Return authenticated user ID
-     * @return int
-     */
-    public static function getUserID() : int {
-
-        return self::isAuthenticated() ? $_SESSION['user']['id'] : 0;
-
-    }
-
-    /**
-     * Default password encode
-     * @param string $password
-     *
-     * @return string
-     */
-    private static function encodePassword(string $password) : string {
-
-        return hash('sha256', $password);
+        return !empty($user);
 
     }
 
@@ -103,7 +65,7 @@ class User {
          * - login unique
          */
 
-        $required = $action === 'register' ? self::$requiredFields : ['login','password'];
+        $required = $action === 'register' ? User::$requiredFields : ['login','password'];
         foreach ($required as $key) {
             if (!isset($params[$key])) {
                 $params['errors'][] = "Required field `{$key}` is missing`";
@@ -114,8 +76,15 @@ class User {
             $params['errors'][] = 'Invalid email';
         }
 
+        if (empty($params['errors'])) {
+            $p = [['login' => $params['login'], 'email' => $params['email']]];
+            if (!empty(User::get($p))) {
+                $params['errors'][] = 'Login or email already used';
+            }
+        }
+
         if (isset($params['password'])) {
-            $params['password'] = self::encodePassword( $params['password'] );
+            $params['password'] = User::encodePassword( $params['password'] );
         }
 
         if (isset($params['name'])) {

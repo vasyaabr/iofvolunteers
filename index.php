@@ -18,30 +18,30 @@ session_start();
 $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
 
     $r->addRoute('GET', '/', 'Platform/load');
-    $r->addRoute('GET', '/countries', 'Country/getOptionList');
-    $r->addRoute('POST', '/register', 'User/add');
-    $r->addRoute('POST', '/signin', 'User/signIn');
-    $r->addRoute('GET', '/logout', 'User/logout');
+    $r->addRoute('GET', '/countries', 'CountryController/getOptionList');
+    $r->addRoute('POST', '/register', 'UserController/add');
+    $r->addRoute('POST', '/signin', 'UserController/signIn');
+    $r->addRoute('GET', '/logout', 'UserController/logout');
 
     // Volunteer routes
-    $r->addRoute('GET', '/volunteer/register', 'Volunteer/addView');
-    $r->addRoute('POST', '/volunteer/register', 'Volunteer/add');
-    $r->addRoute('GET', '/volunteer/search', 'Volunteer/searchView');
-    $r->addRoute('POST', '/volunteer/search', 'Volunteer/search');
-    $r->addRoute('GET', '/volunteer/list', 'Volunteer/listView');
-    $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'Volunteer/editView');
-    $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'Volunteer/previewView');
-    $r->addRoute('POST', '/volunteer/contact', 'Volunteer/contact');
-    $r->addRoute('GET', '/volunteer/visit/{key}', 'Volunteer/visitView');
-    $r->addRoute('GET', '/volunteer/exclude/{key}', 'Volunteer/excludeView');
-    $r->addRoute('GET', '/volunteer/agree/{key}', 'Volunteer/agree');
-    $r->addRoute('GET', '/volunteer/decline/{key}', 'Volunteer/decline');
+    $r->addRoute('GET', '/volunteer/register', 'VolunteerController/addView');
+    $r->addRoute('POST', '/volunteer/register', 'VolunteerController/add');
+    $r->addRoute('GET', '/volunteer/search', 'VolunteerController/searchView');
+    $r->addRoute('POST', '/volunteer/search', 'VolunteerController/search');
+    $r->addRoute('GET', '/volunteer/list', 'VolunteerController/listView');
+    $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'VolunteerController/editView');
+    $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'VolunteerController/previewView');
+    $r->addRoute('POST', '/volunteer/contact', 'VolunteerController/contact');
+    $r->addRoute('GET', '/volunteer/visit/{key}', 'VolunteerController/visitView');
+    $r->addRoute('GET', '/volunteer/exclude/{key}', 'VolunteerController/excludeView');
+    $r->addRoute('GET', '/volunteer/agree/{key}', 'VolunteerController/agree');
+    $r->addRoute('GET', '/volunteer/decline/{key}', 'VolunteerController/decline');
 
     // Project routes
-    $r->addRoute('GET', '/project/register', 'Project/addView');
-    $r->addRoute('POST', '/project/register', 'Project/add');
-    $r->addRoute('GET', '/project/list', 'Project/listView');
-    $r->addRoute('GET', '/project/edit/{id:\d+}', 'Project/editView');
+    $r->addRoute('GET', '/project/register', 'ProjectContoller/addView');
+    $r->addRoute('POST', '/project/register', 'ProjectContoller/add');
+    $r->addRoute('GET', '/project/list', 'ProjectContoller/listView');
+    $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectContoller/editView');
 
 });
 

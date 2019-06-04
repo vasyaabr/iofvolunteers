@@ -2,10 +2,10 @@
 
 namespace controllers;
 
+use models\User;
+use models\Project;
 
-class Project extends Controller {
-
-    private static $requiredFields = [];
+class ProjectContoller extends Controller {
 
     public function addView() : string {
 
@@ -23,36 +23,12 @@ class Project extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $query = "SELECT * 
-            FROM projects
-            WHERE id = :id AND userID = :userID";
-        $result = DbProvider::select( $query, ['id' => $id, 'userID' => User::getUserID()] );
-        $result = self::prepareData($result[0]);
+        $result = self::prepareData( Project::getSingle(['id' => $id, 'userID' => User::getUserID()]) );
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Project/add.twig',
             [ 'data' => self::json_enc($result) ]
         );
-
-    }
-
-    /**
-     * Return projects list for current user
-     * @return array
-     * @throws \Error
-     */
-    public static function getByUser() : array {
-
-        if (!User::isAuthenticated()) {
-            return [];
-        }
-
-        $query = "SELECT * 
-            FROM projects
-            WHERE userID = :userID
-            ORDER by id";
-
-        return DbProvider::select( $query, ['userID' => User::getUserID()] );
 
     }
 
@@ -62,7 +38,7 @@ class Project extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $result = self::getByUser();
+        $result = Project::get(['userID' => User::getUserID()]);
 
         if (count($result) === 0) {
             return $this->addView();
@@ -91,25 +67,7 @@ class Project extends Controller {
             return Platform::error( $params['errors'] );
         }
 
-        // prepare and run query
-        if (isset($params['id'])) {
-            $valueMasks = implode(',',
-                array_map(function($v) { return "{$v} = :{$v}"; },array_keys($params))
-            );
-            $query = "UPDATE projects
-                SET {$valueMasks}
-                WHERE id= :id";
-        } else {
-            $valueMasks = implode(',',
-                array_map(function($v) { return ':'.$v; },array_keys($params))
-            );
-            $keys = implode(',',array_keys($params));
-            $query = "INSERT INTO projects ({$keys})
-                VALUES ({$valueMasks})";
-        }
-
-        $statement = DbProvider::getInstance()->prepare( $query );
-        $success = $statement->execute( $params );
+        $success = isset($params['id']) ? Project::update($params) : Project::add($params);
 
         return $success ? $this->listView() : Platform::error( 'Unexpected error' );
 
@@ -147,13 +105,6 @@ class Project extends Controller {
 
         $params['userID'] = User::getUserID();
 
-        // check for required fields
-        foreach (self::$requiredFields as $key) {
-            if (!isset($params[$key])) {
-                $params['errors'][] = "Required field `{$key}` is missing`";
-            }
-        }
-
         if (empty($params["iAgreeWithTerms"])) {
             $params['errors'][] = "You are not agreed with disclaimer";
         } else {
@@ -166,15 +117,9 @@ class Project extends Controller {
 
     public static function getOptionList() : string {
 
-        return implode("\n",
-            array_column(
-                DbProvider::select("SELECT concat('<option value=\"',id,'\">',name,' - ',place,'</option>') AS opt 
-                    FROM projects
-                    WHERE userID = ".User::getUserID()." 
-                    ORDER BY id"),
-                'opt'
-            )
-        );
+        $list = Project::get( [ 'userID' => User::getUserID() ], ['id AS id', 'concat(name," - ",place) as name'] );
+
+        return TemplateProvider::render('Common/options.twig', [ 'options' => $list ] );
 
     }
 

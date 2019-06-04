@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use models\User;
+
 /**
  * Class TemplateProvider
  * Twig templates single entry point
