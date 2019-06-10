@@ -1,0 +1,37 @@
+{% extends 'common.twig' %}
+
+{% block onecolumn %}
+
+    <div align="center">
+        <div class="title">{{ title }}</div>
+        <br>
+        {#<div class="maincol">Click on Project name for more details</div>#}
+        {#<br><br>#}
+    </div>
+
+    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
+
+    <table width="90%" align="center" border="1" bordercolor="#376FA6">
+        <tbody>
+            <tr>
+                <td class="big-desc">Organisation</td>
+                <td class="big-desc">Place</td>
+                <td class="big-desc">Start date</td>
+                <td class="big-desc">How long</td>
+                <td class="big-desc"></td>
+            </tr>
+            {% for project in projects %}
+                <tr>
+                    <td class="desc"> {{ project.name }}</td>
+                    <td class="desc">{{ project.place }}</td>
+                    <td class="desc">{{ project.startDate }}</td>
+                    <td class="desc">{{ project.how_long }}</td>
+                    <td class="desc">
+                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

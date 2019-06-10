@@ -1,0 +1,21 @@
+{% extends 'common.twig' %}
+
+{% block sidebar %}
+
+    {% include 'sidebar.twig' %}
+
+{% endblock %}
+
+{% block main %}
+    <td valign="top" id="main">
+
+        <div style="margin-left: 10%; margin-top: 20px;">
+
+            <p>{{ result }}</p>
+
+            <p><a href="{{ url }}">Return to main page</a></p>
+
+        </div>
+
+    </td>
+{% endblock %}

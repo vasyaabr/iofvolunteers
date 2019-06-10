@@ -1,0 +1,101 @@
+{% extends 'common.twig' %}
+
+{% block sidebar %}
+
+    {% include 'sidebar.twig' %}
+
+{% endblock %}
+
+{% block main %}
+<td valign="top" id="main">
+    <table>
+        <tr>
+            <td align="center" bgcolor="#E7FCFE" width="45%">
+                <font size="3" face="Verdana">{{ welcome|raw }}</font></td>
+        </tr>
+    </table>
+    <table cellpadding="10">
+        <tr>
+
+            <td align="center">
+                <a href="{{ url }}volunteer/list" class="main">
+                    <img src="{{ url }}images/vol_needed.jpg" width="100" height="77">
+                    <br>
+                    <div class="big-desc">Register as a Volunteer</div>
+                    <div class="black-desc">Are you skilled in some orienteering topics? Do you want to make new
+                        friends and while help others develop orienteering?</div>
+                    <div class="warn">(You need to be 18+ to volunteer!)</div>
+                </a>
+            </td>
+            <td width="%5"></td>
+            <td align="center">
+                <a href="{{ url }}volunteer/search" class="main">
+                    <img src="{{ url }}images/search_vol.jpg" width="100" height="77">
+                    <br>
+                    <div class="big-desc">Search a Volunteer</div>
+                    <div class="black-desc">Find volunteers with different skills who can help you develop
+                    orienteering or help you realize a project!</div>
+                </a>
+            </td>
+
+        </tr>
+        <tr>
+
+            <td align="center">
+                <a href="{{ url }}project/list" class="main">
+                    <img src="{{ url }}images/new_request.jpg" width="100" height="77">
+                    <br>
+                    <div class="big-desc">Register a Project</div>
+                    <div class="black-desc">Your club or organisation wants to work in orienteering but you need extra
+                    help? Register your project and ask for volunteers!</div>
+                </a>
+            </td>
+            <td width="%5"></td>
+            <td align="center"><img src="images/search_requests.jpg" width="150" height="77"><br><font color="#376FA6"
+                                                                                                       face="Verdana"
+                                                                                                       size="2"><b>Search
+                        a Project</b></font><br>
+                <font size="2" face="Verdana">There are many clubs and organisations in different countries in need of
+                    volunteers to help with mapping, coaching, teaching and more!</font></td>
+
+        </tr>
+        <tr>
+
+            <td align="center"><img src="images/family1s.jpg" width="100" height="77"><br><font color="#376FA6"
+                                                                                                face="Verdana" size="2"><b>Register
+                        as a Host Family</b></font><br>
+                <font size="2" face="Verdana">You are an orienteering family and you would like to host a young
+                    orienteer? Help a future star go training with you! </font></td>
+            <td width="%5"></td>
+            <td align="center"><img src="images/find_host.jpg" width="75"><br><font color="#376FA6" face="Verdana"
+                                                                                    size="2"><b>Find a host
+                        family</b></font><br>
+                <font face="Verdana" size="2">There are orienteering families in different countries where you can stay
+                    and go orienteering with them! Find a host family!</font><br><font size="1" color="#B30000"
+                                                                                       face="Verdana">(You need to be
+                    18+ to apply!)</font></td>
+
+
+        </tr>
+        <tr>
+
+            <td align="center"><img src="images/new_orik.jpg" width="75" height="77"><br><font color="#376FA6"
+                                                                                               face="Verdana"
+                                                                                               size="2"><b>Register as a
+                        Guest</b></font><br>
+                <font size="2" face="Verdana">You want to develop your o-skills more by training in different terrains?
+                    Apply to stay with an orienteering family and go training with them!</font><font size="1"
+                                                                                                     color="#B30000"
+                                                                                                     face="Verdana"><br>(You
+                    need to be 18+ to register!)</font></td>
+            <td width="%5"></td>
+            <td align="center"><img src="images/practices.jpg" width="100" height="77"><br><font color="#376FA6"
+                                                                                                 face="Verdana"
+                                                                                                 size="2"><b>Search a
+                        guest</b></font><br>
+                <font face="Verdana" size="2">There are some future stars out there waiting for a helping hand! Find a
+                    young orienteer who could stay with your family and go orienteering with you!</font></td>
+        </tr>
+    </table>
+</td>
+{% endblock %}

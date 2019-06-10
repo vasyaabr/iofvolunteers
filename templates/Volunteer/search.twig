@@ -1,0 +1,250 @@
+{% extends 'common.twig' %}
+
+{% block onecolumn %}
+
+    <form method="POST" action="{{ url }}volunteer/search" enctype="multipart/form-data">
+
+        <div align="center">
+            <div class="title">Volunteer Search Form</div>
+            <br>
+            <div class="warn-title">
+                Please fill in your search criteria. Leave blank if not relevant / important!
+            </div>
+        </div>
+
+        <table width="90%" align="center">
+            <tbody>
+            <tr>
+                <td valign="top" width="25%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Personal Information</b></td>
+                        </tr>
+                        <tr>
+                            <td width="50%" class="desc">Gender </td>
+                            <td>: <select size="1" name="gender">
+                                    <option selected="" value="">--- select ---</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Age </td>
+                            <td>: <span class="desc">
+                                    at least <input type="text" name="minage" size="2"><br>
+                                    at most <input type="text" name="maxage" size="2">
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="warn">
+                                Note that volunteers under 18 are not allowed to register in the Platform
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                International driving license?
+                            </td>
+                            <td>: <input type="checkbox" name="license" value="1">
+                                <span class="smradio"> Check if required </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>Disciplines of experience</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                    <input type="checkbox" name="footO" value="1"> Foot-O &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="desc">
+                                    <input type="checkbox" name="mtbO" value="1"> MTBO </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                    <input type="checkbox" name="skiO" value="1"> Ski-O &nbsp; &nbsp; &nbsp; &nbsp;
+                            </td>
+                            <td class="desc">
+                                    <input type="checkbox" name="trailO" value="1"> Trail-O
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2" class="desc"><b>O-Experience</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Years in orienteering </td>
+                            <td>:<div class="desc">
+                                    at least <input type="text" name="oyears" size="2"> years
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="desc">
+                                <u>Experience as Competitor</u>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Taken part in minimum <br>
+                                    Local events </td>
+                            <td class="desc">: <select size="1" name="competitorExp[local]">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="none">none</option>
+                                        <option value="1 - 50">1 - 50</option>
+                                        <option value="51 - 100">51 - 100</option>
+                                        <option value="over 100">over 100</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">National Championships </td>
+                            <td class="desc">: <select size="1" name="competitorExp[national]">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="none">none</option>
+                                        <option value="1 - 50">1 - 50</option>
+                                        <option value="51 - 100">51 - 100</option>
+                                        <option value="over 100">over 100</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">International Competitions </td>
+                            <td class="desc">: <select size="1" name="competitorExp[international]">
+                                        <option selected="" value="">--- select ---</option>
+                                        <option value="none">none</option>
+                                        <option value="1 - 20">1 - 20</option>
+                                        <option value="21 - 50">21 - 50</option>
+                                        <option value="over 50">over 50</option>
+                                    </select>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </td>
+
+                <td valign="top" width="27%">
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><div class="desc">
+                                    <b>Languages required</b>
+                                </div>
+                                <div class="warn">
+                                    Tick only the <u>most important</u> one or two to increase search results
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[English][known]" value="1"> English </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[French][known]" value="1"> French </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[Spanish][known]" value="1"> Spanish </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[German][known]" value="1"> German </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[Italian][known]" value="1"> Italian </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[Portuguese][known]" value="1"> Portuguese </td>
+                        </tr>
+                        <tr>
+                            <td class="desc"><input type="checkbox" name="languages[Scandinavian][known]" value="1"> "Scandinavian"</td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Other: <input type="text" name="languages[Other]" value=""></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td class="desc"><b>Timing</b></td>
+                        </tr>
+                        <tr>
+                            <td class="desc">When to start?
+                                <input type="text" size="10" name="timeToStart" value="" class="datepicker">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Must stay for at least
+                                <input type="text" size="7" name="maxWorkDuration" value="">
+                                weeks
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </td>
+                <td valign="top" width="31%">
+
+                    <table>
+                        <tbody>
+                        <tr valign="top">
+                            <td colspan="2"><div class="desc"><b>Skills required</b></div>
+                                <div class="warn">
+                                    &nbsp;(Please tick only the <u>most important</u> ones to increase search results...)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="mappingSkilled" value="1"><span class="desc"> Mapping </span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="coachSkilled" value="1"><span class="desc"> Coaching </span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="itSkilled" value="1"><span class="desc"> IT &amp; timekeeping </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="eventSkilled" value="1"><span class="desc"> Event Organising </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <u>Teaching</u> (please tick)
+                                <br>
+                                <div class="smradio">
+                                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children <br>
+                                    <input type="checkbox" name="teacherDesc[map]" value="1"> Teach how to map<br>
+                                    <input type="checkbox" name="teacherDesc[coach]" value="1"> Teach coaching <br>
+                                    <input type="checkbox" name="teacherDesc[it]" value="1"> Teach IT &amp; Timekeeping<br>
+                                    <input type="checkbox" name="teacherDesc[event]" value="1"> Teach Event Organising
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right">
+                    <input type="submit" value="Find volunteers">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+{% endblock %}

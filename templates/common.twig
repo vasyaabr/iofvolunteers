@@ -1,0 +1,45 @@
+<html>
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>IOF Global Orienteering Volunteer Platform</title>
+    <link rel="stylesheet" type="text/css" href="{{ url }}css/local.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $( function() {
+            $( ".datepicker" ).datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        } );
+    </script>
+
+</head>
+
+<body class="bodystyle" link="#376FA6" vlink="#376FA6">
+
+    <p align="center">
+
+        <a href="{{ url }}"><img border="0" src="{{ url }}images/pg_template1.jpg" /></a>
+
+        {% block onecolumn %}
+        {% endblock %}
+
+        <table align="center" border="0" cellpadding="0" cellspacing="10" width="75%">
+            <tr>
+
+                {% block sidebar %}
+                {% endblock %}
+
+                {% block main %}
+                {% endblock %}
+
+            </tr>
+        </table>
+
+</body>
+
+</html>
