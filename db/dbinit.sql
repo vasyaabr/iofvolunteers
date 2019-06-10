@@ -52,6 +52,7 @@ CREATE TABLE `volunteers` (
   `abroadExp` longtext,
   `learning` longtext,
   `maps` json DEFAULT NULL,
+  `excluded` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

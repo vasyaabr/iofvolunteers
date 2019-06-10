@@ -12,17 +12,6 @@ class VolunteerController extends Controller {
     private static $actions = ['register', 'search', 'list'];
     private const MAX_FILE_SIZE = 5242880;
 
-    private function getData($id , bool $restrict = true) : array {
-
-        $params = ['id' => $id];
-        if ($restrict) {
-            $params['userID'] = User::getUserID();
-        }
-
-        return Volunteer::getSingle($params);
-
-    }
-
     public function addView() : string {
 
         if (!User::isAuthenticated()) {
@@ -39,9 +28,10 @@ class VolunteerController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $result = self::prepareData($this->getData($id));
+        $result = self::prepareData( Volunteer::getSingle(['id' => $id, 'userID' => User::getUserID()]) );
         $result['iAgreeWithTerms'] = 1;
 
+        // convert absolute path to map to relative for url
         $maps = [];
         $dir = dirname(__DIR__);
         if (!empty($result['maps[0]'])) {  $maps[0] = str_replace($dir,'',$result['maps[0]']); }
@@ -136,7 +126,11 @@ class VolunteerController extends Controller {
             return Platform::error( 'Volunteer already contacted for this project!' );
         }
 
-        $vData = self::decode(array_filter($this->getData($id, false)));
+        $vData = self::decode(array_filter( Volunteer::getSingle(['id' => $id]) ));
+
+        if ($vData['excluded'] !== 0) {
+            return Platform::error( 'Volunteer asked to exclude him from contacts!' );
+        }
 
         $result = Project::getSingle(['projectID' => $projectID, 'userID' => User::getUserID()]);
         $pData = self::decode(array_filter($result));
@@ -333,11 +327,17 @@ class VolunteerController extends Controller {
 
     public function visitView(string $key) : string {
 
-        return TemplateProvider::render('Volunteer/visit.twig');
+        $invitation = Invitation::getSingle(['key' => $key]);
+        $project = self::decode(array_filter(Project::get( ['id' => $invitation['projectID']] )));
+
+        return TemplateProvider::render('Project/preview.twig', [ 'data' => $project ]);
 
     }
 
     public function excludeView(string $key) : string {
+
+        $invitation = Invitation::getSingle(['key' => $key]);
+        Volunteer::update( ['id' => $invitation['volunteerID'], 'excluded' => 1] );
 
         return TemplateProvider::render('Volunteer/exclude.twig');
 
