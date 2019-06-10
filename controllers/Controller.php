@@ -69,7 +69,11 @@ abstract class Controller
      */
     public static function json_enc(array $value) : string {
 
-        return str_replace('\"','\\"',json_encode($value, JSON_UNESCAPED_UNICODE));
+        $encoded = json_encode($value, JSON_UNESCAPED_UNICODE);
+
+        return json_last_error() === JSON_ERROR_NONE
+            ? str_replace('\"','\\"',$encoded)
+            : '';
 
     }
 
