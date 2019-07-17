@@ -59,12 +59,6 @@ class UserController {
      */
     private function validate(array $params, string $action) : array {
 
-        /**
-         * TODO: validate params, which is set
-         * - email unique
-         * - login unique
-         */
-
         $required = $action === 'register' ? User::$requiredFields : ['login','password'];
         foreach ($required as $key) {
             if (!isset($params[$key])) {

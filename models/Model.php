@@ -104,10 +104,6 @@ abstract class Model {
      */
     public static function query(array $params, array $fields = []) : string {
 
-        if (empty($params)) {
-            throw new \Error('Empty parameters array');
-        }
-
         $where = [];
 
         foreach ($params as $key => $value) {
@@ -115,8 +111,9 @@ abstract class Model {
         }
 
         $queryFields = empty($fields) ? '*' : implode(',', $fields);
+        $whereString = empty($where) ? '' : (' WHERE ' . implode(' AND ', $where));
 
-        return "SELECT {$queryFields} FROM " . static::$table .' WHERE ' . implode(' AND ', $where) . ' ORDER BY ' . static::$key;
+        return "SELECT {$queryFields} FROM " . static::$table . $whereString . ' ORDER BY ' . static::$key;
 
     }
 
@@ -134,7 +131,7 @@ abstract class Model {
             foreach ($value as $key2 => $value2) {
                 $condition2[] = "{$key2} = :{$key2}";
             }
-            $condition = implode(' OR ',$condition2);
+            $condition = ' ( ' . implode(' OR ',$condition2) . ' ) ';
         } else {
             $condition = "{$key} = :{$key}";
         }

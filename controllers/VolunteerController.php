@@ -328,7 +328,7 @@ class VolunteerController extends Controller {
     public function visitView(string $key) : string {
 
         $invitation = Invitation::getSingle(['key' => $key]);
-        $project = self::decode(array_filter(Project::get( ['id' => $invitation['projectID']] )));
+        $project = self::decode(Project::getSingle( ['id' => $invitation['projectID']] ));
 
         return TemplateProvider::render('Project/preview.twig', [ 'data' => $project ]);
 

@@ -18,8 +18,6 @@
                 <td class="big-desc">Place</td>
                 <td class="big-desc">Start date</td>
                 <td class="big-desc">How long</td>
-                <td class="big-desc">Offerings</td>
-                <td class="big-desc">Work to be done</td>
                 <td class="big-desc"></td>
             </tr>
             {% for project in projects %}
@@ -28,8 +26,6 @@
                     <td class="desc">{{ project.place }}</td>
                     <td class="desc">{{ project.startDate }}</td>
                     <td class="desc">{{ project.how_long }}</td>
-                    <td class="desc">{{ project.offer }}</td>
-                    <td class="desc">{{ project.details }}</td>
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
                     </td>

@@ -3,9 +3,9 @@
 namespace controllers;
 
 use models\User;
-use models\Project;
+use models\Guest;
 
-class ProjectContoller extends Controller {
+class GuestContoller extends Controller {
 
     public function addView() : string {
 

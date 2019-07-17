@@ -110,3 +110,35 @@ CREATE TABLE `projects` (
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `hosts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userID` int(10) unsigned NOT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `languages` json DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `duration` varchar(45) DEFAULT NULL, -- examples?
+  `offer` json DEFAULT NULL,
+  `hostDesc` longtext,
+  `guestExpectations` longtext,
+  `contacts` json DEFAULT NULL, -- skype, tg, mail, etc
+  PRIMARY KEY (`id`),
+  KEY `user` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `guests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userID` int(10) unsigned NOT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `languages` json DEFAULT NULL,
+  `gender` varchar(1) DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `duration` varchar(45) DEFAULT NULL, -- examples?
+  `oExpirience` json DEFAULT NULL,
+  `oExpectations` longtext DEFAULT NULL,
+  `motivation` longtext DEFAULT NULL,
+  `healthRestrictions` longtext DEFAULT NULL,
+  `offer` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

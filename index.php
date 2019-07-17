@@ -42,7 +42,25 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('POST', '/project/register', 'ProjectContoller/add');
     $r->addRoute('GET', '/project/list', 'ProjectContoller/listView');
     $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectContoller/editView');
+    $r->addRoute('GET', '/project/search', 'ProjectController/searchView');
+    $r->addRoute('POST', '/project/search', 'ProjectController/search');
 
+    // Host routes
+    $r->addRoute('GET', '/host/register', 'HostContoller/addView');
+    $r->addRoute('POST', '/host/register', 'HostContoller/add');
+    $r->addRoute('GET', '/host/list', 'HostContoller/listView');
+    $r->addRoute('GET', '/host/edit/{id:\d+}', 'HostContoller/editView');
+    $r->addRoute('GET', '/host/search', 'HostController/searchView');
+    $r->addRoute('POST', '/host/search', 'HostController/search');
+
+    // Guest routes
+    $r->addRoute('GET', '/guest/register', 'GuestContoller/addView');
+    $r->addRoute('POST', '/guest/register', 'GuestContoller/add');
+    $r->addRoute('GET', '/guest/list', 'GuestContoller/listView');
+    $r->addRoute('GET', '/guest/edit/{id:\d+}', 'GuestContoller/editView');
+    $r->addRoute('GET', '/guest/search', 'GuestController/searchView');
+    $r->addRoute('POST', '/guest/search', 'GuestController/search');
+    
 });
 
 // Fetch method and URI from somewhere
