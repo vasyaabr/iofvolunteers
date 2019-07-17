@@ -32,7 +32,7 @@ CREATE TABLE `volunteers` (
   `competitorExp` json DEFAULT NULL,
   `languages` json DEFAULT NULL,
   `preferredContinents` json DEFAULT NULL,
-  `timeToStart` date DEFAULT NULL,
+  `active` tinyint(1) DEFAULT 1,
   `maxWorkDuration` int(11) DEFAULT NULL,
   `mappingSkilled` tinyint(1) DEFAULT NULL,
   `coachSkilled` tinyint(1) DEFAULT NULL,
@@ -107,6 +107,7 @@ CREATE TABLE `projects` (
   `expectedDisciplines` json DEFAULT NULL,
   `expirience` json DEFAULT NULL,
   `other` text,
+  `active` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -116,7 +117,7 @@ CREATE TABLE `hosts` (
   `userID` int(10) unsigned NOT NULL,
   `country` varchar(45) DEFAULT NULL,
   `languages` json DEFAULT NULL,
-  `startDate` date DEFAULT NULL,
+  `active` tinyint(1) DEFAULT 1,
   `duration` varchar(45) DEFAULT NULL, -- examples?
   `offer` json DEFAULT NULL,
   `hostDesc` longtext,
@@ -132,7 +133,7 @@ CREATE TABLE `guests` (
   `country` varchar(45) DEFAULT NULL,
   `languages` json DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
-  `startDate` date DEFAULT NULL,
+  `active` tinyint(1) DEFAULT 1,
   `duration` varchar(45) DEFAULT NULL, -- examples?
   `oExpirience` json DEFAULT NULL,
   `oExpectations` longtext DEFAULT NULL,
