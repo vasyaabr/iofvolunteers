@@ -86,7 +86,6 @@ CREATE TABLE `projects` (
   `language` varchar(45) DEFAULT NULL,
   `place` varchar(45) DEFAULT NULL,
   `startDate` date DEFAULT NULL,
-  `how_long` varchar(45) DEFAULT NULL,
   `offer` json DEFAULT NULL,
   `footO` tinyint(1) DEFAULT NULL,
   `mtbO` tinyint(1) DEFAULT NULL,
@@ -118,7 +117,7 @@ CREATE TABLE `hosts` (
   `country` varchar(45) DEFAULT NULL,
   `languages` json DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,
-  `duration` varchar(45) DEFAULT NULL, -- examples?
+  `maxDuration` varchar(45) DEFAULT NULL,
   `offer` json DEFAULT NULL,
   `hostDesc` longtext,
   `guestExpectations` longtext,
@@ -134,12 +133,12 @@ CREATE TABLE `guests` (
   `languages` json DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,
-  `duration` varchar(45) DEFAULT NULL, -- examples?
   `oExpirience` json DEFAULT NULL,
   `oExpectations` longtext DEFAULT NULL,
   `motivation` longtext DEFAULT NULL,
   `healthRestrictions` longtext DEFAULT NULL,
   `offer` longtext DEFAULT NULL,
+  `contacts` json DEFAULT NULL, -- skype, tg, mail, etc
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
