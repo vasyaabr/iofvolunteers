@@ -2,9 +2,9 @@
 
 {% block onecolumn %}
 
-    <p align="center" class="title">Volunteer Request Form</p>
+    <p align="center" class="title">Host Registration Form</p>
 
-    <form method="POST" action="{{ url }}project/register" enctype="multipart/form-data">
+    <form method="POST" action="{{ url }}host/register" enctype="multipart/form-data">
         <input type="hidden" name="id" value="">
 
         <table width="90%" align="center">
@@ -20,7 +20,8 @@
                         </tr>
                         <tr>
                             <td class="desc">Country</td>
-                            <td class="value">: <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required></select>
+                            <td class="value">:
+                                <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required></select>
                             </td>
                         </tr>
                         </tbody>
@@ -28,10 +29,28 @@
                     <br>
                     <table>
                         <tbody>
-                        <td class="desc">Max hosting duration</td>
-                        <td class="desc">
-                            <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
-                            weeks
+                        <tr>
+                            <td class="desc">Max hosting duration</td>
+                        </tr>
+                        <tr>
+                            <td class="desc">
+                                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
+                                weeks
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+
+                    <table>
+                        <tbody>
+                        <td class="desc">Host description</td>
+                        <td>
+                            <textarea rows="2" cols="30" name="hostDesc" id="hostDesc" value=""></textarea>
+                        </td>
+                        <td class="desc">Guest expectations</td>
+                        <td>
+                            <textarea rows="2" cols="30" name="guestExpectations" id="guestExpectations" value=""></textarea>
                         </td>
                         </tbody>
                     </table>
@@ -39,20 +58,17 @@
 
                     <table>
                         <tbody>
-                        <td class="desc">Host description
-                        </td>
-                        <td>
-                            <textarea rows="2" cols="30" name="hostDesc" id="hostDesc" value=""></textarea>
-                        </td>
-                        <td class="desc">Guest expectations
-                        </td>
-                        <td>
-                            <textarea rows="2" cols="30" name="guestExpectations" id="guestExpectations" value=""></textarea>
-                        </td>
+                        <tr>
+                            <td class="desc">Contacts</td>
+                        </tr>
+                        <tr><td>Phone: <input type="text" name="contacts[phone]"></input></td></tr>
+                        <tr><td>Email: <input type="text" name="contacts[email]"></input></td></tr>
+                        <tr><td>Skype: <input type="text" name="contacts[skype]"></input></td></tr>
+                        <tr><td>Telegram: <input type="text" name="contacts[telegram]"></input></td></tr>
+                        <tr><td>Other: <input type="text" name="contacts[other]"></input></td></tr>
                         </tbody>
                     </table>
 
-                    <br>
                 </td>
                 <td valign="top" width="30%">
                     <table>

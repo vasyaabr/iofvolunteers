@@ -133,12 +133,15 @@ CREATE TABLE `guests` (
   `languages` json DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,
-  `oExpirience` json DEFAULT NULL,
+  `startO` int(11) DEFAULT NULL,
+  `club` varchar(60) DEFAULT NULL,
+  `competitorExp` json DEFAULT NULL,
   `oExpectations` longtext DEFAULT NULL,
   `motivation` longtext DEFAULT NULL,
   `healthRestrictions` longtext DEFAULT NULL,
   `offer` longtext DEFAULT NULL,
   `contacts` json DEFAULT NULL, -- skype, tg, mail, etc
+  `other` text,
   PRIMARY KEY (`id`),
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

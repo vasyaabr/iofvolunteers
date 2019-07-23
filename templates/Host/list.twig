@@ -5,27 +5,27 @@
     <div align="center">
         <div class="title">{{ title }}</div>
         <br>
-        {#<div class="maincol">Click on Project name for more details</div>#}
+        {#<div class="maincol">Click on Host name for more details</div>#}
         {#<br><br>#}
     </div>
 
-    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
+    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}host/register';" value="Add host" />
 
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
             <tr>
-                <td class="big-desc">Organisation</td>
-                <td class="big-desc">Place</td>
-                <td class="big-desc">How long</td>
+                <td class="big-desc">Country</td>
+                <td class="big-desc">Languages</td>
+                <td class="big-desc">Duration</td>
                 <td class="big-desc"></td>
             </tr>
-            {% for project in projects %}
+            {% for host in hosts %}
                 <tr>
-                    <td class="desc"> {{ project.name }}</td>
-                    <td class="desc">{{ project.place }}</td>
-                    <td class="desc">{{ project.how_long }}</td>
+                    <td class="desc"> {{ host.country }}</td>
+                    <td class="desc">{{ host.languages }}</td>
+                    <td class="desc">{{ host.maxDuration }}</td>
                     <td class="desc">
-                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />
                     </td>
                 </tr>
             {% endfor %}

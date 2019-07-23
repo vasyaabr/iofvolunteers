@@ -5,28 +5,31 @@
     <div align="center">
         <div class="title">{{ title }}</div>
         <br>
-        {#<div class="maincol">Click on Project name for more details</div>#}
+        {#<div class="maincol">Click on Guest name for more details</div>#}
         {#<br><br>#}
     </div>
 
-    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
+    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}guest/register';" value="Add guest" />
 
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
             <tr>
-                <td class="big-desc">Organisation</td>
-                <td class="big-desc">Place</td>
-                <td class="big-desc">Start date</td>
-                <td class="big-desc">How long</td>
+                <td class="big-desc">Country</td>
+                <td class="big-desc">Languages</td>
+                <td class="big-desc">Gender</td>
+                <td class="big-desc">O-start year</td>
+                <td class="big-desc">Competitor experience</td>
                 <td class="big-desc"></td>
             </tr>
-            {% for project in projects %}
+            {% for guest in guests %}
                 <tr>
-                    <td class="desc"> {{ project.name }}</td>
-                    <td class="desc">{{ project.place }}</td>
-                    <td class="desc">{{ project.how_long }}</td>
+                    <td class="desc"> {{ guest.country }}</td>
+                    <td class="desc">{{ guest.languages }}</td>
+                    <td class="desc">{{ guest.gender }}</td>
+                    <td class="desc">{{ guest.startO }}</td>
+                    <td class="desc">{{ guest.competitorExp }}</td>
                     <td class="desc">
-                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}guest/edit/{{ guest.id }}';" value="Edit" />
                     </td>
                 </tr>
             {% endfor %}
