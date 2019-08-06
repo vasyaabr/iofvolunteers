@@ -28,13 +28,13 @@ class Project extends Model {
                 foreach ($value as $key2 => $value2) {
                     if (is_array($value2)) {
                         foreach ($value2 as $key3 => $value3) {
-                            $condition[] = "{$value}->>\"$.{$key2}.{$key3}\" = :{$value}_{$key2}_{$key3}";
+                            $condition[] = "{$key}->>\"$.{$key2}.{$key3}\" = :{$key}_{$key2}_{$key3}";
                         }
                     } else {
                         if (strpos($key2,'Other') !== false) {
-                            $condition[] = "{$value}->>\"$.{$key2}\" LIKE :{$value}_{$key2}";
+                            $condition[] = "{$key}->>\"$.{$key2}\" LIKE :{$key}_{$key2}";
                         } else {
-                            $condition[] = "{$value}->>\"$.{$key2}\" = :{$value}_{$key2}";
+                            $condition[] = "{$key}->>\"$.{$key2}\" = :{$key}_{$key2}";
                         }
                     }
                 }
@@ -75,6 +75,12 @@ class Project extends Model {
         }
 
         return $params;
+
+    }
+
+    public static function getOffer(array $data) : string {
+
+        return empty($data['offer']) ? '' : implode(', ', array_keys($data['offer']));
 
     }
 

@@ -159,4 +159,20 @@ abstract class Model {
 
     }
 
+    public static function getLanguages(array $data) : string {
+
+        $result = [];
+
+        if ( !empty($data['languages']) ) {
+            foreach ( $data['languages'] as $lang => $desc ) {
+                if ( isset( $desc['level'] ) ) {
+                    $result[] = "{$lang} ({$desc['level']})";
+                }
+            }
+        }
+
+        return implode(', ', $result);
+
+    }
+
 }

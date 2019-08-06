@@ -46,10 +46,11 @@ class ProjectController extends Controller {
 
         foreach ($result as &$vol) {
             $vol = self::decode(array_filter($vol));
+            $vol['offer'] = Project::getOffer($vol);
         }
 
         return TemplateProvider::render('Project/list.twig',
-            [ 'projects' => $result, 'title' => 'Projects list' ]
+            [ 'projects' => $result, 'title' => 'Projects list', 'edit' => true ]
         );
 
     }
@@ -150,11 +151,12 @@ class ProjectController extends Controller {
         foreach ($found as &$vol) {
 
             $vol = self::decode(array_filter($vol));
+            $vol['offer'] = Project::getOffer($vol);
 
         }
 
         return TemplateProvider::render('Project/list.twig',
-            [ 'projects' => $found, 'title' => 'Search results' ]
+            [ 'projects' => $found, 'title' => 'Project search results' ]
         );
 
     }

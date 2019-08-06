@@ -9,7 +9,9 @@
         {#<br><br>#}
     </div>
 
-    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}host/register';" value="Add host" />
+    {% if edit %}
+        <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}host/register';" value="Add host" />
+    {% endif %}
 
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>

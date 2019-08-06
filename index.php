@@ -44,6 +44,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectController/editView');
     $r->addRoute('GET', '/project/search', 'ProjectController/searchView');
     $r->addRoute('POST', '/project/search', 'ProjectController/search');
+    $r->addRoute('GET', '/project/preview/{id:\d+}', 'ProjectController/previewView');
 
     // Host routes
     $r->addRoute('GET', '/host/register', 'HostController/addView');

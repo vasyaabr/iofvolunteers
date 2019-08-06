@@ -120,22 +120,6 @@ class Volunteer extends Model {
 
     }
 
-    public static function getLanguages(array $data) : string {
-
-        $result = [];
-
-        if ( !empty($data['languages']) ) {
-            foreach ( $data['languages'] as $lang => $desc ) {
-                if ( isset( $desc['level'] ) ) {
-                    $result[] = "{$lang} ({$desc['level']})";
-                }
-            }
-        }
-
-        return implode(', ', $result);
-
-    }
-
     public static function getCompetitorExp(array $data) : string {
 
         if ( !empty($data['competitorExp']) ) {

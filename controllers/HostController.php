@@ -46,10 +46,11 @@ class HostController extends Controller {
 
         foreach ($result as &$vol) {
             $vol = self::decode(array_filter($vol));
+            $vol['languages'] = Host::getLanguages($vol);
         }
 
         return TemplateProvider::render('Host/list.twig',
-            [ 'hosts' => $result, 'title' => 'Hosts list' ]
+            [ 'hosts' => $result, 'title' => 'Hosts list', 'edit' => true ]
         );
 
     }

@@ -9,7 +9,9 @@
         {#<br><br>#}
     </div>
 
+    {% if edit %}
     <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
+    {% endif %}
 
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
@@ -23,7 +25,12 @@
             </tr>
             {% for project in projects %}
                 <tr>
-                    <td class="desc"> {{ project.name }}</td>
+                    {#<td align="center" class="maincol">#}
+                        {#<a href="{{ url }}project/preview/{{ project.id }}">#}
+                            {#<b>{{ project.name is empty ? 'Preview' : project.name }}</b>#}
+                        {#</a>#}
+                    {#</td>#}
+                    <td class="desc">{{ project.name }}</td>
                     <td class="desc">{{ project.place }}</td>
                     <td class="desc">{{ project.startDate }}</td>
                     <td class="desc">{{ project.offer }}</td>

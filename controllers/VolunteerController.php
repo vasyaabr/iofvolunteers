@@ -118,6 +118,10 @@ class VolunteerController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
+        if (empty($_POST['project'])) {
+            return Platform::error( 'Please select a project for invite!' );
+        }
+
         $id = $_POST['id'];
         $projectID = $_POST['project'];
 
