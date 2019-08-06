@@ -38,26 +38,26 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/volunteer/decline/{key}', 'VolunteerController/decline');
 
     // Project routes
-    $r->addRoute('GET', '/project/register', 'ProjectContoller/addView');
-    $r->addRoute('POST', '/project/register', 'ProjectContoller/add');
-    $r->addRoute('GET', '/project/list', 'ProjectContoller/listView');
-    $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectContoller/editView');
+    $r->addRoute('GET', '/project/register', 'ProjectController/addView');
+    $r->addRoute('POST', '/project/register', 'ProjectController/add');
+    $r->addRoute('GET', '/project/list', 'ProjectController/listView');
+    $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectController/editView');
     $r->addRoute('GET', '/project/search', 'ProjectController/searchView');
     $r->addRoute('POST', '/project/search', 'ProjectController/search');
 
     // Host routes
-    $r->addRoute('GET', '/host/register', 'HostContoller/addView');
-    $r->addRoute('POST', '/host/register', 'HostContoller/add');
-    $r->addRoute('GET', '/host/list', 'HostContoller/listView');
-    $r->addRoute('GET', '/host/edit/{id:\d+}', 'HostContoller/editView');
+    $r->addRoute('GET', '/host/register', 'HostController/addView');
+    $r->addRoute('POST', '/host/register', 'HostController/add');
+    $r->addRoute('GET', '/host/list', 'HostController/listView');
+    $r->addRoute('GET', '/host/edit/{id:\d+}', 'HostController/editView');
     $r->addRoute('GET', '/host/search', 'HostController/searchView');
     $r->addRoute('POST', '/host/search', 'HostController/search');
 
     // Guest routes
-    $r->addRoute('GET', '/guest/register', 'GuestContoller/addView');
-    $r->addRoute('POST', '/guest/register', 'GuestContoller/add');
-    $r->addRoute('GET', '/guest/list', 'GuestContoller/listView');
-    $r->addRoute('GET', '/guest/edit/{id:\d+}', 'GuestContoller/editView');
+    $r->addRoute('GET', '/guest/register', 'GuestController/addView');
+    $r->addRoute('POST', '/guest/register', 'GuestController/add');
+    $r->addRoute('GET', '/guest/list', 'GuestController/listView');
+    $r->addRoute('GET', '/guest/edit/{id:\d+}', 'GuestController/editView');
     $r->addRoute('GET', '/guest/search', 'GuestController/searchView');
     $r->addRoute('POST', '/guest/search', 'GuestController/search');
     

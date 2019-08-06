@@ -105,7 +105,7 @@ class VolunteerController extends Controller {
 
         $render = [
             'data' => $result,
-            'projects' => ProjectContoller::getOptionList()
+            'projects' => ProjectController::getOptionList()
         ];
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);

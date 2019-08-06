@@ -21,6 +21,7 @@
 ├── css - stylesheets
 ├── db - database init queries, which runs from install.php
 ├── images - graphics
+├── models - Database models PHP code
 ├── templates - html templates
 ├── composer.json
 ├── composer.lock

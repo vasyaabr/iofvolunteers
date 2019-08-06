@@ -37,7 +37,7 @@ class UserController {
 
         $params = [['login' => $login, 'email' => $login]];
         if (!empty($passwordHash)) {
-            $params += ['passwordHash' => $passwordHash];
+            $params += ['password' => $passwordHash];
         }
 
         $user = User::getSingle($params);
@@ -70,7 +70,7 @@ class UserController {
             $params['errors'][] = 'Invalid email';
         }
 
-        if (empty($params['errors'])) {
+        if (empty($params['errors']) && $action === 'register') {
             $p = [['login' => $params['login'], 'email' => $params['email']]];
             if (!empty(User::get($p))) {
                 $params['errors'][] = 'Login or email already used';

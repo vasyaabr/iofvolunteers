@@ -3,9 +3,9 @@
 namespace controllers;
 
 use models\User;
-use models\Guest;
+use models\Host;
 
-class GuestContoller extends Controller {
+class HostController extends Controller {
 
     public function addView() : string {
 
@@ -13,7 +13,7 @@ class GuestContoller extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Project/add.twig');
+        return TemplateProvider::render('Host/add.twig');
 
     }
 
@@ -23,10 +23,10 @@ class GuestContoller extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $result = self::prepareData( Project::getSingle(['id' => $id, 'userID' => User::getUserID()]) );
+        $result = self::prepareData( Host::getSingle(['id' => $id, 'userID' => User::getUserID()]) );
         $result['iAgreeWithTerms'] = 1;
 
-        return TemplateProvider::render('Project/add.twig',
+        return TemplateProvider::render('Host/add.twig',
             [ 'data' => self::json_enc($result) ]
         );
 
@@ -38,7 +38,7 @@ class GuestContoller extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $result = Project::get(['userID' => User::getUserID()]);
+        $result = Host::get(['userID' => User::getUserID()]);
 
         if (count($result) === 0) {
             return $this->addView();
@@ -48,8 +48,8 @@ class GuestContoller extends Controller {
             $vol = self::decode(array_filter($vol));
         }
 
-        return TemplateProvider::render('Project/list.twig',
-            [ 'projects' => $result, 'title' => 'Projects list' ]
+        return TemplateProvider::render('Host/list.twig',
+            [ 'hosts' => $result, 'title' => 'Hosts list' ]
         );
 
     }
@@ -67,7 +67,7 @@ class GuestContoller extends Controller {
             return Platform::error( $params['errors'] );
         }
 
-        $success = isset($params['id']) ? Project::update($params) : Project::add($params);
+        $success = isset($params['id']) ? Host::update($params) : Host::add($params);
 
         return $success ? $this->listView() : Platform::error( 'Unexpected error' );
 
@@ -121,7 +121,7 @@ class GuestContoller extends Controller {
 
     public static function getOptionList() : string {
 
-        $list = Project::get( [ 'userID' => User::getUserID() ], ['id AS id', 'concat(name," - ",place) as name'] );
+        $list = Host::get( [ 'userID' => User::getUserID() ], ['id AS id', 'concat(name," - ",place) as name'] );
 
         return TemplateProvider::render('Common/options.twig', [ 'options' => $list ] );
 
@@ -133,7 +133,7 @@ class GuestContoller extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Project/search.twig');
+        return TemplateProvider::render('Host/search.twig');
 
     }
 
@@ -145,7 +145,7 @@ class GuestContoller extends Controller {
 
         $params = $this->validate($_POST, 'search');
 
-        $found = Project::get($params);
+        $found = Host::get($params);
 
         foreach ($found as &$vol) {
 
@@ -153,8 +153,8 @@ class GuestContoller extends Controller {
 
         }
 
-        return TemplateProvider::render('Project/list.twig',
-            [ 'projects' => $found, 'title' => 'Search results' ]
+        return TemplateProvider::render('Host/list.twig',
+            [ 'hosts' => $found, 'title' => 'Search results' ]
         );
 
     }

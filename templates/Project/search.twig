@@ -122,4 +122,22 @@
         </table>
     </form>
 
+    <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+
+            // load countries list
+            $.ajax({
+                type: "GET",
+                url: '{{ url }}countries',
+                success: function(data)
+                {
+                    $('#country').empty().append(data);
+                }
+            });
+
+        });
+
+    </script>
+
 {% endblock %}

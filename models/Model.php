@@ -91,8 +91,27 @@ abstract class Model {
      */
     public static function prepareParamsForQuery(array $params) : array {
 
-        return $params;
+        return self::array_flat($params);
 
+    }
+
+    public static function array_flat(array $array) : array
+    {
+        $result = array();
+
+        foreach ($array as $key => $value)
+        {
+            if (is_array($value))
+            {
+                $result = array_merge($result, self::array_flat($value, $key));
+            }
+            else
+            {
+                $result[$key] = $value;
+            }
+        }
+
+        return $result;
     }
 
     /**
