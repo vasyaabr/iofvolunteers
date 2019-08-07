@@ -13,7 +13,7 @@ class ProjectController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Project/add.twig');
+        return TemplateProvider::render('Project/add.twig', ['countries' => CountryController::getOptionList()]);
 
     }
 
@@ -27,7 +27,7 @@ class ProjectController extends Controller {
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Project/add.twig',
-            [ 'data' => self::json_enc($result) ]
+            [ 'data' => self::json_enc($result), 'countries' => CountryController::getOptionList(), ]
         );
 
     }

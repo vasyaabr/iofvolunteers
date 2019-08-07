@@ -31,7 +31,10 @@
                         </tr>
                         <tr>
                             <td class="desc">Country</td>
-                            <td class="value">: <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required></select>
+                            <td class="value">:
+                                <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required>
+                                    {{ countries | raw }}
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -482,7 +485,7 @@
                                     {% for map in maps %}
                                         <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
                                     {% endfor %}
-                                        <br>New maps will erase previously loaded
+                                        <br/><span class="warn">New maps will erase previously loaded</span>
                                     </p>
                                 {% endif %}
                                 <input name="maps[]" type="file" accept=".pdf">
@@ -553,16 +556,6 @@
                 }
             });
             {% endif %}
-
-            // load countries list
-            $.ajax({
-                type: "GET",
-                url: '{{ url }}countries',
-                success: function(data)
-                {
-                    $('#country').empty().append(data);
-                }
-            });
 
         });
 

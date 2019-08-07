@@ -11,30 +11,28 @@ class Mailer {
 
         $mail = new PHPMailer(true);
 
+        //Server settings
+        $mail->isMail();
+
+        //Recipients
+        $mail->setFrom(SEND_FROM, 'IOF Volunteering platform');
+        if (empty($name)) {
+            $mail->addAddress( $address );
+        } else {
+            $mail->addAddress( $address, $name );
+        }
+
+        // Content
+        $mail->isHTML();
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        if (!empty($textBody)) {
+            $mail->AltBody = $textBody;
+        }
+
         try {
 
-            //Server settings
-            $mail->isMail();
-
-            //Recipients
-            $mail->setFrom(SEND_FROM, 'IOF Volunteering platform');
-            if (empty($name)) {
-                $mail->addAddress( $address );
-            } else {
-                $mail->addAddress( $address, $name );
-            }
-
-            // Content
-            $mail->isHTML();
-            $mail->Subject = $subject;
-            $mail->Body    = $body;
-            if (!empty($textBody)) {
-                $mail->AltBody = $textBody;
-            }
-
-            $mail->send();
-
-            return true;
+            return $mail->send();
 
         } catch (\Exception $e) {
 
@@ -44,4 +42,5 @@ class Mailer {
         }
 
     }
+
 }

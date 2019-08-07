@@ -7,7 +7,7 @@ use models\Country;
 
 class CountryController {
 
-    public function getOptionList() {
+    public static function getOptionList() {
 
         $list = Country::get(
             [ ],

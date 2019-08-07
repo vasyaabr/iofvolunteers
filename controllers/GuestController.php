@@ -13,7 +13,7 @@ class GuestController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Guest/add.twig');
+        return TemplateProvider::render('Guest/add.twig', ['countries' => CountryController::getOptionList(),]);
 
     }
 
@@ -27,7 +27,7 @@ class GuestController extends Controller {
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Guest/add.twig',
-            [ 'data' => self::json_enc($result) ]
+            [ 'data' => self::json_enc($result), 'countries' => CountryController::getOptionList(), ]
         );
 
     }
@@ -153,6 +153,9 @@ class GuestController extends Controller {
         foreach ($found as &$vol) {
 
             $vol = self::decode(array_filter($vol));
+            $vol['languages'] = Guest::getLanguages($vol);
+            $vol['country'] = Guest::getCountry($vol);
+            $vol['competitorExp'] = Guest::getCompetitorExp($vol);
 
         }
 

@@ -18,7 +18,12 @@ class VolunteerController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Volunteer/add.twig', ['MAX_FILE_SIZE' => self::MAX_FILE_SIZE] );
+        return TemplateProvider::render('Volunteer/add.twig',
+            [
+                'MAX_FILE_SIZE' => self::MAX_FILE_SIZE,
+                'countries' => CountryController::getOptionList(),
+            ]
+        );
 
     }
 
@@ -31,17 +36,12 @@ class VolunteerController extends Controller {
         $result = self::prepareData( Volunteer::getSingle(['id' => $id, 'userID' => User::getUserID()]) );
         $result['iAgreeWithTerms'] = 1;
 
-        // convert absolute path to map to relative for url
-        $maps = [];
-        $dir = dirname(__DIR__);
-        if (!empty($result['maps[0]'])) {  $maps[0] = str_replace($dir,'',$result['maps[0]']); }
-        if (!empty($result['maps[1]'])) {  $maps[1] = str_replace($dir,'',$result['maps[1]']); }
-        if (!empty($result['maps[2]'])) {  $maps[2] = str_replace($dir,'',$result['maps[2]']); }
-
         return TemplateProvider::render('Volunteer/add.twig',
-            [ 'data' => self::json_enc($result),
-              'MAX_FILE_SIZE' => self::MAX_FILE_SIZE,
-              'maps' => $maps,
+            [
+                'data' => self::json_enc($result),
+                'MAX_FILE_SIZE' => self::MAX_FILE_SIZE,
+                'maps' => Volunteer::getMapLinks($result),
+                'countries' => CountryController::getOptionList(),
             ]
         );
 
@@ -105,8 +105,10 @@ class VolunteerController extends Controller {
 
         $render = [
             'data' => $result,
-            'projects' => ProjectController::getOptionList()
+            'projects' => ProjectController::getOptionList(),
+            'maps' => Volunteer::getMapLinks($result),
         ];
+        echo var_export($render,true)."<br/>";
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);
 

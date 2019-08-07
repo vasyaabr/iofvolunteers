@@ -77,6 +77,17 @@
                             {% if data.trailO %} Trail-O<br> {% endif %}
                         </td>
                     </tr>
+                    <tr>
+                        <td class="desc">
+                        {% if maps %}
+                        <p>Mapping examples:
+                            {% for map in maps %}
+                                <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 <br>

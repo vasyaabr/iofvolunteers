@@ -14,7 +14,7 @@ class HostController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        return TemplateProvider::render('Host/add.twig');
+        return TemplateProvider::render('Host/add.twig', ['countries' => CountryController::getOptionList()] );
 
     }
 
@@ -28,7 +28,7 @@ class HostController extends Controller {
         $result['iAgreeWithTerms'] = 1;
 
         return TemplateProvider::render('Host/add.twig',
-            [ 'data' => self::json_enc($result) ]
+            [ 'data' => self::json_enc($result), 'countries' => CountryController::getOptionList(), ]
         );
 
     }
@@ -153,6 +153,8 @@ class HostController extends Controller {
         foreach ($found as &$vol) {
 
             $vol = self::decode(array_filter($vol));
+            $vol['languages'] = Host::getLanguages($vol);
+            $vol['country'] = Host::getCountry($vol);
 
         }
 

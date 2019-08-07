@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td class="desc">Country</td>
-                            <td class="desc">: <select type="text" name="country" id="country" size="1" value=""></select></td>
+                            <td class="desc">: <select type="text" name="country" id="country" size="1" value="">{{ countries | raw }}</select></td>
                         </tr>
                         <tr>
                             <td class="desc">E-mail</td>
@@ -428,16 +428,6 @@
                 }
             });
             {% endif %}
-
-            // load countries list
-            $.ajax({
-                type: "GET",
-                url: '{{ url }}countries',
-                success: function(data)
-                {
-                    $('#country').empty().append(data);
-                }
-            });
 
         });
 

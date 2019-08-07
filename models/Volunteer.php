@@ -184,4 +184,18 @@ class Volunteer extends Model {
         return 0;
     }
 
+    public static function getMapLinks(array $data) : array {
+
+        // convert absolute path to map to relative for url
+        $sourceMaps = $data['maps'] ?? [$data['maps[0]'] ?? null, $data['maps[1]'] ?? null, $data['maps[2]'] ?? null, ];
+        $maps = [];
+        $dir = dirname(__DIR__);
+        if (!empty($sourceMaps[0])) {  $maps[0] = str_replace($dir,'',$sourceMaps[0]); }
+        if (!empty($sourceMaps[1])) {  $maps[1] = str_replace($dir,'',$sourceMaps[1]); }
+        if (!empty($sourceMaps[2])) {  $maps[2] = str_replace($dir,'',$sourceMaps[2]); }
+
+        return $maps;
+
+    }
+    
 }
