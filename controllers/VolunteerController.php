@@ -132,11 +132,11 @@ class VolunteerController extends Controller {
 
         $vData = self::decode(array_filter( Volunteer::getSingle(['id' => $id]) ));
 
-        if ($vData['excluded'] !== 0) {
+        if ($vData['excluded'] != 0) {
             return Platform::error( 'Volunteer asked to exclude him from contacts!' );
         }
 
-        $result = Project::getSingle(['projectID' => $projectID, 'userID' => User::getUserID()]);
+        $result = Project::getSingle(['id' => $projectID, 'userID' => User::getUserID()]);
         $pData = self::decode(array_filter($result));
 
         $params = [

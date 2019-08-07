@@ -21,9 +21,9 @@ abstract class Model {
         $valueMasks = implode(',',
             array_map(function($v) { return ':'.$v; },array_keys($params))
         );
-        $keys = implode(',',array_keys($params));
+        $keys = implode('`,`',array_keys($params));
 
-        $query = 'INSERT INTO ' . static::$table . " ({$keys}) VALUES ({$valueMasks})";
+        $query = 'INSERT INTO ' . static::$table . " (`{$keys}`) VALUES ({$valueMasks})";
         $statement = DbProvider::getInstance()->prepare( $query );
         return $statement->execute( $params );
 
@@ -43,10 +43,10 @@ abstract class Model {
         }
 
         $valueMasks = implode(',',
-            array_map(function($v) { return "{$v} = :{$v}"; },array_keys($params))
+            array_map(function($v) { return "`{$v}` = :{$v}"; },array_keys($params))
         );
 
-        $query = 'UPDATE ' . static::$table . " SET {$valueMasks} WHERE " . static::$key . ' = :' . static::$key;
+        $query = 'UPDATE ' . static::$table . " SET {$valueMasks} WHERE `" . static::$key . '` = :' . static::$key;
         $statement = DbProvider::getInstance()->prepare( $query );
         return $statement->execute( $params );
 
@@ -99,14 +99,10 @@ abstract class Model {
     {
         $result = array();
 
-        foreach ($array as $key => $value)
-        {
-            if (is_array($value))
-            {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
                 $result = array_merge($result, self::array_flat($value, $key));
-            }
-            else
-            {
+            } else {
                 $result[$key] = $value;
             }
         }
@@ -132,7 +128,7 @@ abstract class Model {
         $queryFields = empty($fields) ? '*' : implode(',', $fields);
         $whereString = empty($where) ? '' : (' WHERE ' . implode(' AND ', $where));
 
-        return "SELECT {$queryFields} FROM " . static::$table . $whereString . ' ORDER BY ' . static::$key;
+        return "SELECT {$queryFields} FROM " . static::$table . $whereString . ' ORDER BY `' . static::$key . '`';
 
     }
 
@@ -148,11 +144,11 @@ abstract class Model {
         if (is_array($value)) {
             $condition2 = [];
             foreach ($value as $key2 => $value2) {
-                $condition2[] = "{$key2} = :{$key2}";
+                $condition2[] = "`{$key2}` = :{$key2}";
             }
             $condition = ' ( ' . implode(' OR ',$condition2) . ' ) ';
         } else {
-            $condition = "{$key} = :{$key}";
+            $condition = "`{$key}` = :{$key}";
         }
 
         return $condition;
@@ -175,6 +171,16 @@ abstract class Model {
         }
 
         return implode(', ', $result);
+
+    }
+
+    public static function getCountry(array $data) : string {
+
+        if (!empty($data['country'])) {
+            $country = Country::getSingle([ 'id' => $data['country'] ]);
+            return $country['name'];
+            }
+        return '';
 
     }
 

@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use models\Country;
 use models\User;
 use models\Host;
 
@@ -47,6 +48,7 @@ class HostController extends Controller {
         foreach ($result as &$vol) {
             $vol = self::decode(array_filter($vol));
             $vol['languages'] = Host::getLanguages($vol);
+            $vol['country'] = Host::getCountry($vol);
         }
 
         return TemplateProvider::render('Host/list.twig',
