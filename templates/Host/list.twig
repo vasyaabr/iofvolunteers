@@ -19,6 +19,7 @@
                 <td class="big-desc">Country</td>
                 <td class="big-desc">Languages</td>
                 <td class="big-desc">Duration</td>
+                <td class="big-desc">Offer</td>
                 {% if edit %}
                 <td class="big-desc"></td>
                 {% endif %}
@@ -33,6 +34,7 @@
                     </td>
                     <td class="desc">{{ host.languages }}</td>
                     <td class="desc">{{ host.maxDuration }}</td>
+                    <td class="desc">{{ host.offer }}</td>
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />

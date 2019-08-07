@@ -49,6 +49,7 @@ class HostController extends Controller {
             $vol = self::decode(array_filter($vol));
             $vol['languages'] = Host::getLanguages($vol);
             $vol['country'] = Host::getCountry($vol);
+            $vol['offer'] = Host::getOffer($vol);
         }
 
         return TemplateProvider::render('Host/list.twig',
@@ -155,6 +156,7 @@ class HostController extends Controller {
             $vol = self::decode(array_filter($vol));
             $vol['languages'] = Host::getLanguages($vol);
             $vol['country'] = Host::getCountry($vol);
+            $vol['offer'] = Host::getOffer($vol);
 
         }
 
@@ -165,6 +167,10 @@ class HostController extends Controller {
     }
 
     public function switchState(string $id) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
 
         Host::switchActiveState($id);
         header("Location: {$_SERVER['HTTP_REFERER']}");

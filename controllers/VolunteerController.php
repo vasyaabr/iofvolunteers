@@ -351,6 +351,10 @@ class VolunteerController extends Controller {
 
     public function switchState(string $id) : string {
 
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
         Volunteer::switchActiveState($id);
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();

@@ -17,6 +17,9 @@ class Host extends Model {
     public static function condition(string $key, $value) : string {
 
         switch ($key) {
+            case 'maxDuration':
+                $condition = "{$key} >= :{$key}";
+                break;
             // json arrays
             case 'languages':
                 $condition = [];
@@ -71,6 +74,32 @@ class Host extends Model {
         }
 
         return $params;
+
+    }
+
+    public static function getOffer(array $data) : string {
+
+        $result = [];
+        $keys = ['food','accomodation','events','o-training','local_tourism','loan_car','loan_bike', 'distance_to_public_transport', 'other'];
+
+        foreach ($keys as $offer) {
+            if ( ! empty( $data[$offer] ) ) {
+
+                $info = str_replace('_',' ',ucfirst($offer));
+
+                if ($offer === 'food' && !empty($data['food_price'])) {
+                    $info .= "({$data['food_price']})";
+                } else if ($offer === 'accomodation' && !empty($data['accomodation_price'])) {
+                    $info .= "({$data['accomodation_price']})";
+                } else if ($data[$offer] != 1) {
+                    $info .= "({$data[$offer]})";
+                }
+
+                $result[$offer] = $info;
+            }
+        }
+
+        return implode('<br>',$result);
 
     }
 
