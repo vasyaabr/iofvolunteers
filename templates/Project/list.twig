@@ -21,7 +21,9 @@
                 <td class="big-desc">Start date</td>
                 <td class="big-desc">Offerings</td>
                 <td class="big-desc">Work to be done</td>
+                {% if edit %}
                 <td class="big-desc"></td>
+                {% endif %}
             </tr>
             {% for project in projects %}
                 <tr>
@@ -35,9 +37,11 @@
                     <td class="desc">{{ project.startDate }}</td>
                     <td class="desc">{{ project.offer }}</td>
                     <td class="desc">{{ project.details }}</td>
+                    {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

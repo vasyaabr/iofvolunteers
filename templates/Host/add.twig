@@ -14,8 +14,8 @@
                     <table>
                         <tbody>
                         <tr valign="top">
-                            <td colspan="2" class="desc"><b>Host details</b>
-                                <span class="warn">*</span>
+                            <td colspan="2" class="big-desc">
+                                Host details <span class="warn">*</span>
                             </td>
                         </tr>
                         <tr>
@@ -31,8 +31,6 @@
                         <tbody>
                         <tr>
                             <td class="desc">Max hosting duration</td>
-                        </tr>
-                        <tr>
                             <td class="desc">
                                 <input type="text" size="3" name="maxDuration" id="maxDuration" value="">
                                 weeks
@@ -44,14 +42,22 @@
 
                     <table>
                         <tbody>
-                        <td class="desc">Host description</td>
-                        <td>
-                            <textarea rows="2" cols="30" name="hostDesc" id="hostDesc" value=""></textarea>
-                        </td>
-                        <td class="desc">Guest expectations</td>
-                        <td>
-                            <textarea rows="2" cols="30" name="guestExpectations" id="guestExpectations" value=""></textarea>
-                        </td>
+                        <tr>
+                            <td class="desc">Host description</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea rows="2" cols="30" name="hostDesc" id="hostDesc" value=""></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">Guest expectations</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea rows="2" cols="30" name="guestExpectations" id="guestExpectations" value=""></textarea>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <br>
@@ -59,13 +65,13 @@
                     <table>
                         <tbody>
                         <tr>
-                            <td class="desc">Contacts</td>
+                            <td colspan="2" class="big-desc">Contacts</td>
                         </tr>
-                        <tr><td>Phone: <input type="text" name="contacts[phone]"></input></td></tr>
-                        <tr><td>Email: <input type="text" name="contacts[email]"></input></td></tr>
-                        <tr><td>Skype: <input type="text" name="contacts[skype]"></input></td></tr>
-                        <tr><td>Telegram: <input type="text" name="contacts[telegram]"></input></td></tr>
-                        <tr><td>Other: <input type="text" name="contacts[other]"></input></td></tr>
+                        <tr><td class="desc">Phone:</td><td><input type="text" name="contacts[phone]"></input></td></tr>
+                        <tr><td class="desc">Email:</td><td><input type="text" name="contacts[email]"></input></td></tr>
+                        <tr><td class="desc">Skype:</td><td><input type="text" name="contacts[skype]"></input></td></tr>
+                        <tr><td class="desc">Telegram:</td><td><input type="text" name="contacts[telegram]"></input></td></tr>
+                        <tr><td class="desc">Other:</td><td><input type="text" name="contacts[other]"></input></td></tr>
                         </tbody>
                     </table>
 
@@ -148,21 +154,21 @@
                     <table>
                         <tbody>
                         <tr>
-                            <td class="desc">What can you offer?
+                            <td class="big-desc">What can you offer?
                                 <span class="warn">*</span>
                                 <br>
                             </td>
                         </tr>
                         <tr>
                             <td class="desc">
-                                <input type="checkbox" name="offer[food]" value="1">Food<br>
+                                <input type="checkbox" name="offer[food]" value="1">Food
                                 <input type="text" name="offer[food_price]" value="free"><br>
-                                <input type="checkbox" name="offer[accomodation]" value="1">Accomodation<br>
+                                <input type="checkbox" name="offer[accomodation]" value="1">Accomodation
                                 <input type="text" name="offer[accomodation_price]" value="free"><br>
                                 <input type="checkbox" name="offer[local_tourism]" value="1">Local tourism and sightseeng<br>
                                 <input type="checkbox" name="offer[o-training]" value="1">O-traning<br>
                                 <input type="checkbox" name="offer[events]" value="1">Events / competitions<br>
-                                Distance to public transport:<input type="text" name="offer[distance_to_public_transport]" value="1 mile"><br>
+                                Distance to public transport: <input type="text" name="offer[distance_to_public_transport]" value="1 mile"><br>
                                 <input type="checkbox" name="offer[loan_bike]" value="1">Loan a bike<br>
                                 <input type="checkbox" name="offer[loan_car]" value="1">Loan a car<br>
 

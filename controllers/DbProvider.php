@@ -47,8 +47,8 @@ class DbProvider {
     public static function select(string $query, array $params = null) : array {
 
         $statement = self::getInstance()->prepare($query);
-        echo $query."\n";
-        echo var_export($params,true)."\n";
+//        echo $query."\n";
+//        echo var_export($params,true)."\n";
         $success = $statement->execute($params);
         if (!$success) {
             throw new \Error("SQL error in query:\n{$query}");

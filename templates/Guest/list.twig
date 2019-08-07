@@ -21,7 +21,9 @@
                 <td class="big-desc">Gender</td>
                 <td class="big-desc">O-start year</td>
                 <td class="big-desc">Competitor experience</td>
+                {% if edit %}
                 <td class="big-desc"></td>
+                {% endif %}
             </tr>
             {% for guest in guests %}
                 <tr>
@@ -30,9 +32,11 @@
                     <td class="desc">{{ guest.gender }}</td>
                     <td class="desc">{{ guest.startO }}</td>
                     <td class="desc">{{ guest.competitorExp }}</td>
+                    {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}guest/edit/{{ guest.id }}';" value="Edit" />
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

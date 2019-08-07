@@ -169,6 +169,9 @@ abstract class Model {
                     $result[] = "{$lang} ({$desc['level']})";
                 }
             }
+            if (isset($data['languages']['Other'])) {
+                $result[] = $data['languages']['Other'];
+            }
         }
 
         return implode(', ', $result);

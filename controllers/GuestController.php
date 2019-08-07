@@ -46,10 +46,11 @@ class GuestController extends Controller {
 
         foreach ($result as &$vol) {
             $vol = self::decode(array_filter($vol));
+            $vol['languages'] = Guest::getLanguages($vol);
         }
 
         return TemplateProvider::render('Guest/list.twig',
-            [ 'guests' => $result, 'title' => 'Guests list' ]
+            [ 'guests' => $result, 'title' => 'Guests list', 'edit' => true  ]
         );
 
     }
