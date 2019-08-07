@@ -314,7 +314,7 @@ class VolunteerController extends Controller {
 
         $params = $this->validate($_POST, 'search');
 
-        $found = Volunteer::get($params);
+        $found = Volunteer::get(array_merge($params, ['active' => 1]));
 
         foreach ($found as &$vol) {
 
@@ -346,6 +346,14 @@ class VolunteerController extends Controller {
         Volunteer::update( ['id' => $invitation['volunteerID'], 'excluded' => 1] );
 
         return TemplateProvider::render('Volunteer/exclude.twig');
+
+    }
+
+    public function switchState(string $id) : string {
+
+        Volunteer::switchActiveState($id);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
 
     }
 

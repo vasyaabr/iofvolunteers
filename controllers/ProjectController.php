@@ -146,7 +146,7 @@ class ProjectController extends Controller {
 
         $params = $this->validate($_POST, 'search');
 
-        $found = Project::get($params);
+        $found = Project::get(array_merge($params, ['active' => 1]));
 
         foreach ($found as &$vol) {
 
@@ -158,6 +158,14 @@ class ProjectController extends Controller {
         return TemplateProvider::render('Project/list.twig',
             [ 'projects' => $found, 'title' => 'Project search results' ]
         );
+
+    }
+
+    public function switchState(string $id) : string {
+
+        Project::switchActiveState($id);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
 
     }
 

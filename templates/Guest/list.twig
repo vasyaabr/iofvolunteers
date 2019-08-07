@@ -27,7 +27,12 @@
             </tr>
             {% for guest in guests %}
                 <tr>
-                    <td class="desc"> {{ guest.country }}</td>
+                    <td class="desc">
+                        {{ guest.country }}
+                        {% if not guest.active %}
+                            <span class="warn"> (disabled)</span>
+                        {% endif %}
+                    </td>
                     <td class="desc">{{ guest.languages }}</td>
                     <td class="desc">{{ guest.gender }}</td>
                     <td class="desc">{{ guest.startO }}</td>
@@ -35,6 +40,7 @@
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}guest/edit/{{ guest.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}guest/switch/{{ guest.id }}';" value="{{ guest.active ? 'Disable' : 'Enable' }}" />
                     </td>
                     {% endif %}
                 </tr>

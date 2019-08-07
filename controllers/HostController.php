@@ -148,7 +148,7 @@ class HostController extends Controller {
 
         $params = $this->validate($_POST, 'search');
 
-        $found = Host::get($params);
+        $found = Host::get(array_merge($params, ['active' => 1]));
 
         foreach ($found as &$vol) {
 
@@ -161,6 +161,14 @@ class HostController extends Controller {
         return TemplateProvider::render('Host/list.twig',
             [ 'hosts' => $found, 'title' => 'Search results' ]
         );
+
+    }
+
+    public function switchState(string $id) : string {
+
+        Host::switchActiveState($id);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
 
     }
 

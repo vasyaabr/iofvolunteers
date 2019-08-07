@@ -184,4 +184,10 @@ abstract class Model {
 
     }
 
+    public static function switchActiveState($id) {
+
+        DbProvider::getInstance()->exec('UPDATE '.static::$table.' SET Active = not Active WHERE `'.static::$key.'` = ' . $id);
+
+    }
+
 }

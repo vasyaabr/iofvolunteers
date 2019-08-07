@@ -148,7 +148,7 @@ class GuestController extends Controller {
 
         $params = $this->validate($_POST, 'search');
 
-        $found = Guest::get($params);
+        $found = Guest::get(array_merge($params, ['active' => 1]));
 
         foreach ($found as &$vol) {
 
@@ -162,6 +162,14 @@ class GuestController extends Controller {
         return TemplateProvider::render('Guest/list.twig',
             [ 'guests' => $found, 'title' => 'Search results' ]
         );
+
+    }
+
+    public function switchState(string $id) : string {
+
+        Guest::switchActiveState($id);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
+        exit();
 
     }
 

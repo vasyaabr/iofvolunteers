@@ -25,12 +25,18 @@
             </tr>
             {% for host in hosts %}
                 <tr>
-                    <td class="desc"> {{ host.country }}</td>
+                    <td class="desc">
+                        {{ host.country }}
+                        {% if not host.active %}
+                            <span class="warn"> (disabled)</span>
+                        {% endif %}
+                    </td>
                     <td class="desc">{{ host.languages }}</td>
                     <td class="desc">{{ host.maxDuration }}</td>
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}host/switch/{{ host.id }}';" value="{{ host.active ? 'Disable' : 'Enable' }}" />
                     </td>
                     {% endif %}
                 </tr>

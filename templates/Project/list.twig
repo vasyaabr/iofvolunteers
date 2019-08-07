@@ -32,7 +32,12 @@
                             {#<b>{{ project.name is empty ? 'Preview' : project.name }}</b>#}
                         {#</a>#}
                     {#</td>#}
-                    <td class="desc">{{ project.name }}</td>
+                    <td class="desc">
+                        {{ project.name }}
+                        {% if not project.active %}
+                            <span class="warn"> (disabled)</span>
+                        {% endif %}
+                    </td>
                     <td class="desc">{{ project.place }}</td>
                     <td class="desc">{{ project.startDate }}</td>
                     <td class="desc">{{ project.offer }}</td>
@@ -40,6 +45,7 @@
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}project/switch/{{ project.id }}';" value="{{ project.active ? 'Disable' : 'Enable' }}" />
                     </td>
                     {% endif %}
                 </tr>

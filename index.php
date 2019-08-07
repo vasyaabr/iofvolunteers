@@ -36,6 +36,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/volunteer/exclude/{key}', 'VolunteerController/excludeView');
     $r->addRoute('GET', '/volunteer/agree/{key}', 'VolunteerController/agree');
     $r->addRoute('GET', '/volunteer/decline/{key}', 'VolunteerController/decline');
+    $r->addRoute('GET', '/volunteer/switch/{id:\d+}', 'VolunteerController/switchState');
 
     // Project routes
     $r->addRoute('GET', '/project/register', 'ProjectController/addView');
@@ -45,6 +46,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/project/search', 'ProjectController/searchView');
     $r->addRoute('POST', '/project/search', 'ProjectController/search');
     $r->addRoute('GET', '/project/preview/{id:\d+}', 'ProjectController/previewView');
+    $r->addRoute('GET', '/project/switch/{id:\d+}', 'ProjectController/switchState');
 
     // Host routes
     $r->addRoute('GET', '/host/register', 'HostController/addView');
@@ -53,6 +55,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/host/edit/{id:\d+}', 'HostController/editView');
     $r->addRoute('GET', '/host/search', 'HostController/searchView');
     $r->addRoute('POST', '/host/search', 'HostController/search');
+    $r->addRoute('GET', '/host/switch/{id:\d+}', 'HostController/switchState');
 
     // Guest routes
     $r->addRoute('GET', '/guest/register', 'GuestController/addView');
@@ -61,7 +64,8 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/guest/edit/{id:\d+}', 'GuestController/editView');
     $r->addRoute('GET', '/guest/search', 'GuestController/searchView');
     $r->addRoute('POST', '/guest/search', 'GuestController/search');
-    
+    $r->addRoute('GET', '/guest/switch/{id:\d+}', 'GuestController/switchState');
+
 });
 
 // Fetch method and URI from somewhere

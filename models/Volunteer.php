@@ -21,19 +21,19 @@ class Volunteer extends Model {
 
         switch ($key) {
             case 'minage':
-                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) >= :{$value}";
+                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) >= :{$key}";
                 break;
             case 'maxage':
-                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) <= :{$value}";
+                $condition = "YEAR(now()) - YEAR(birthdate) - (DATE_FORMAT(now(), '%m%d') < DATE_FORMAT(birthdate, '%m%d')) <= :{$key}";
                 break;
             case 'oyears':
-                $condition = "YEAR(now()) - startO >= :{$value}";
+                $condition = "YEAR(now()) - startO >= :{$key}";
                 break;
             case 'maxWorkDuration':
-                $condition = "{$value} >= :{$value}";
+                $condition = "{$key} >= :{$key}";
                 break;
             case 'timeToStart':
-                $condition = "DATE_FORMAT('{$value}' ,'%Y-%m-01') >= :{$value}";
+                $condition = "DATE_FORMAT('{$key}' ,'%Y-%m-01') >= :{$key}";
                 break;
             // json arrays
             case 'competitorExp':
@@ -43,13 +43,13 @@ class Volunteer extends Model {
                 foreach ($value as $key2 => $value2) {
                     if (is_array($value2)) {
                         foreach ($value2 as $key3 => $value3) {
-                            $condition[] = "{$value}->>\"$.{$key2}.{$key3}\" = :{$value}_{$key2}_{$key3}";
+                            $condition[] = "{$key}->>\"$.{$key2}.{$key3}\" = :{$key}_{$key2}_{$key3}";
                         }
                     } else {
                         if (strpos($key2,'Other') !== false) {
-                            $condition[] = "{$value}->>\"$.{$key2}\" LIKE :{$value}_{$key2}";
+                            $condition[] = "{$key}->>\"$.{$key2}\" LIKE :{$key}_{$key2}";
                         } else {
-                            $condition[] = "{$value}->>\"$.{$key2}\" = :{$value}_{$key2}";
+                            $condition[] = "{$key}->>\"$.{$key2}\" = :{$key}_{$key2}";
                         }
                     }
                 }

@@ -31,6 +31,9 @@
                         <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
                             <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
                         </a>
+                        {% if not volunteer.active %}
+                        <span class="warn"> (disabled)</span>
+                        {% endif %}
                     </td>
                     <td class="desc"> {{ volunteer.languages }}</td>
                     <td class="desc">{{ volunteer.timeToStart|slice(0,10) }}</td>
@@ -39,6 +42,7 @@
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}volunteer/edit/{{ volunteer.id }}';" value="Edit" />
+                        <input type="button" onclick="location.href='{{ url }}volunteer/switch/{{ volunteer.id }}';" value="{{ volunteer.active ? 'Disable' : 'Enable' }}" />
                     </td>
                     {% endif %}
                 </tr>
