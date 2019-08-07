@@ -108,7 +108,6 @@ class VolunteerController extends Controller {
             'projects' => ProjectController::getOptionList(),
             'maps' => Volunteer::getMapLinks($result),
         ];
-        echo var_export($render,true)."<br/>";
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);
 
