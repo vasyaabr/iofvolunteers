@@ -259,6 +259,7 @@
                                 not, just tick "Anywhere"
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc">For how long can you work?</td>
                         </tr>
 
                         <tr>
@@ -266,6 +267,10 @@
                                 <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td class="desc">
+                                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
+                                weeks
+                            </td>
                         </tr>
 
                         <tr>
@@ -280,17 +285,12 @@
                                 <input type="checkbox" name="preferredContinents[South America]" value="1"> South America
                             </td>
                             <td></td>
-                            <td class="desc">For how long can you work?</td>
                         </tr>
                         <tr>
                             <td class="desc">
                                 <input type="checkbox" name="preferredContinents[Europe]" value="1"> Europe
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc">
-                                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
-                                weeks
-                            </td>
                         </tr>
                         <tr>
                             <td class="desc">
@@ -474,7 +474,7 @@
                             <td class="desc">
                                 Skilled in mapping? <br>Upload your "best" maps here...<br>
                                 <div class="warn">Required for mappers!</div>
-                                <p>(At most 3 maps in PDF format, max file size is 5 Mb)</p>
+                                <p>(At most 3 maps in PDF format, max file size is 2 Mb)</p>
                                 {% if maps %}
                                     <p>Already loaded maps:
                                     {% for map in maps %}

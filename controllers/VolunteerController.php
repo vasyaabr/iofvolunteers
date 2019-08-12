@@ -10,7 +10,7 @@ use models\Invitation;
 class VolunteerController extends Controller {
 
     private static $actions = ['register', 'search', 'list'];
-    private const MAX_FILE_SIZE = 5242880;
+    private const MAX_FILE_SIZE = 2097152;
 
     public function addView() : string {
 
