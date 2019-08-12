@@ -133,7 +133,7 @@ class VolunteerController extends Controller {
 
         $vData = self::decode(array_filter( Volunteer::getSingle(['id' => $id]) ));
 
-        if ($vData['excluded'] != 0) {
+        if (!empty($vData['excluded']) && $vData['excluded'] != 0) {
             return Platform::error( 'Volunteer asked to exclude him from contacts!' );
         }
 
@@ -171,20 +171,20 @@ class VolunteerController extends Controller {
 
     public function add() : string {
 
+        if((int)$_SERVER['CONTENT_LENGTH']>0 && count($_POST)===0){
+            $params['errors'][] = "Files are too big";
+            return Platform::error( $params['errors'] );
+        }
+
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
         }
 
         $params = $this->validate($_POST, 'register');
 
-        // show validation errors
-        if (!empty($params['errors'])) {
-            return Platform::error( $params['errors'] );
-        }
-
         // process uploaded maps
         $files = [];
-        if (!empty($_FILES["maps"])) {
+        if (!empty($_FILES["maps"]) && empty($params['errors'])) {
 
             $uploads_dir = dirname(__DIR__) . '/upload/' . (new \DateTime())->format('Y/m');
 
@@ -283,9 +283,6 @@ class VolunteerController extends Controller {
         if (isset($params['birthdate']) && !\DateTime::createFromFormat('Y-m-d',$params['birthdate'])) {
             $params['errors'][] = 'Invalid date of birth format (should be yyyy-mm-dd)';
         }
-        if (isset($params['timeToStart']) && !\DateTime::createFromFormat('Y-m-d',$params['timeToStart'])) {
-            $params['errors'][] = 'Invalid "When you can start" format (should be yyyy-mm-dd)';
-        }
 
         if (empty($params["iAgreeWithTerms"])) {
             $params['errors'][] = "You are not agreed with disclaimer";
@@ -334,6 +331,8 @@ class VolunteerController extends Controller {
 
         $invitation = Invitation::getSingle(['key' => $key]);
         $project = self::decode(Project::getSingle( ['id' => $invitation['projectID']] ));
+
+        $project['offer'] = Project::getOffer($project);
 
         return TemplateProvider::render('Project/preview.twig', [ 'data' => $project ]);
 

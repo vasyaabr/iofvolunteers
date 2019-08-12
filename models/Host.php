@@ -83,16 +83,16 @@ class Host extends Model {
         $keys = ['food','accomodation','events','o-training','local_tourism','loan_car','loan_bike', 'distance_to_public_transport', 'other'];
 
         foreach ($keys as $offer) {
-            if ( ! empty( $data[$offer] ) ) {
+            if ( ! empty( $data['offer'][$offer] ) ) {
 
                 $info = str_replace('_',' ',ucfirst($offer));
 
-                if ($offer === 'food' && !empty($data['food_price'])) {
-                    $info .= "({$data['food_price']})";
-                } else if ($offer === 'accomodation' && !empty($data['accomodation_price'])) {
-                    $info .= "({$data['accomodation_price']})";
-                } else if ($data[$offer] != 1) {
-                    $info .= "({$data[$offer]})";
+                if ($offer === 'food' && !empty($data['offer']['food_price'])) {
+                    $info .= "({$data['offer']['food_price']})";
+                } else if ($offer === 'accomodation' && !empty($data['offer']['accomodation_price'])) {
+                    $info .= "({$data['offer']['accomodation_price']})";
+                } else if ($data['offer'][$offer] !== '1') {
+                    $info .= "({$data['offer'][$offer]})";
                 }
 
                 $result[$offer] = $info;

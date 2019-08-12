@@ -34,7 +34,7 @@
                     </td>
                     <td class="desc">{{ host.languages }}</td>
                     <td class="desc">{{ host.maxDuration }}</td>
-                    <td class="desc">{{ host.offer }}</td>
+                    <td class="desc">{{ host.offer | raw }}</td>
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />

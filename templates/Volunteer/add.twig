@@ -26,7 +26,7 @@
                         </tr>
                         <tr>
                             <td class="desc">Name</td>
-                            <td class="value">: <input type="text" name="name" size="15" value="" required>
+                            <td class="value">: <input type="text" name="name" size="15" required>
                             </td>
                         </tr>
                         <tr>
@@ -38,13 +38,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc">E-mail</td>
-                            <td class="value">: <input type="text" name="email" size="15" value="" required>
+                            <td class="desc">E-mail <div class="warn">(required)</div></td>
+                            <td class="value">: <input type="text" name="email" size="15" required>
                             </td>
                         </tr>
                         <tr>
-                            <td class="desc">Phone
-                                <div class="warn">(optional)</div>
+                            <td class="desc">Phone <div class="warn">(optional)</div>
                             </td>
                             <td>: <input type="text" name="phone" value="" size="15"></td>
                         </tr>
@@ -64,7 +63,7 @@
                         <tr>
                             <td class="desc">Date of birth
                                 <div class="warn">
-                                    required
+                                    (required)
                                 </div>
                             </td>
                             <td>:
@@ -260,7 +259,6 @@
                                 not, just tick "Anywhere"
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc">When can you start?</td>
                         </tr>
 
                         <tr>
@@ -268,9 +266,6 @@
                                 <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
                             </td>
                             <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc">
-                                <input type="text" name="timeToStart" id="timeToStart" size="10" class="datepicker" placeholder="yyyy-mm-dd">
-                            </td>
                         </tr>
 
                         <tr>
@@ -479,7 +474,7 @@
                             <td class="desc">
                                 Skilled in mapping? <br>Upload your "best" maps here...<br>
                                 <div class="warn">Required for mappers!</div>
-                                <p>(At most 3 maps in PDF format)</p>
+                                <p>(At most 3 maps in PDF format, max file size is 5 Mb)</p>
                                 {% if maps %}
                                     <p>Already loaded maps:
                                     {% for map in maps %}

@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use models\User;
+
 abstract class Controller
 {
 

@@ -47,6 +47,7 @@ class HostController extends Controller {
 
         foreach ($result as &$vol) {
             $vol = self::decode(array_filter($vol));
+            //echo var_export($vol,true);
             $vol['languages'] = Host::getLanguages($vol);
             $vol['country'] = Host::getCountry($vol);
             $vol['offer'] = Host::getOffer($vol);
