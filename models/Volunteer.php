@@ -4,6 +4,7 @@ namespace models;
 
 
 use controllers\DbProvider;
+use controllers\TemplateProvider;
 
 class Volunteer extends Model {
 
@@ -151,7 +152,7 @@ class Volunteer extends Model {
                 $info = '';
                 foreach ( $data[$skill] as $key => $value ) {
                     if ( $key === 'info' ) {
-                        $info = "{$key}: {$value}";
+                        $info = ", {$key}: {$value}";
                     } else {
                         $result[$skill][] = ucfirst($key);
                     }
@@ -159,6 +160,14 @@ class Volunteer extends Model {
                 $result[$skill] = '<b>' . ucfirst(str_replace('Desc','',$skill)).' </b>: '
                                   . implode( ', ', $result[$skill] )
                                   . $info;
+
+                if ($skill === 'mappingDesc') {
+                    $maps = self::getMapLinks($data);
+                    if (!empty($maps)) {
+                        $result[$skill] .= TemplateProvider::render('Volunteer/map.twig', ['maps' => $maps]);
+                    }
+                }
+
             }
         }
 
