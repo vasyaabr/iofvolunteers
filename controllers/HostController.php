@@ -2,7 +2,10 @@
 
 namespace controllers;
 
+use models\Contact;
 use models\Country;
+use models\Guest;
+use models\Status;
 use models\User;
 use models\Host;
 
@@ -114,6 +117,10 @@ class HostController extends Controller {
 
         $params['userID'] = User::getUserID();
 
+        if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
+            $params['errors'][] = 'Invalid email';
+        }
+
         if (empty($params["iAgreeWithTerms"])) {
             $params['errors'][] = "You are not agreed with disclaimer";
         } else {
@@ -126,7 +133,7 @@ class HostController extends Controller {
 
     public static function getOptionList() : string {
 
-        $list = Host::get( [ 'userID' => User::getUserID() ], ['id AS id', 'concat(name," - ",place) as name'] );
+        $list = Host::get( [ 'userID' => User::getUserID() ], ['id AS id', 'name as name'] );
 
         return TemplateProvider::render('Common/options.twig', [ 'options' => $list ] );
 
@@ -176,6 +183,93 @@ class HostController extends Controller {
         Host::switchActiveState($id);
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
+
+    }
+
+    /**
+     * Contacts section
+     */
+
+    public function previewView(string $id, bool $visit = false) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        $data = self::decode(array_filter(Host::getSingle([ 'id' => $id])));
+
+        $render = [
+            'data' => $data,
+            'choices' => GuestController::getOptionList(),
+            'visit' => $visit,
+        ];
+
+        return TemplateProvider::render('Host/preview.twig', $render);
+
+    }
+
+    public function contact() : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        if (empty($_POST['choice'])) {
+            return Platform::error( 'Please select a guest to contact!' );
+        }
+
+        $id = $_POST['id'];
+        $choiceID = $_POST['choice'];
+
+        $result = Contact::get([ 'type' => Host::CONTACT_TYPE, 'toID' => $id, 'fromID' => $choiceID]);
+        if (count($result) > 0) {
+            return Platform::error( 'You have already tried this contact!' );
+        }
+
+        $toData = self::decode(array_filter( Host::getSingle(['id' => $id]) ));
+        $toData['country'] = Host::getCountry($toData);
+        $fromData = self::decode(array_filter(Guest::getSingle(['id' => $choiceID, 'userID' => User::getUserID()])));
+        $fromData['country'] = Guest::getCountry($fromData);
+
+        $params = [
+            'type' => Host::CONTACT_TYPE,
+            'toID' => $id,
+            'fromID' => $choiceID,
+            'key' => md5(uniqid($id, true)),
+            'status' => Status::STATUS_NEW,
+            'authorID' => User::getUserID(),
+        ];
+        $success = Contact::add($params);
+
+        if (!$success) {
+            return Platform::error( 'Error in contact!' );
+        }
+
+        $mailText = TemplateProvider::render('Mail/hostContact.twig',['from' => $fromData, 'key' => $params['key'], 'to' => $toData]);
+        $mailSent = Mailer::send($toData['email'],$toData['name'], 'Contact from guest', $mailText);
+
+        $params = [
+            'status' => $mailSent ? Status::STATUS_MAIL_SENT : Status::STATUS_MAIL_FAILED,
+            'key' => $params['key'],
+            'editDate' => (new \DateTime())->format('Y-m-d H:i:s'),
+        ];
+        $success = Contact::update($params);
+
+        $resultMessage = $mailSent && $success
+            ? "An e-mail has been sent to this host, with your contact details. 
+            If they are interested in cooperation, they will contact you."
+            : 'Email to host unexpectedly failed.';
+
+        return TemplateProvider::render('Common/contact.twig', ['result' => $resultMessage] );
+
+    }
+
+    public function visitView(string $key) : string {
+
+        $contact = Contact::getSingle([ 'type' => Host::CONTACT_TYPE, 'key' => $key]);
+
+        $controller = new GuestController();
+        return $controller->previewView((string)$contact['toID'], true);
 
     }
 

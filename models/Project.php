@@ -7,6 +7,7 @@ class Project extends Model {
 
     public static $table = 'projects';
     public const CONTACT_TYPE='volunteer=>project';
+    public static $requiredFields = ['name','country', 'email'];
 
     /**
      * Return MySQL condition string for each param name

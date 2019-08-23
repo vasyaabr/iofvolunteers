@@ -56,6 +56,9 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/host/search', 'HostController/searchView');
     $r->addRoute('POST', '/host/search', 'HostController/search');
     $r->addRoute('GET', '/host/switch/{id:\d+}', 'HostController/switchState');
+    $r->addRoute('GET', '/host/preview/{id:\d+}', 'HostController/previewView');
+    $r->addRoute('POST', '/host/contact', 'HostController/contact');
+    $r->addRoute('GET', '/host/visit/{key}', 'HostController/visitView');
 
     // Guest routes
     $r->addRoute('GET', '/guest/register', 'GuestController/addView');
@@ -65,6 +68,9 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/guest/search', 'GuestController/searchView');
     $r->addRoute('POST', '/guest/search', 'GuestController/search');
     $r->addRoute('GET', '/guest/switch/{id:\d+}', 'GuestController/switchState');
+    $r->addRoute('GET', '/guest/preview/{id:\d+}', 'GuestController/previewView');
+    $r->addRoute('POST', '/guest/contact', 'GuestController/contact');
+    $r->addRoute('GET', '/guest/visit/{key}', 'GuestController/visitView');
 
 });
 

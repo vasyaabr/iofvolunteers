@@ -6,6 +6,8 @@ namespace models;
 class Guest extends Model {
 
     public static $table = 'guests';
+    public const CONTACT_TYPE='host=>guest';
+    public static $requiredFields = ['name','country', 'email'];
 
     /**
      * Return MySQL condition string for each param name

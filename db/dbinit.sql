@@ -118,7 +118,9 @@ CREATE TABLE `projects` (
 CREATE TABLE `hosts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userID` int(10) unsigned NOT NULL,
+  `name` varchar(100) NOT NULL,
   `country` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `languages` json DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,
   `maxDuration` varchar(45) DEFAULT NULL,
@@ -133,7 +135,9 @@ CREATE TABLE `hosts` (
 CREATE TABLE `guests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userID` int(10) unsigned NOT NULL,
+  `name` varchar(100) NOT NULL,
   `country` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `languages` json DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,

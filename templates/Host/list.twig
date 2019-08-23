@@ -16,31 +16,33 @@
     <table width="90%" align="center" border="1" bordercolor="#376FA6">
         <tbody>
             <tr>
+                <td class="big-desc">Name</td>
                 <td class="big-desc">Country</td>
                 <td class="big-desc">Languages</td>
                 <td class="big-desc">Duration (weeks)</td>
                 <td class="big-desc">Offer</td>
-                {% if edit %}
                 <td class="big-desc"></td>
-                {% endif %}
             </tr>
             {% for host in hosts %}
                 <tr>
                     <td class="desc">
-                        {{ host.country }}
+                        {{ host.name }}
                         {% if not host.active %}
                             <span class="warn"> (disabled)</span>
                         {% endif %}
                     </td>
+                    <td class="desc">{{ host.country }}</td>
                     <td class="desc">{{ host.languages }}</td>
                     <td class="desc">{{ host.maxDuration }}</td>
                     <td class="desc">{{ host.offer | raw }}</td>
-                    {% if edit %}
                     <td class="desc">
+                        {% if edit %}
                         <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />
                         <input type="button" onclick="location.href='{{ url }}host/switch/{{ host.id }}';" value="{{ host.active ? 'Disable' : 'Enable' }}" />
+                        {% else %}
+                        <input type="button" onclick="location.href='{{ url }}host/preview/{{ host.id }}';" value="Details" />
+                        {% endif %}
                     </td>
-                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

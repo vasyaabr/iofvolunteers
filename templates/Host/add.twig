@@ -24,6 +24,16 @@
                                 <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required>{{ countries | raw }}</select>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="desc">Name</td>
+                            <td class="value">: <input type="text" name="name" size="15" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="desc">E-mail <div class="warn">(required)</div></td>
+                            <td class="value">: <input type="text" name="email" size="15" required>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <br>
@@ -71,9 +81,10 @@
                             <td colspan="2" class="big-desc">Contacts</td>
                         </tr>
                         <tr><td class="desc">Phone:</td><td><input type="text" name="contacts[phone]"></input></td></tr>
-                        <tr><td class="desc">Email:</td><td><input type="text" name="contacts[email]"></input></td></tr>
                         <tr><td class="desc">Skype:</td><td><input type="text" name="contacts[skype]"></input></td></tr>
                         <tr><td class="desc">Telegram:</td><td><input type="text" name="contacts[telegram]"></input></td></tr>
+                        <tr><td class="desc">Whatsapp:</td><td><input type="text" name="contacts[whatsapp]"></input></td></tr>
+                        <tr><td class="desc">Viber:</td><td><input type="text" name="contacts[viber]"></input></td></tr>
                         <tr><td class="desc">Other:</td><td><input type="text" name="contacts[other]"></input></td></tr>
                         </tbody>
                     </table>
