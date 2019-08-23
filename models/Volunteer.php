@@ -8,6 +8,8 @@ use controllers\TemplateProvider;
 
 class Volunteer extends Model {
 
+    public const CONTACT_TYPE = 'project=>volunteer';
+
     public static $table = 'volunteers';
     public static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
 

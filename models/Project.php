@@ -6,6 +6,7 @@ namespace models;
 class Project extends Model {
 
     public static $table = 'projects';
+    public const CONTACT_TYPE='volunteer=>project';
 
     /**
      * Return MySQL condition string for each param name

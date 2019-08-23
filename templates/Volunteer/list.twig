@@ -21,9 +21,7 @@
                 <td class="big-desc">When can start</td>
                 <td class="big-desc">Duration available</td>
                 <td class="big-desc">O-Experience</td>
-                {% if edit %}
                 <td class="big-desc"></td>
-                {% endif %}
             </tr>
             {% for volunteer in volunteers %}
                 <tr>
@@ -43,12 +41,14 @@
                     <td class="desc">{{ volunteer.timeToStart|slice(0,10) }}</td>
                     <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
                     <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
-                    {% if edit %}
                     <td class="desc">
+                    {% if edit %}
                         <input type="button" onclick="location.href='{{ url }}volunteer/edit/{{ volunteer.id }}';" value="Edit" />
                         <input type="button" onclick="location.href='{{ url }}volunteer/switch/{{ volunteer.id }}';" value="{{ volunteer.active ? 'Disable' : 'Enable' }}" />
-                    </td>
+                    {% else %}
+                        <input type="button" onclick="location.href='{{ url }}volunteer/preview/{{ volunteer.id }}';" value="Details" />
                     {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

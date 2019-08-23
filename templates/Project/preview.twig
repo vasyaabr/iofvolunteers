@@ -99,7 +99,6 @@
                 <tbody>
                 <tr>
                     <td class="desc">
-                        <br>
                         <b>What we can offer </b>
                         <br>{{ data.offer }}
                     </td>
@@ -112,5 +111,19 @@
 
     </tbody>
 </table>
+
+    {% if not visit %}
+        <div align="center" style="margin-top: 15px;">
+            <form method="POST" action="{{ url }}project/contact" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ data.id }}">
+                Contact project leader from volunteer:
+                <select size="1" name="choice">
+                    <option selected="" value="">--- select ---</option>
+                    {{ choices | raw }}
+                </select>
+                <input type="submit" value="Contact"/>
+            </form>
+        </div>
+    {% endif %}
 
 {% endblock %}

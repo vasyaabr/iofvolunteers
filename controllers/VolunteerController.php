@@ -3,9 +3,10 @@
 namespace controllers;
 
 use models\Project;
+use models\Status;
 use models\Volunteer;
 use models\User;
-use models\Invitation;
+use models\Contact;
 
 class VolunteerController extends Controller {
 
@@ -120,13 +121,13 @@ class VolunteerController extends Controller {
         }
 
         if (empty($_POST['project'])) {
-            return Platform::error( 'Please select a project for invite!' );
+            return Platform::error( 'Please select a project for contact!' );
         }
 
         $id = $_POST['id'];
         $projectID = $_POST['project'];
 
-        $result = Invitation::get(['volunteerID' => $id, 'projectID' => $projectID]);
+        $result = Contact::get([ 'toID' => $id, 'fromID' => $projectID]);
         if (count($result) > 0) {
             return Platform::error( 'Volunteer already contacted for this project!' );
         }
@@ -141,13 +142,14 @@ class VolunteerController extends Controller {
         $pData = self::decode(array_filter($result));
 
         $params = [
-            'volunteerID' => $id,
-            'projectID' => $projectID,
+            'type' => Volunteer::CONTACT_TYPE,
+            'toID' => $id,
+            'fromID' => $projectID,
             'key' => md5(uniqid($id, true)),
-            'status' => 'new',
+            'status' => Status::STATUS_NEW,
             'authorID' => User::getUserID(),
         ];
-        $success = Invitation::add($params);
+        $success = Contact::add($params);
 
         if (!$success) {
             return Platform::error( 'Error in creating inivitation!' );
@@ -157,11 +159,11 @@ class VolunteerController extends Controller {
         $mailSent = Mailer::send($vData['email'],$vData['name'], 'Invitation to orienteering project', $mailText);
 
         $params = [
-            'status' => $mailSent ? 'mail sent' : 'mail failed',
+            'status' => $mailSent ? Status::STATUS_MAIL_SENT : Status::STATUS_MAIL_FAILED,
             'key' => $params['key'],
             'editDate' => (new \DateTime())->format('Y-m-d H:i:s'),
         ];
-        $success = Invitation::update($params);
+        $success = Contact::update($params);
 
         return TemplateProvider::render('Volunteer/contact.twig',
             ['result' => 'Invitation to volunteer ' . ($mailSent && $success ? 'was sent' : 'unexpectedly failed')]
@@ -329,18 +331,18 @@ class VolunteerController extends Controller {
 
     public function visitView(string $key) : string {
 
-        $invitation = Invitation::getSingle(['key' => $key]);
-        $project = self::decode(Project::getSingle( ['id' => $invitation['projectID']] ));
+        $contact = Contact::getSingle([ 'type' => Volunteer::CONTACT_TYPE, 'key' => $key]);
+        $project = self::decode(Project::getSingle( ['id' => $contact['projectID']] ));
 
         $project['offer'] = Project::getOffer($project);
 
-        return TemplateProvider::render('Project/preview.twig', [ 'data' => $project ]);
+        return TemplateProvider::render('Project/preview.twig', [ 'data' => $project, 'visit' => true ]);
 
     }
 
     public function excludeView(string $key) : string {
 
-        $invitation = Invitation::getSingle(['key' => $key]);
+        $invitation = Contact::getSingle([ 'key' => $key]);
         Volunteer::update( ['id' => $invitation['volunteerID'], 'excluded' => 1] );
 
         return TemplateProvider::render('Volunteer/exclude.twig');
@@ -356,6 +358,14 @@ class VolunteerController extends Controller {
         Volunteer::switchActiveState($id);
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
+
+    }
+
+    public static function getOptionList() : string {
+
+        $list = Volunteer::get( [ 'userID' => User::getUserID() ], ['id AS id', 'name AS name'] );
+
+        return TemplateProvider::render('Common/options.twig', [ 'options' => $list ] );
 
     }
 

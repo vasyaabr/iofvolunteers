@@ -2,8 +2,11 @@
 
 namespace controllers;
 
+use models\Contact;
+use models\Status;
 use models\User;
 use models\Project;
+use models\Volunteer;
 
 class ProjectController extends Controller {
 
@@ -170,6 +173,88 @@ class ProjectController extends Controller {
         Project::switchActiveState($id);
         header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
+
+    }
+
+    /**
+     * Contacts section
+     */
+
+    public function previewView(string $id) : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        $data = self::decode(array_filter(Project::getSingle([ 'id' => $id])));
+        $data['offer'] = Project::getOffer($data);
+
+        $render = [
+            'data' => $data,
+            'choices' => VolunteerController::getOptionList(),
+        ];
+
+        return TemplateProvider::render('Project/preview.twig', $render);
+
+    }
+
+    public function contact() : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        if (empty($_POST['choice'])) {
+            return Platform::error( 'Please select a volunteer to contact!' );
+        }
+
+        $id = $_POST['id'];
+        $choiceID = $_POST['choice'];
+
+        $result = Contact::get([ 'type' => Project::CONTACT_TYPE, 'toID' => $id, 'fromID' => $choiceID]);
+        if (count($result) > 0) {
+            return Platform::error( 'You have already tried this contact!' );
+        }
+
+        $toData = self::decode(array_filter( Project::getSingle(['id' => $id]) ));
+        $fromData = self::decode(array_filter(Volunteer::getSingle(['id' => $choiceID, 'userID' => User::getUserID()])));
+
+        $params = [
+            'type' => Project::CONTACT_TYPE,
+            'toID' => $id,
+            'fromID' => $choiceID,
+            'key' => md5(uniqid($id, true)),
+            'status' => Status::STATUS_NEW,
+            'authorID' => User::getUserID(),
+        ];
+        $success = Contact::add($params);
+
+        if (!$success) {
+            return Platform::error( 'Error in contact!' );
+        }
+
+        $mailText = TemplateProvider::render('Mail/projectContact.twig',['from' => $fromData, 'key' => $params['key'], 'to' => $toData]);
+        $mailSent = Mailer::send($toData['email'],$toData['name'], 'Contact from volunteer', $mailText);
+
+        $params = [
+            'status' => $mailSent ? Status::STATUS_MAIL_SENT : Status::STATUS_MAIL_FAILED,
+            'key' => $params['key'],
+            'editDate' => (new \DateTime())->format('Y-m-d H:i:s'),
+        ];
+        $success = Contact::update($params);
+
+        return TemplateProvider::render('Project/contact.twig',
+            ['result' => 'Contact mail ' . ($mailSent && $success ? 'was sent' : 'unexpectedly failed')]
+        );
+
+    }
+
+    public function visitView(string $key) : string {
+
+        $contact = Contact::getSingle([ 'type' => Project::CONTACT_TYPE, 'key' => $key]);
+        $data = self::decode(Volunteer::getSingle( ['id' => $contact['toID']] ));
+
+        return TemplateProvider::render('Volunteer/preview.twig', [ 'data' => $data, 'visit' => true ]);
 
     }
 

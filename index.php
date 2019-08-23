@@ -34,8 +34,6 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('POST', '/volunteer/contact', 'VolunteerController/contact');
     $r->addRoute('GET', '/volunteer/visit/{key}', 'VolunteerController/visitView');
     $r->addRoute('GET', '/volunteer/exclude/{key}', 'VolunteerController/excludeView');
-    $r->addRoute('GET', '/volunteer/agree/{key}', 'VolunteerController/agree');
-    $r->addRoute('GET', '/volunteer/decline/{key}', 'VolunteerController/decline');
     $r->addRoute('GET', '/volunteer/switch/{id:\d+}', 'VolunteerController/switchState');
 
     // Project routes
@@ -45,8 +43,10 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/project/edit/{id:\d+}', 'ProjectController/editView');
     $r->addRoute('GET', '/project/search', 'ProjectController/searchView');
     $r->addRoute('POST', '/project/search', 'ProjectController/search');
-    $r->addRoute('GET', '/project/preview/{id:\d+}', 'ProjectController/previewView');
     $r->addRoute('GET', '/project/switch/{id:\d+}', 'ProjectController/switchState');
+    $r->addRoute('GET', '/project/preview/{id:\d+}', 'ProjectController/previewView');
+    $r->addRoute('POST', '/project/contact', 'ProjectController/contact');
+    $r->addRoute('GET', '/project/visit/{key}', 'ProjectController/visitView');
 
     // Host routes
     $r->addRoute('GET', '/host/register', 'HostController/addView');

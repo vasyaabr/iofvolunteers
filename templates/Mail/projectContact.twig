@@ -1,0 +1,23 @@
+<h2>Hello!</h2>
+
+<p>
+    {{ from.name }} from {{ from.country }} who is a registered volunteer in the IOF
+    Volunteer Platform is interested in your project {{ to.name }} in
+    {{ to.country }}.
+</p>
+
+<p>
+    If you wish to disable / close this project <a href="">click here</a>
+</p>
+
+<p>
+    If you are still interested in recruiting volunteers you may view the
+    details of {{ from.name }} by clicking on the link below. {{ from.name }}'s contact
+    details will also be visible on this page, therefore you can contact
+    this volunteer directly.
+    Contact link: <a href="{{ url }}project/visit/{{ key }}">{{ url }}project/visit/{{ key }}</a>
+</p>
+
+<p>Thank you!</p>
+<hr>
+<p>Best regards, IOF volunteering platform team</p>

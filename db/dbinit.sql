@@ -57,19 +57,23 @@ CREATE TABLE `volunteers` (
   KEY `user` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `invitations` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `volunteerID` INT UNSIGNED NOT NULL,
-  `projectID` INT UNSIGNED NOT NULL,
-  `key` VARCHAR(64) NOT NULL,
-  `status` VARCHAR(45) NOT NULL,
-  `authorID` INT NOT NULL,
-  `addDate` DATETIME NULL DEFAULT now(),
-  `editDate` DATETIME NULL,
+CREATE TABLE `contacts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) NOT NULL,
+  `fromID` int(10) unsigned NOT NULL,
+  `toID` int(10) unsigned NOT NULL,
+  `key` varchar(64) NOT NULL,
+  `status` varchar(45) NOT NULL,
+  `authorID` int(11) NOT NULL,
+  `addDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `editDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `VOLUNTEER` (`volunteerID` ASC),
-  UNIQUE INDEX `key_UNIQUE` (`key` ASC),
-  INDEX `AUTHOR` (`authorID` ASC));
+  UNIQUE KEY `key_UNIQUE` (`key`),
+  KEY `VOLUNTEER` (`fromID`),
+  KEY `AUTHOR` (`authorID`),
+  KEY `types` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE `projects` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

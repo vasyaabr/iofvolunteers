@@ -21,17 +21,10 @@
                 <td class="big-desc">Start date</td>
                 <td class="big-desc">Offerings</td>
                 <td class="big-desc">Work to be done</td>
-                {% if edit %}
                 <td class="big-desc"></td>
-                {% endif %}
             </tr>
             {% for project in projects %}
                 <tr>
-                    {#<td align="center" class="maincol">#}
-                        {#<a href="{{ url }}project/preview/{{ project.id }}">#}
-                            {#<b>{{ project.name is empty ? 'Preview' : project.name }}</b>#}
-                        {#</a>#}
-                    {#</td>#}
                     <td class="desc">
                         {{ project.name }}
                         {% if not project.active %}
@@ -42,12 +35,14 @@
                     <td class="desc">{{ project.startDate }}</td>
                     <td class="desc">{{ project.offer }}</td>
                     <td class="desc">{{ project.details }}</td>
-                    {% if edit %}
                     <td class="desc">
+                    {% if edit %}
                         <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
                         <input type="button" onclick="location.href='{{ url }}project/switch/{{ project.id }}';" value="{{ project.active ? 'Disable' : 'Enable' }}" />
-                    </td>
+                    {% else %}
+                        <input type="button" onclick="location.href='{{ url }}project/preview/{{ project.id }}';" value="Details" />
                     {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -128,6 +128,8 @@
         </tbody>
     </table>
 
+
+    {% if not visit %}
     <div align="center" style="margin-top: 15px;">
         <form method="POST" action="{{ url }}volunteer/contact" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ data.id }}">
@@ -139,5 +141,6 @@
         <input type="submit" value="Contact volunteer"/>
         </form>
     </div>
+    {% endif %}
 
 {% endblock %}
