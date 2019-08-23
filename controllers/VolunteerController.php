@@ -90,7 +90,7 @@ class VolunteerController extends Controller {
 
     }
 
-    public function previewView(string $id) : string {
+    public function previewView(string $id, bool $visit = false) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
@@ -108,6 +108,7 @@ class VolunteerController extends Controller {
             'data' => $result,
             'projects' => ProjectController::getOptionList(),
             'maps' => Volunteer::getMapLinks($result),
+            'visit' => false,
         ];
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);
@@ -165,9 +166,12 @@ class VolunteerController extends Controller {
         ];
         $success = Contact::update($params);
 
-        return TemplateProvider::render('Volunteer/contact.twig',
-            ['result' => 'Invitation to volunteer ' . ($mailSent && $success ? 'was sent' : 'unexpectedly failed')]
-        );
+        $resultMessage = $mailSent && $success
+            ? "An e-mail has been sent to this volunteer, with your contact details. 
+            If they are interested in cooperation, they will contact you."
+            : 'Email to volunteer unexpectedly failed';
+
+        return TemplateProvider::render('Common/contact.twig', ['result' => $resultMessage] );
 
     }
 
@@ -332,11 +336,9 @@ class VolunteerController extends Controller {
     public function visitView(string $key) : string {
 
         $contact = Contact::getSingle([ 'type' => Volunteer::CONTACT_TYPE, 'key' => $key]);
-        $project = self::decode(Project::getSingle( ['id' => $contact['projectID']] ));
 
-        $project['offer'] = Project::getOffer($project);
-
-        return TemplateProvider::render('Project/preview.twig', [ 'data' => $project, 'visit' => true ]);
+        $controller = new ProjectController();
+        return $controller->previewView((string)$contact['fromID'], true);
 
     }
 

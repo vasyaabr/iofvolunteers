@@ -180,7 +180,7 @@ class ProjectController extends Controller {
      * Contacts section
      */
 
-    public function previewView(string $id) : string {
+    public function previewView(string $id, bool $visit = false) : string {
 
         if (!User::isAuthenticated()) {
             return Platform::error( 'You are not authenticated' );
@@ -192,6 +192,7 @@ class ProjectController extends Controller {
         $render = [
             'data' => $data,
             'choices' => VolunteerController::getOptionList(),
+            'visit' => $visit,
         ];
 
         return TemplateProvider::render('Project/preview.twig', $render);
@@ -217,7 +218,9 @@ class ProjectController extends Controller {
         }
 
         $toData = self::decode(array_filter( Project::getSingle(['id' => $id]) ));
+        $toData['country'] = Project::getCountry($toData);
         $fromData = self::decode(array_filter(Volunteer::getSingle(['id' => $choiceID, 'userID' => User::getUserID()])));
+        $fromData['country'] = Volunteer::getCountry($fromData);
 
         $params = [
             'type' => Project::CONTACT_TYPE,
@@ -243,18 +246,21 @@ class ProjectController extends Controller {
         ];
         $success = Contact::update($params);
 
-        return TemplateProvider::render('Project/contact.twig',
-            ['result' => 'Contact mail ' . ($mailSent && $success ? 'was sent' : 'unexpectedly failed')]
-        );
+        $resultMessage = $mailSent && $success
+            ? "An e-mail has been sent to this project leader, with your contact details. 
+            If they are interested in cooperation, they will contact you."
+            : 'Email to project leader unexpectedly failed.';
+
+        return TemplateProvider::render('Common/contact.twig', ['result' => $resultMessage] );
 
     }
 
     public function visitView(string $key) : string {
 
         $contact = Contact::getSingle([ 'type' => Project::CONTACT_TYPE, 'key' => $key]);
-        $data = self::decode(Volunteer::getSingle( ['id' => $contact['toID']] ));
 
-        return TemplateProvider::render('Volunteer/preview.twig', [ 'data' => $data, 'visit' => true ]);
+        $controller = new VolunteerController();
+        return $controller->previewView((string)$contact['toID'], true);
 
     }
 
