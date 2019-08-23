@@ -108,7 +108,7 @@ class VolunteerController extends Controller {
             'data' => $result,
             'projects' => ProjectController::getOptionList(),
             'maps' => Volunteer::getMapLinks($result),
-            'visit' => false,
+            'visit' => $visit,
         ];
 
         return TemplateProvider::render('Volunteer/preview.twig', $render);
@@ -128,7 +128,7 @@ class VolunteerController extends Controller {
         $id = $_POST['id'];
         $projectID = $_POST['project'];
 
-        $result = Contact::get([ 'toID' => $id, 'fromID' => $projectID]);
+        $result = Contact::get(['type' => Volunteer::CONTACT_TYPE, 'toID' => $id, 'fromID' => $projectID]);
         if (count($result) > 0) {
             return Platform::error( 'Volunteer already contacted for this project!' );
         }
