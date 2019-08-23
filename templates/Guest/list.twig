@@ -20,7 +20,8 @@
                 <td class="big-desc">Languages</td>
                 <td class="big-desc">Gender</td>
                 <td class="big-desc">O-start year</td>
-                <td class="big-desc">Competitor experience</td>
+                <td class="big-desc">Motivation</td>
+                <td class="big-desc">Expectations</td>
                 {% if edit %}
                 <td class="big-desc"></td>
                 {% endif %}
@@ -36,7 +37,8 @@
                     <td class="desc">{{ guest.languages }}</td>
                     <td class="desc">{{ guest.gender }}</td>
                     <td class="desc">{{ guest.startO }}</td>
-                    <td class="desc">{{ guest.competitorExp }}</td>
+                    <td class="desc">{{ guest.motivation }}</td>
+                    <td class="desc">{{ guest.oExpectations }}</td>
                     {% if edit %}
                     <td class="desc">
                         <input type="button" onclick="location.href='{{ url }}guest/edit/{{ guest.id }}';" value="Edit" />

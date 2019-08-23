@@ -31,7 +31,7 @@ class Volunteer extends Model {
                 $condition = "YEAR(now()) - startO >= :{$key}";
                 break;
             case 'maxWorkDuration':
-                $condition = "{$key} >= :{$key}";
+                $condition = "{$key} >= :{$key} OR {$key} = 0";
                 break;
             case 'timeToStart':
                 $condition = "DATE_FORMAT('{$key}' ,'%Y-%m-01') >= :{$key}";
@@ -164,7 +164,7 @@ class Volunteer extends Model {
                 if ($skill === 'mappingDesc') {
                     $maps = self::getMapLinks($data);
                     if (!empty($maps)) {
-                        $result[$skill] .= TemplateProvider::render('Volunteer/map.twig', ['maps' => $maps]);
+                        $result[$skill] .= TemplateProvider::render('Volunteer/maps.twig', ['maps' => $maps]);
                     }
                 }
 

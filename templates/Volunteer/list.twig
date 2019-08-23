@@ -28,9 +28,13 @@
             {% for volunteer in volunteers %}
                 <tr>
                     <td align="center" class="maincol">
-                        <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
+                        {% if edit %}
                             <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
-                        </a>
+                        {% else %}
+                            <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
+                                <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
+                            </a>
+                        {% endif %}
                         {% if not volunteer.active %}
                         <span class="warn"> (disabled)</span>
                         {% endif %}
