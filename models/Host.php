@@ -105,4 +105,18 @@ class Host extends Model {
 
     }
 
+    public static function getContacts(array $data) : string {
+
+        $result = [];
+
+        if (!empty($data['contacts'])) {
+            foreach ( $data['contacts'] as $name => $contact ) {
+                $result[] = $name . ': ' . $contact;
+            }
+        }
+
+        return implode('<br>',$result);
+
+    }
+
 }

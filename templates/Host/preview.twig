@@ -9,27 +9,27 @@
 <table width="90%" align="center" border="1" bordercolor="#376FA6">
     <tbody>
     <tr>
-        <td valign="top" width="30%">
+        <td valign="top" width="50%">
 
             <table>
                 <tbody>
                 <tr valign="top">
                     <td colspan="2" class="big-desc">
-                        Project organisation: {{ data.name }}, {{ data.status }}, ({{ data.webpage }})
+                        Name: {{ data.name }}
                     </td>
                 </tr>
-
                 <tr>
-                    <td class="desc">
-                        Region: {{ data.region }}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="desc">Contact : {{ data.contact }} ({{ data.email }}, {{ data.phone }})</td>
+                    <td class="desc">Country: {{ data.country }}</td>
                 </tr>
                 <tr>
-                    <td class="desc">Location: {{ data.place }}</td>
+                    <td class="desc">E-mail : {{ data.email }}</td>
+                    <br>
+                </tr>
+                <tr>
+                    <td class="big-desc">Contacts</td>
+                </tr>
+                <tr>
+                    <td class="desc">{{ data.contacts | raw }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -39,45 +39,24 @@
             <table>
                 <tbody>
                 <tr>
-                    <td colspan="2" class="big-desc">Expected languages</td>
+                    <td colspan="2" class="big-desc">Languages</td>
                 </tr>
                 <tr>
-                    <td class="desc">{{ data.expectedLanguage }}</td>
+                    <td class="desc">{{ data.languages }}</td>
                 </tr>
                 </tbody>
             </table>
 
-            <br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc"><br>General details
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">How long: {{ data.how_long }} weeks</td>
-                </tr>
-                <tr>
-                    <td class="desc">Description: {{ data.details }}</td>
-                </tr>
-                </tbody>
-            </table>
         </td>
 
-        <td valign="top" width="30%">
+        <td valign="top" width="50%">
             <table>
                 <tbody>
                 <tr>
-                    <td class="big-desc">Expected disciplines of experience</td>
+                    <td colspan="2" class="big-desc">Offers</td>
                 </tr>
                 <tr>
-                    <td class="desc">
-                        {% if data.footO %} Foot-O<br> {% endif %}
-                        {% if data.mtbO %} MTBO<br> {% endif %}
-                        {% if data.skiO %} Ski-O<br> {% endif %}
-                        {% if data.trailO %} Trail-O<br> {% endif %}
-                    </td>
+                    <td class="desc">{{ data.offer | raw }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -85,32 +64,25 @@
             <table>
                 <tbody>
                 <tr>
-                    <td class="big-desc">Expected o-experience
-                    </td>
+                    <td class="desc">Max duration (weeks) : {{ data.maxDuration }}<br></td>
                 </tr>
                 <tr>
-                    <td class="desc">{{ data.expirience }}
-                    </td>
+                    <td class="big-desc">Host description :</td>
+                </tr>
+                <tr>
+                    <td class="desc">{{ data.hostDesc }}<br></td>
+                </tr>
+                <tr>
+                    <td class="big-desc">Guest expectations:</td>
+                </tr>
+                <tr>
+                    <td class="desc">{{ data.guestExpectations }}</td>
                 </tr>
                 </tbody>
             </table>
             <br>
         </td>
 
-        <td valign="top" width="35%">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="desc">
-                        <br>
-                        <b>What we can offer </b>
-                        <br>{{ data.offer }}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </td>
     </tr>
 
     </tbody>

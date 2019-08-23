@@ -1,21 +1,20 @@
 <h2>Hello!</h2>
 
 <p>
-    {{ from.name }} from {{ from.country }} who is a registered volunteer in the IOF
-    Volunteer Platform is interested in your project {{ to.name }} in
-    {{ to.country }}.
+    {{ from.name }} from {{ from.country }} who is a registered host in the IOF
+    Volunteer Platform is interested in you, {{ to.name }}.
 </p>
 
 <p>
-    If you wish to disable / close this project <a href="{{ url }}project/list">click here</a>
+    If you wish to disable your guest entry, <a href="{{ url }}guest/list">click here</a>
 </p>
 
 <p>
-    If you are still interested in recruiting volunteers you may view the
+    If you are still interested in visiting hosts, you may view the
     details of {{ from.name }} by clicking on the link below. {{ from.name }}'s contact
     details will also be visible on this page, therefore you can contact
-    this volunteer directly.<br>
-    Contact link: <a href="{{ url }}project/visit/{{ key }}">{{ url }}project/visit/{{ key }}</a>
+    this host directly.<br>
+    Contact link: <a href="{{ url }}host/visit/{{ key }}">{{ url }}host/visit/{{ key }}</a>
 </p>
 
 <p>Thank you!</p>

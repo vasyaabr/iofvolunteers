@@ -196,6 +196,10 @@ class GuestController extends Controller {
 
         $data = self::decode(array_filter(Guest::getSingle([ 'id' => $id])));
 
+        $data['languages'] = Guest::getLanguages($data);
+        $data['country'] = Guest::getCountry($data);
+        $data['competitorExp'] = Guest::getCompetitorExp($data);
+
         $render = [
             'data' => $data,
             'choices' => HostController::getOptionList(),
