@@ -86,4 +86,36 @@ class Project extends Model {
 
     }
 
+    public static function getExpirience(array $data) : string {
+
+        $result = [];
+
+        if (!empty($data['oworkLocalExp'])) {
+            foreach ($data['oworkLocalExp'] as $key => $exp) {
+                if ($key === 'experience') {
+                    $result[] = 'Local events: '.$exp;
+                } elseif ($exp == 1) {
+                    $result[] = 'Local role: '.$key;
+                } else {
+                    $result[] = 'Local ' . $key . ': '.$exp;
+                }
+            }
+        }
+
+        if (!empty($data['oworkInternationalExp'])) {
+            foreach ($data['oworkInternationalExp'] as $key => $exp) {
+                if ($key === 'experience') {
+                    $result[] = 'International events: '.$exp;
+                } elseif ($exp == 1) {
+                    $result[] = 'International role: '.$key;
+                } else {
+                    $result[] = 'International ' . $key . ': '.$exp;
+                }
+            }
+        }
+
+        return implode('<br/>',$result);
+
+    }
+
 }

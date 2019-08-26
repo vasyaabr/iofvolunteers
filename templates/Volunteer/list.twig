@@ -18,7 +18,6 @@
             <tr>
                 <td class="big-desc">Nickname</td>
                 <td class="big-desc">Languages</td>
-                <td class="big-desc">When can start</td>
                 <td class="big-desc">Duration available</td>
                 <td class="big-desc">O-Experience</td>
                 <td class="big-desc"></td>
@@ -38,7 +37,6 @@
                         {% endif %}
                     </td>
                     <td class="desc"> {{ volunteer.languages }}</td>
-                    <td class="desc">{{ volunteer.timeToStart|slice(0,10) }}</td>
                     <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
                     <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
                     <td class="desc">

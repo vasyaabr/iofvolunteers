@@ -402,7 +402,8 @@ class VolunteerController extends Controller {
             [
                 'volunteers' => $found,
                 'title' => 'Search results',
-                'list' => array_column($found, 'id'),
+                'list' => implode(',',array_column($found, 'id')),
+                'projects' => ProjectController::getOptionList(),
             ]
         );
 

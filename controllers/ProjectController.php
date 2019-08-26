@@ -188,6 +188,7 @@ class ProjectController extends Controller {
 
         $data = self::decode(array_filter(Project::getSingle([ 'id' => $id])));
         $data['offer'] = Project::getOffer($data);
+        $data['expirience'] = Project::getExpirience($data);
 
         $render = [
             'data' => $data,
