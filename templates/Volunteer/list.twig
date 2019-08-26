@@ -54,7 +54,7 @@
         </tbody>
     </table>
 
-    {% if not edit and not empty(volunteers) %}
+    {% if not edit and volunteers is not empty %}
         <div align="center" style="margin-top: 15px;">
             <form method="POST" action="{{ url }}volunteer/contactall" enctype="multipart/form-data">
                 <input type="hidden" name="list" value="{{ list }}">
