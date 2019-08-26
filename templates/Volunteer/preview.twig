@@ -31,6 +31,11 @@
                     <tr>
                         <td class="desc">International driving license: {{ data.license }}</td>
                     </tr>
+                    {% if visit %}
+                        <tr>
+                            <td class="desc">Contacts: {{ data.email }}, {{ data.phone }}</td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
 

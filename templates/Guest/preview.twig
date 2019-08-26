@@ -26,9 +26,11 @@
                         Country: {{ data.country }}
                     </td>
                 </tr>
+                {% if visit %}
                 <tr>
                     <td class="desc">Contact : {{ data.email }}</td>
                 </tr>
+                {% if endif %}
                 </tbody>
             </table>
 

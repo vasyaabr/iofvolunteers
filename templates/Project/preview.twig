@@ -25,9 +25,11 @@
                     </td>
                 </tr>
 
+                {% if visit %}
                 <tr>
                     <td class="desc">Contact : {{ data.contact }} ({{ data.email }}, {{ data.phone }})</td>
                 </tr>
+                {% endif %}
                 <tr>
                     <td class="desc">Location: {{ data.place }}</td>
                 </tr>

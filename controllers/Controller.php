@@ -74,7 +74,7 @@ abstract class Controller
         $encoded = json_encode($value, JSON_UNESCAPED_UNICODE);
 
         return json_last_error() === JSON_ERROR_NONE
-            ? str_replace('\"','\\"',$encoded)
+            ? str_replace(['\"', '\''],['\\"',''],$encoded)
             : '';
 
     }

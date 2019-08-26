@@ -32,6 +32,7 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/volunteer/edit/{id:\d+}', 'VolunteerController/editView');
     $r->addRoute('GET', '/volunteer/preview/{id:\d+}', 'VolunteerController/previewView');
     $r->addRoute('POST', '/volunteer/contact', 'VolunteerController/contact');
+    $r->addRoute('POST', '/volunteer/contactall', 'VolunteerController/contactAll');
     $r->addRoute('GET', '/volunteer/visit/{key}', 'VolunteerController/visitView');
     $r->addRoute('GET', '/volunteer/exclude/{key}', 'VolunteerController/excludeView');
     $r->addRoute('GET', '/volunteer/switch/{id:\d+}', 'VolunteerController/switchState');

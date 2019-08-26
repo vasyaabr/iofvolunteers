@@ -175,6 +175,77 @@ class VolunteerController extends Controller {
 
     }
 
+    public function contactAll() : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        if (empty($_POST['project'])) {
+            return Platform::error( 'Please select a project for contact!' );
+        }
+
+        $projectID = $_POST['project'];
+        $list = explode(',',$_POST['list']);
+        if (empty($list)) {
+            return Platform::error( 'No volunteers found!' );
+        }
+
+        $successCounter = 0;
+
+        foreach ($list AS $id) {
+
+            $result = Contact::get( [ 'type' => Volunteer::CONTACT_TYPE, 'toID' => $id, 'fromID' => $projectID ] );
+            if ( count( $result ) > 0 ) {
+                continue;
+            }
+
+            $vData = self::decode( array_filter( Volunteer::getSingle( [ 'id' => $id ] ) ) );
+
+            if ( ! empty( $vData['excluded'] ) && $vData['excluded'] != 0 ) {
+                continue;
+            }
+
+            $result = Project::getSingle( [ 'id' => $projectID, 'userID' => User::getUserID() ] );
+            $pData  = self::decode( array_filter( $result ) );
+
+            $params  = [
+                'type'     => Volunteer::CONTACT_TYPE,
+                'toID'     => $id,
+                'fromID'   => $projectID,
+                'key'      => md5( uniqid( $id, true ) ),
+                'status'   => Status::STATUS_NEW,
+                'authorID' => User::getUserID(),
+            ];
+            $success = Contact::add( $params );
+
+            if ( ! $success ) {
+                continue;
+            }
+
+            $mailText = TemplateProvider::render( 'Mail/invitation.twig', [
+                'volunteer' => $vData,
+                'key'       => $params['key'],
+                'project'   => $pData
+            ] );
+            $mailSent = Mailer::send( $vData['email'], $vData['name'], 'Invitation to orienteering project', $mailText );
+
+            $params  = [
+                'status'   => $mailSent ? Status::STATUS_MAIL_SENT : Status::STATUS_MAIL_FAILED,
+                'key'      => $params['key'],
+                'editDate' => ( new \DateTime() )->format( 'Y-m-d H:i:s' ),
+            ];
+            $success = Contact::update( $params );
+            $successCounter += $success ? 1 : 0;
+        }
+
+        $resultMessage = "{$successCounter} e-mails has been sent to found volunteers, with your contact details. 
+            If they are interested in cooperation, they will contact you.";
+
+        return TemplateProvider::render('Common/contact.twig', ['result' => $resultMessage] );
+
+    }
+
     public function add() : string {
 
         if((int)$_SERVER['CONTENT_LENGTH']>0 && count($_POST)===0){
@@ -328,7 +399,11 @@ class VolunteerController extends Controller {
         }
 
         return TemplateProvider::render('Volunteer/list.twig',
-            [ 'volunteers' => $found, 'title' => 'Search results' ]
+            [
+                'volunteers' => $found,
+                'title' => 'Search results',
+                'list' => array_column($found, 'id'),
+            ]
         );
 
     }

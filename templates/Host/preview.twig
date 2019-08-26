@@ -25,12 +25,14 @@
                     <td class="desc">E-mail : {{ data.email }}</td>
                     <br>
                 </tr>
+                {% if visit %}
                 <tr>
                     <td class="big-desc">Contacts</td>
                 </tr>
                 <tr>
                     <td class="desc">{{ data.contacts | raw }}</td>
                 </tr>
+                {% endif %}
                 </tbody>
             </table>
 
