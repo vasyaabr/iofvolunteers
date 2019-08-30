@@ -2,14 +2,73 @@
 
 {% block onecolumn %}
 
-    <div align="center">
-        <div class="title">Volunteer Registration Form</div>
-        <br>
-        <div class="warn-title">Please note that you must be 18+ to register as a
-            volunteer!
+    <div class="row mt-3">
+        <div class="col text-center">
+            <h2>Volunteer Registration Form</h2>
         </div>
     </div>
+    <div class="row">
+        <p class="col text-center text-danger">
+            Please note that you must be 18+ to register as a volunteer!
+        </p>
+    </div>
 
+    <form class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Contact Information</h3>
+
+        <div class="form-group row">
+            <label for="name" class="col-4 col-form-label col-form-label-sm">Name:</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="name" name="name" required>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-4 col-form-label col-form-label-sm">E-mail <span class="text-danger">(required)</span>:</label>
+            <input type="email" class="col-8 form-control form-control-sm" id="email" name="email" required>
+        </div>
+        <div class="form-group row">
+            <label for="country" class="col-4 col-form-label col-form-label-sm">Country:</label>
+            <select type="text" class="col-8 form-control form-control-sm" name="country" id="country" value="" required>
+                {{ countries | raw }}
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="birthdate" class="col-4 col-form-label col-form-label-sm">Date of birth:</label>
+            <input type="date" class="col-8 form-control form-control-sm" id="date" name="date" required>
+        </div>
+        <div class="form-group row">
+            <label for="startO" class="col-4 col-form-label col-form-label-sm">Year you started orienteering:</label>
+            <input type="number" class="col-8 form-control form-control-sm" id="startO" name="startO" required min="1900" max="2099" step="1">
+        </div>
+        <div class="form-group">
+            <label for="helpDesc" class="col-form-label col-form-label-sm">Explain how you can help as a volunteer:</label>
+            <textarea class="form-control form-control-sm" id="helpDesc" name="helpDesc" required rows="4"></textarea>
+        </div>
+
+        <p>
+            <strong>Disclaimer:</strong> I have filled in my details
+            above as accurately as possible. By submitting this form, I state that I am a volunteer in
+            developing orienteering. I understand that the IOF cannot be held responsible for my being or not
+            being recruited as a volunteer. I also understand that should I choose to accept any offer
+            requesting my assistance, the IOF cannot be held responsible for the terms under which I will work
+            as a volunteer.
+        </p>
+
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="iAgreeWithTerms" name="iAgreeWithTerms" required>
+            <label for="iAgreeWithTerms" class="form-check-label"> I have read and understood the above</label>
+        </div>
+
+        <div class="text-danger"> Please tick the disclaimer...</div>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
+
+<!--
     <form method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
@@ -530,10 +589,12 @@
             </tbody>
         </table>
     </form>
+-->
 
     <script language="javascript" type="text/javascript">
 
-        $( document ).ready(function() {
+        // Data fill code
+        $(document).ready(function() {
 
             {% if data %}
             var data = JSON.parse('{{ data | raw }}');
