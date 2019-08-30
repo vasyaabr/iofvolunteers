@@ -7,110 +7,102 @@
 {% endblock %}
 
 {% block main %}
-<td valign="top" id="main">
 
-    <table>
-        <tr>
-            <td align="center" bgcolor="#E7FCFE" width="45%">
-                <font size="3" face="Verdana">{{ welcome|raw }}</font></td>
-        </tr>
-    </table>
+    {% if welcome %}
+    <div class="alert alert-info alert-dismissible fade show text-center mt-4" role="alert">
+        {{ welcome|raw }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
 
-    <table cellpadding="10">
+    <div class="row justify-content-center text-center my-3">
+        <div class="col">
+            <a href="{{ url }}volunteer/list" class="main">
+                <img src="{{ url }}images/vol_needed.jpg" width="100" height="77">
+                <br>
+                <div class="big-desc">Register as a Volunteer</div>
+                <div class="black-desc">Are you skilled in some orienteering topics? Do you want to make new
+                    friends and while help others develop orienteering?</div>
+                <div class="warn">(You need to be 18+ to volunteer!)</div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{ url }}volunteer/search" class="main">
+                <img src="{{ url }}images/search_vol.jpg" width="100" height="77">
+                <br>
+                <div class="big-desc">Search a Volunteer</div>
+                <div class="black-desc">Find volunteers with different skills who can help you develop
+                orienteering or help you realize a project!</div>
+                <div class="warn">(You must create project first!)</div>
+            </a>
+        </div>
+    </div>
 
-        <tr>
-            <td align="center">
-                <a href="{{ url }}volunteer/list" class="main">
-                    <img src="{{ url }}images/vol_needed.jpg" width="100" height="77">
-                    <br>
-                    <div class="big-desc">Register as a Volunteer</div>
-                    <div class="black-desc">Are you skilled in some orienteering topics? Do you want to make new
-                        friends and while help others develop orienteering?</div>
-                    <div class="warn">(You need to be 18+ to volunteer!)</div>
-                </a>
-            </td>
-            <td width="%5"></td>
-            <td align="center">
-                <a href="{{ url }}volunteer/search" class="main">
-                    <img src="{{ url }}images/search_vol.jpg" width="100" height="77">
-                    <br>
-                    <div class="big-desc">Search a Volunteer</div>
-                    <div class="black-desc">Find volunteers with different skills who can help you develop
-                    orienteering or help you realize a project!</div>
-                    <div class="warn">(You must create project first!)</div>
-                </a>
-            </td>
-        </tr>
+    <div class="row justify-content-center text-center my-3">
+        <div class="col">
+            <a href="{{ url }}project/list" class="main">
+                <img src="{{ url }}images/new_request.jpg" width="100" height="77">
+                <br>
+                <div class="big-desc">Register a Project</div>
+                <div class="black-desc">Your club or organisation wants to work in orienteering but you need extra
+                help? Register your project and ask for volunteers!</div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{ url }}project/search" class="main">
+                <img src="{{ url }}images/search_requests.jpg" width="150" height="77">
+                <br>
+                <div class="big-desc">Search a Project</div>
+                <div class="black-desc">There are many clubs and organisations in different countries in need of
+                    volunteers to help with mapping, coaching, teaching and more!</div>
+            </a>
+        </div>
+    </div>
 
-        <tr>
-            <td align="center">
-                <a href="{{ url }}project/list" class="main">
-                    <img src="{{ url }}images/new_request.jpg" width="100" height="77">
-                    <br>
-                    <div class="big-desc">Register a Project</div>
-                    <div class="black-desc">Your club or organisation wants to work in orienteering but you need extra
-                    help? Register your project and ask for volunteers!</div>
-                </a>
-            </td>
-            <td width="%5"></td>
-            <td align="center">
-                <a href="{{ url }}project/search" class="main">
-                    <img src="{{ url }}images/search_requests.jpg" width="150" height="77">
-                    <br>
-                    <div class="big-desc">Search a Project</div>
-                    <div class="black-desc">There are many clubs and organisations in different countries in need of
-                        volunteers to help with mapping, coaching, teaching and more!</div>
-                </a>
-            </td>
-        </tr>
+    <div class="row justify-content-center text-center my-3">
+        <div class="col">
+            <a href="{{ url }}host/list" class="main">
+                <img src="{{ url }}images/family1s.jpg" width="100" height="77">
+                <br>
+                <div class="big-desc">Register as a Host Family</div>
+                <div class="black-desc">You are an orienteering family and you would like to host a young
+                    orienteer? Help a future star go training with you!</div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{ url }}host/search" class="main">
+                <img src="{{ url }}images/find_host.jpg" width="75" height="77">
+                <br>
+                <div class="big-desc">Find a host family</div>
+                <div class="black-desc">There are orienteering families in different countries where you can stay
+                    and go orienteering with them! Find a host family!</div>
+                <div class="warn">(You need to be 18+ to apply!)</div>
+            </a>
+        </div>
+    </div>
 
-        <tr>
-            <td align="center">
-                <a href="{{ url }}host/list" class="main">
-                    <img src="{{ url }}images/family1s.jpg" width="100" height="77">
-                    <br>
-                    <div class="big-desc">Register as a Host Family</div>
-                    <div class="black-desc">You are an orienteering family and you would like to host a young
-                        orienteer? Help a future star go training with you!</div>
-                </a>
-            </td>
-            <td width="%5"></td>
-            <td align="center">
-                <a href="{{ url }}host/search" class="main">
-                    <img src="{{ url }}images/find_host.jpg" width="75" height="77">
-                    <br>
-                    <div class="big-desc">Find a host family</div>
-                    <div class="black-desc">There are orienteering families in different countries where you can stay
-                        and go orienteering with them! Find a host family!</div>
-                    <div class="warn">(You need to be 18+ to apply!)</div>
-                </a>
-            </td>
-        </tr>
+    <div class="row justify-content-center text-center my-3">
+        <div class="col">
+            <a href="{{ url }}guest/list" class="main">
+                <img src="{{ url }}images/new_orik.jpg" width="75" height="77">
+                <br>
+                <div class="big-desc">Register as a Guest</div>
+                <div class="black-desc">You want to develop your o-skills more by training in different terrains?
+                    Apply to stay with an orienteering family and go training with them!</div>
+                <div class="warn">(You need to be 18+ to register!)</div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{ url }}guest/search" class="main">
+                <img src="{{ url }}images/practices.jpg" width="100" height="77">
+                <br>
+                <div class="big-desc">Search a guest</div>
+                <div class="black-desc">There are some future stars out there waiting for a helping hand! Find a
+                    young orienteer who could stay with your family and go orienteering with you!</div>
+            </a>
+        </div>
+    </div>
 
-        <tr>
-            <td align="center">
-                <a href="{{ url }}guest/list" class="main">
-                    <img src="{{ url }}images/new_orik.jpg" width="75" height="77">
-                    <br>
-                    <div class="big-desc">Register as a Guest</div>
-                    <div class="black-desc">You want to develop your o-skills more by training in different terrains?
-                        Apply to stay with an orienteering family and go training with them!</div>
-                    <div class="warn">(You need to be 18+ to register!)</div>
-                </a>
-            </td>
-            <td width="%5"></td>
-            <td align="center">
-                <a href="{{ url }}guest/search" class="main">
-                    <img src="{{ url }}images/practices.jpg" width="100" height="77">
-                    <br>
-                    <div class="big-desc">Search a guest</div>
-                    <div class="black-desc">There are some future stars out there waiting for a helping hand! Find a
-                        young orienteer who could stay with your family and go orienteering with you!</div>
-                </a>
-            </td>
-        </tr>
-
-    </table>
-
-</td>
 {% endblock %}
