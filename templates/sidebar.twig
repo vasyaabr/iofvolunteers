@@ -1,81 +1,103 @@
-<div id="registerBlock" style="display:none">
-    <form id="registerForm" method="POST" action="{{ url }}register">
-        <p align="center" class="big-desc">All fields are required!</p>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="name">Name<span class="warn-title">*</span>: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="text" name="name" size="20" required>
+<!-- Register modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" method="POST" action="{{ url }}register">
+                    <p align="center" class="big-desc">All fields are required!</p>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="name">Name<span class="warn-title">*</span>: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" name="name" size="20" required>
+                        </div>
+                    </div>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="name">Country<span class="warn-title">*</span>: </label>
+                        <div class="col-9">
+                            <select class="form-control form-control-sm" type="text" name="country" id="country" required></select>
+                        </div>
+                    </div>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="name">E-mail<span class="warn-title">*</span>: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" name="email" size="20" required>
+                        </div>
+                    </div>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="name">Username<span class="warn-title">*</span>: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" name="login" size="20" required>
+                        </div>
+                    </div>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="name">Password<span class="warn-title">*</span>: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="password" name="password" size="20" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
             </div>
         </div>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="name">Country<span class="warn-title">*</span>: </label>
-            <div class="col-9">
-                <select class="form-control form-control-sm" type="text" name="country" id="country" required></select>
-            </div>
-        </div>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="name">E-mail<span class="warn-title">*</span>: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="text" name="email" size="20" required>
-            </div>
-        </div>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="name">Username<span class="warn-title">*</span>: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="text" name="login" size="20" required>
-            </div>
-        </div>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="name">Password<span class="warn-title">*</span>: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="password" name="password" size="20" required>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-
-    <p align="center" class="desc">
-        <b> If you are already registered, sign in here! </b>
-        <br>
-    </p>
+    </div>
 </div>
 
-<div id="signInBlock" style="display:none">
-    <form id="signinForm" method="POST" action="{{ url }}signin">
-        <p align="center" class="big-desc">You may sign in using your e-mail or username and password...</p>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="login">Username / E-mail: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="text" name="login" size="20" required>
+<!-- Sign in modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="signinForm" method="POST" action="{{ url }}signin">
+                    <p align="center" class="big-desc">You may sign in using your e-mail or username and password...</p>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="login">Username / E-mail: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="text" name="login" size="20" required>
+                        </div>
+                    </div>
+                    <div class="form-group row desc">
+                        <label class="col-3 col-form-label col-form-label-sm" for="password">Password: </label>
+                        <div class="col-9">
+                            <input class="form-control form-control-sm" type="password" name="password" size="20" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </form>
             </div>
         </div>
-        <div class="form-group row desc">
-            <label class="col-3 col-form-label col-form-label-sm" for="password">Password: </label>
-            <div class="col-9">
-                <input class="form-control form-control-sm" type="password" name="password" size="20" required>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in!</button>
-    </form>
-
-    <p align="center" class="desc">
-        <b> If you are a new user, register first! </b>
-        <br>
-    </p>
+    </div>
 </div>
 
 <div id="buttonsBlock">
     <div class="row justify-content-center text-center mt-3">
     {% if loggedIn == true %}
         <div class="col">
-            <a class="btn btn-primary" href="{{ url }}logout" role="button" id="logout">Logout</a>
+            <a class="btn btn-info btn-lg" href="{{ url }}logout" role="button" id="logout">Logout</a>
         </div>
     {% else %}
         <div class="col">
-            <button type="button" class="btn btn-info btn-lg" id="register">New User</button>
+            <button type="button" class="btn btn-info btn-lg" id="register" data-toggle="modal" data-target="#registerModal">
+                New User
+            </button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-info btn-lg" id="signIn">Sign In</button>
+            <button type="button" class="btn btn-info btn-lg" id="signIn" data-toggle="modal" data-target="#loginModal">
+                Sign In
+            </button>
         </div>
     {% endif %}
     </div>
@@ -138,20 +160,6 @@ $( document ).ready(function() {
 
     // load countries list
     $.get( '{{ url }}countries', function(data) { $('#country').empty().append(data); });
-
-    $('#register').click(function() {
-        $('#register').hide();
-        $('#registerBlock').show();
-        $('#signInBlock').hide();
-        $('#signIn').show();
-    });
-
-    $('#signIn').click(function() {
-        $('#registerBlock').hide();
-        $('#register').show();
-        $('#signInBlock').show();
-        $('#signIn').hide();
-    });
 
 });
 
