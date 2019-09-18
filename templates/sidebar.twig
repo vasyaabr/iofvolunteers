@@ -31,7 +31,7 @@
                 <input class="form-control form-control-sm" type="password" name="password" size="20" required>
             </div>
         </div>
-        <input type="submit" value="Register" name="register">
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
 
     <p align="center" class="desc">
@@ -55,7 +55,7 @@
                 <input class="form-control form-control-sm" type="password" name="password" size="20" required>
             </div>
         </div>
-        <input type="submit" value="Sign in!" name="signin">
+        <button type="submit" class="btn btn-primary">Sign in!</button>
     </form>
 
     <p align="center" class="desc">
@@ -68,90 +68,76 @@
     <div class="row justify-content-center text-center mt-3">
     {% if loggedIn == true %}
         <div class="col">
-            <a href="{{ url }}logout" class="custom-button" id="logout">Logout</a>
+            <a class="btn btn-primary" href="{{ url }}logout" role="button" id="logout">Logout</a>
         </div>
     {% else %}
         <div class="col">
-            <a href="#" class="custom-button" id="register">New Users</a>
+            <button type="button" class="btn btn-info btn-lg" id="register">New User</button>
         </div>
         <div class="col">
-            <a href="#" class="custom-button" id="signIn">Sign In</a>
+            <button type="button" class="btn btn-info btn-lg" id="signIn">Sign In</button>
         </div>
     {% endif %}
     </div>
 </div>
 
-<br>
+<div id="photos_carousel" class="carousel slide pt-4" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100 img-fluid" src="{{ url }}images/project1s.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100 img-fluid" src="{{ url }}images/project2s.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100 img-fluid" src="{{ url }}images/project3s.jpg" alt="Third slide">
+        </div>
+    </div>
+</div>
 
-<p align="center">
-    <img class="slides img-fluid" src="{{ url }}images/project1s.jpg">
-    <img class="slides img-fluid" src="{{ url }}images/project2s.jpg">
-    <img class="slides img-fluid" src="{{ url }}images/project3s.jpg">
-</p>
+<div class="pt-4">
+    <table align="center" border="0" cellpadding="0" cellspacing="10" width="75%" bgcolor="#E7FCFE">
+        <tr>
+            <td align="center" class="smradio"><b> Impressions, Experiences... </b></td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <marquee direction="up" scrollamount="1" behavior="scroll" height="200">
+                        "Orienteering has always been and remains to be my favorite activity. I started orienteering in 1978
+                        and I am still an active orienteer, mainly in Foot-O. I regularly take a part in events at various
+                        levels, from local events to WMOC. I have prepared an MBTO map for the Albanian Orienteering
+                        Project. It is nice to get the opportunity to be involved in the development of orienteering in a
+                        country I have never been to."<br>
+                        <b>Alexey Zuev, Volunteer, Russia</b><br><br>
+                        "The IOF Global Orienteering Volunteer Project is great for me, as apart from some help from friends
+                        from Austria, this is the first time I am not the only expert here in Albania. It gives me the
+                        feeling of being recognised in my work and motivates me to do more."<br>
+                        <b>Inge Bosina, Project Leader, Albanian Orienteering Project</b><br><br>
+                        "Wow this has taken off! I knew it would. My dream has come true. I have been asking people to do
+                        something world wide at IOF level like this for many years. You have done very well."<br>
+                        <b>David Poland, Project Leader, Orienteering Scholarship Australia</b><br><br>
 
-<br><br>
-<table align="center" border="0" cellpadding="0" cellspacing="10" width="75%" bgcolor="#E7FCFE">
-    <tr>
-        <td align="center" class="smradio"><b> Impressions, Experiences... </b></td>
-    </tr>
-    <tr>
-        <td class="desc">
-            <marquee direction="up" scrollamount="1" behavior="scroll" height="200">
-                    "Orienteering has always been and remains to be my favorite activity. I started orienteering in 1978
-                    and I am still an active orienteer, mainly in Foot-O. I regularly take a part in events at various
-                    levels, from local events to WMOC. I have prepared an MBTO map for the Albanian Orienteering
-                    Project. It is nice to get the opportunity to be involved in the development of orienteering in a
-                    country I have never been to."<br>
-                    <b>Alexey Zuev, Volunteer, Russia</b><br><br>
-                    "The IOF Global Orienteering Volunteer Project is great for me, as apart from some help from friends
-                    from Austria, this is the first time I am not the only expert here in Albania. It gives me the
-                    feeling of being recognised in my work and motivates me to do more."<br>
-                    <b>Inge Bosina, Project Leader, Albanian Orienteering Project</b><br><br>
-                    "Wow this has taken off! I knew it would. My dream has come true. I have been asking people to do
-                    something world wide at IOF level like this for many years. You have done very well."<br>
-                    <b>David Poland, Project Leader, Orienteering Scholarship Australia</b><br><br>
+                        "I would like to thank you for great experience we have had as volunteers for Navigation Games in
+                        the United States. Me and my husband Josivan Juan, are grateful for this opportunity given by IOF
+                        Global Orienteering Volunteer Platform."<br>
+                        <b>Pavla Zdrahalova, Volunteer, Czech Republic</b>
 
-                    "I would like to thank you for great experience we have had as volunteers for Navigation Games in
-                    the United States. Me and my husband Josivan Juan, are grateful for this opportunity given by IOF
-                    Global Orienteering Volunteer Platform."<br>
-                    <b>Pavla Zdrahalova, Volunteer, Czech Republic</b>
+                </marquee>
+            </td>
+        </tr>
+    </table>
+</div>
 
-            </marquee>
-        </td>
-    </tr>
-</table>
-
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 
 $( document ).ready(function() {
 
-    // text slider
-    var slideIndex = 0;
-    change_slides();
-
-    function change_slides() {
-        var i;
-        var x = document.getElementsByClassName("slides");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > x.length) {
-            slideIndex = 1
-        }
-        x[slideIndex - 1].style.display = "block";
-        setTimeout(change_slides, 2000); // Change image every 2 seconds
-    }
+    $('#photos_carousel').carousel({
+        interval: 2000
+    });
 
     // load countries list
-    $.ajax({
-        type: "GET",
-        url: '{{ url }}countries',
-        success: function(data)
-        {
-            $('#country').empty().append(data);
-        }
-    });
+    $.get( '{{ url }}countries', function(data) { $('#country').empty().append(data); });
 
     $('#register').click(function() {
         $('#register').hide();
