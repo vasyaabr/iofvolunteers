@@ -13,15 +13,15 @@
         </p>
     </div>
 
-    <form class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step1" class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
 
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
-        <h3>Contact Information</h3>
+        <h3>Main Information</h3>
 
         <div class="form-group row">
-            <label for="name" class="col-4 col-form-label col-form-label-sm">Name:</label>
+            <label for="name" class="col-4 col-form-label col-form-label-sm">Name <span class="text-danger">(required)</span>:</label>
             <input type="text" class="col-8 form-control form-control-sm" id="name" name="name" required>
         </div>
         <div class="form-group row">
@@ -29,21 +29,21 @@
             <input type="email" class="col-8 form-control form-control-sm" id="email" name="email" required>
         </div>
         <div class="form-group row">
-            <label for="country" class="col-4 col-form-label col-form-label-sm">Country:</label>
+            <label for="country" class="col-4 col-form-label col-form-label-sm">Country <span class="text-danger">(required)</span>:</label>
             <select type="text" class="col-8 form-control form-control-sm" name="country" id="country" value="" required>
                 {{ countries | raw }}
             </select>
         </div>
         <div class="form-group row">
-            <label for="birthdate" class="col-4 col-form-label col-form-label-sm">Date of birth:</label>
+            <label for="birthdate" class="col-4 col-form-label col-form-label-sm">Date of birth <span class="text-danger">(required)</span>:</label>
             <input type="date" class="col-8 form-control form-control-sm" id="date" name="date" required>
         </div>
         <div class="form-group row">
-            <label for="startO" class="col-4 col-form-label col-form-label-sm">Year you started orienteering:</label>
+            <label for="startO" class="col-4 col-form-label col-form-label-sm">Year you started orienteering <span class="text-danger">(required)</span>:</label>
             <input type="number" class="col-8 form-control form-control-sm" id="startO" name="startO" required min="1900" max="2099" step="1">
         </div>
         <div class="form-group">
-            <label for="helpDesc" class="col-form-label col-form-label-sm">Explain how you can help as a volunteer:</label>
+            <label for="helpDesc" class="col-form-label col-form-label-sm">Explain how you can help as a volunteer <span class="text-danger">(required)</span>:</label>
             <textarea class="form-control form-control-sm" id="helpDesc" name="helpDesc" required rows="4"></textarea>
         </div>
 
@@ -67,12 +67,26 @@
 
     </form>
 
+    <script type="text/javascript">
+        $("#step1").submit(function(e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data)
+                {
+                    // switch to next step or display errors
+                    console.log(data);
+                }
+            });
+
+        });
+    </script>
 
 <!--
-    <form method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
-
         <table width="90%" align="center">
             <tbody>
             <tr>
@@ -569,26 +583,6 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-                <td colspan="2" class="desc"><b>Disclaimer:</b> I have filled in my details
-                    above as accurately as possible. By submitting this form, I state that I am a volunteer in
-                    developing orienteering. I understand that the IOF cannot be held responsible for my being or not
-                    being recruited as a volunteer. I also understand that should I choose to accept any offer
-                    requesting my assistance, the IOF cannot be held responsible for the terms under which I will work
-                    as a volunteer.
-                    <br><br><input type="checkbox" name="iAgreeWithTerms" required> I have read and understood the above.
-                    <div class="warn"> Please tick the disclaimer...</div>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="4" align="right"><input type="submit" value="Submit my details">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
 -->
 
     <script type="text/javascript">
