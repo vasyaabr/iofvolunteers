@@ -18,7 +18,7 @@ class User extends Model {
             [
                 'email' => v::notEmpty()->email(),
                 'login' => v::notEmpty(),
-                'password' => v::notEmpty(),
+                'password' => v::notEmpty()->length(8),
                 'name' => v::notEmpty(),
                 'country' => v::notEmpty(),
             ]
