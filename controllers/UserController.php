@@ -9,16 +9,23 @@ class UserController {
 
     public function add() : string {
 
-        $params = $this->validate($_POST, 'register');
-
-        if (!empty($params['errors'])) {
-            return Platform::error( $params['errors'] );
+        $validationErrors = User::validateAll($_POST, true);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
         }
 
-        $success = User::add($params);
+        $p = [['login' => $_POST['login'], 'email' => $_POST['email']]];
+        if (!empty(User::get($p))) {
+            return Platform::error( 'Login or email already used' );
+        }
+
+        $_POST['password'] = User::encodePassword( $_POST['password'] );
+        $_POST['name'] = ucfirst($_POST['name']);
+
+        $success = User::add($_POST);
 
         if ($success) {
-            $this->authenticate($params['login']);
+            $this->authenticate($_POST['login']);
         }
 
         return $success ? (new Platform())->load() : Platform::error( 'Unexpected error' );
@@ -51,56 +58,14 @@ class UserController {
 
     }
 
-    /**
-     * Validate params and set 'errors' element on errors
-     * @param array $params
-     *
-     * @return array
-     */
-    private function validate(array $params, string $action) : array {
-
-        $required = $action === 'register' ? User::$requiredFields : ['login','password'];
-        foreach ($required as $key) {
-            if (!isset($params[$key])) {
-                $params['errors'][] = "Required field `{$key}` is missing`";
-            }
-        }
-
-        if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
-            $params['errors'][] = 'Invalid email';
-        }
-
-        if (empty($params['errors']) && $action === 'register') {
-            $p = [['login' => $params['login'], 'email' => $params['email']]];
-            if (!empty(User::get($p))) {
-                $params['errors'][] = 'Login or email already used';
-            }
-        }
-
-        if (isset($params['password'])) {
-            $params['password'] = User::encodePassword( $params['password'] );
-        }
-
-        if (isset($params['name'])) {
-            $params['name'] = ucfirst($params['name']);
-        }
-
-        return $params;
-
-    }
-
     public function signIn() : string {
 
-        $params = $this->validate([
-            'login' => $_POST['login'] ?? null,
-            'password'    => $_POST['password'] ?? null,
-        ], 'signin');
-
-        if (!empty($params['errors'])) {
-            return Platform::error( $params['errors'] );
+        $validationErrors =  User::validateList(['login','password'], $_POST);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
         }
 
-        $success = $this->authenticate($params['login'], $params['password']);
+        $success = $this->authenticate($_POST['login'], User::encodePassword($_POST['password']) );
 
         return $success ? (new Platform())->load() : Platform::error( 'Invalid login or password' );
 
@@ -110,6 +75,36 @@ class UserController {
 
         unset($_SESSION['user'],$_SESSION['auth_done']);
         return (new Platform())->load();
+
+    }
+
+    public function restoreView() : string {
+
+        return TemplateProvider::render('User/restore.twig');
+
+    }
+
+    public function restore() : string {
+
+        $validationErrors =  User::validate('email', $_POST['email'] ?? null);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
+        }
+
+        $user = User::getSingle(['email' => $_POST['email']]);
+        if (empty($user)) {
+            return Platform::error( 'Invalid email' );
+        }
+
+        $pass = User::randomPassword();
+        User::update(['id'=>$user['id'], 'password' => User::encodePassword($pass)]);
+
+        $mailText = TemplateProvider::render( 'Mail/resetPassword.twig', [
+            'pass' => $pass,
+        ] );
+        $mailSent = Mailer::send( $_POST['email'], null, 'Password reset', $mailText );
+
+        return Platform::error( $mailSent ? 'Password successfully reset. Check your email.' : 'Unexpected error' );
 
     }
 

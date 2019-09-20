@@ -1,0 +1,22 @@
+{% extends 'common.twig' %}
+
+{% block onecolumn %}
+
+    <div class="row mt-3">
+        <div class="col text-center">
+            <h2>Password reset form</h2>
+        </div>
+    </div>
+
+    <form class="w-50" method="POST" action="{{ url }}restore" enctype="multipart/form-data">
+
+        <div class="form-group row">
+            <label for="email" class="col-4 col-form-label col-form-label-sm">E-mail <span class="text-danger">(required)</span>:</label>
+            <input type="email" class="col-8 form-control form-control-sm" id="email" name="email" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Reset my password</button>
+
+    </form>
+
+{% endblock %}

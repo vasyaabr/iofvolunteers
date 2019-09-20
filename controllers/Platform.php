@@ -10,8 +10,8 @@ class Platform {
 
         if (empty($_SESSION['user'])) {
             $params['welcome'] = '<strong>Welcome to the Global Orienteering Volunteer Platform!</strong><br>
-                        <br>You need to register in order to access the platform! If already registered, then sign in
-                        first...';
+                        <br>You need to register in order to access the platform!
+                        <br>If already registered, then sign in first...';
         } else if (!empty($_SESSION['auth_done'])) {
             $names             = explode( ' ', trim( $_SESSION['user']['name'] ) );
             $params['welcome'] = "Welcome {$names[0]}! Be part of the Global Orienteering Volunteer Network by clicking on any of the icons below...";

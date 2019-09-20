@@ -4,11 +4,105 @@ namespace models;
 
 
 use controllers\DbProvider;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator as v;
 
 abstract class Model {
 
     public static $table = '';
     public static $key = 'id';
+
+    /**
+     * Stub for default validators list
+     * @return array
+     */
+    public static function getValidators() : array {
+        return [];
+    }
+
+    /**
+     * Validate array of parameters
+     * @param array $params
+     * @param bool $strict use strict validation
+     * @return array
+     */
+    public static function validateAll(array $params, bool $strict = false) : array {
+
+        $validators = static::getValidators();
+        $errors = [];
+
+        if ($strict) {
+            // Strict validation, will check for missing values
+            foreach ($validators as $name => $validator) {
+                try {
+                    $validator->assert($params[$name] ?? null);
+                } catch(NestedValidationException $exception) {
+                    $errors += $exception->getMessages();
+                }
+            }
+        } else {
+            // Non-strict validation, check only presented values
+            foreach ($params as $key => $param) {
+                if (isset($validators[$key])) {
+                    try {
+                        $validators[$key]->assert($param);
+                    } catch (NestedValidationException $exception) {
+                        $errors += $exception->getMessages();
+                    }
+                }
+            }
+        }
+
+        return $errors;
+
+    }
+
+    /**
+     * Validates list of parameters
+     * @param array $list
+     * @param array $params
+     * @return array
+     */
+    public static function validateList(array $list, array $params) : array {
+
+        $validators = static::getValidators();
+        $errors = [];
+
+        foreach ($list as $name) {
+            if (isset($validators[$name])) {
+                try {
+                    $validators[$name]->assert($params[$name] ?? null);
+                } catch (NestedValidationException $exception) {
+                    $errors += $exception->getMessages();
+                }
+            }
+        }
+
+        return $errors;
+
+    }
+
+    /**
+     * Validate single parameter
+     * @param string $key
+     * @param string $value
+     * @return array
+     */
+    public static function validate(string $key, string $value) : array {
+
+        $validators = static::getValidators();
+
+        if(isset($validators[$key])) {
+            try {
+                $validators[$key]->assert($value);
+            } catch(NestedValidationException $exception) {
+                return $exception->getMessages();
+            }
+        }
+
+        return [];
+
+    }
 
     /**
      * Add new row to table
@@ -184,7 +278,7 @@ abstract class Model {
 
     }
 
-    public static function switchActiveState($id) {
+    public static function switchActiveState($id) : bool {
 
         $query = 'UPDATE '.static::$table.' SET Active = not Active WHERE `'.static::$key.'` = :id';
         $statement = DbProvider::getInstance()->prepare( $query );
