@@ -18,7 +18,7 @@
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
-        <h3>Main Information</h3>
+        <h3>Mandatory information</h3>
 
         <div class="form-group row">
             <label for="name" class="col-4 col-form-label col-form-label-sm">Name <span class="text-danger">(required)</span>:</label>
@@ -67,23 +67,103 @@
 
     </form>
 
+    <form id="step2" class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Personal details</h3>
+
+        <div class="form-group row">
+            <label for="phone" class="col-4 col-form-label col-form-label-sm">Phone:</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="phone" name="phone">
+        </div>
+
+        <tr>
+            <td class="desc">Gender</td>
+            <td>: <select size="1" name="gender">
+                    <option selected="" value="">--- select ---</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </td>
+        </tr>
+
+        <div class="form-group row">
+            <label for="nickname" class="col-4 col-form-label col-form-label-sm">Nickname:</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="nickname" name="nickname">
+        </div>
+
+        <tr>
+            <td colspan="2" class="warn">if left blank, your first name  will be assumed as your nickname
+            </td>
+        </tr>
+
+        <tr>
+            <td class="desc">International driving license?</td>
+            <td>: <select size="1" name="license">
+                    <option selected="" value="">--- select ---</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select></td>
+        </tr>
+
+        <div class="form-group row">
+            <label for="club" class="col-4 col-form-label col-form-label-sm">Your present club (if any):</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="club" name="club">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
     <script type="text/javascript">
-        $("#step1").submit(function(e) {
 
-            e.preventDefault();
+        // Data fill code
+        $(document).ready(function() {
 
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(data)
-                {
-                    // switch to next step or display errors
-                    console.log(data);
+            {% if data %}
+            var data = JSON.parse('{{ data | raw }}');
+
+            // reset form values from json object
+            $.each(data, function(name, val){
+
+                var $el = $('[name="'+name+'"]'), type = $el.attr('type');
+
+                switch(type){
+                    case 'checkbox':
+                        $el.attr('checked', 'checked');
+                        break;
+                    case 'radio':
+                        $el.filter('[value="'+val+'"]').attr('checked', 'checked');
+                        break;
+                    default:
+                        $el.val(val);
                 }
+            });
+            {% endif %}
+
+            $("#step2").hide();
+
+            $("#step1").submit(function(e) {
+
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(data)
+                    {
+                        // switch to next step or display errors
+                        console.log(data);
+                    }
+                });
+
             });
 
         });
+
     </script>
 
 <!--
@@ -91,79 +171,6 @@
             <tbody>
             <tr>
                 <td valign="top" width="25%">
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>Contact Information</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Name</td>
-                            <td class="value">: <input type="text" name="name" size="15" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Country</td>
-                            <td class="value">:
-                                <select type="text" name="country" id="country" size="1" value="" style="width:130px;" required>
-                                    {{ countries | raw }}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">E-mail <div class="warn">(required)</div></td>
-                            <td class="value">: <input type="text" name="email" size="15" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Phone <div class="warn">(optional)</div>
-                            </td>
-                            <td>: <input type="text" name="phone" value="" size="15"></td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2" class="desc"><b><br>Personal Information</b></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Gender</td>
-                            <td>: <select size="1" name="gender">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="M">Male</option>
-                                    <option value="F">Female</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Date of birth
-                                <div class="warn">
-                                    (required)
-                                </div>
-                            </td>
-                            <td>:
-                                <input type="text" name="birthdate" size="15" value="" class="datepicker" required placeholder="yyyy-mm-dd">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Nickname
-                                <div class="warn">optional</div>
-                            </td>
-                            <td>: <input type="text" name="nickname" size="15" value=""></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="warn">if left blank, your first name  will be assumed as your nickname
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">International driving license?</td>
-                            <td>: <select size="1" name="license">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br>
                     <table>
                         <tbody>
                         <tr valign="top">
@@ -192,21 +199,6 @@
                     <br>
                     <table>
                         <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>O-Experience</b></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Year you started orienteering</td>
-                            <td class="desc">:
-                                <input type="number" min="1900" max="2099" step="1" name="startO" size="4" placeholder="yyyy" value="" required>
-                                <div class="warn">(required)</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="desc">Your present club (if any)</td>
-                            <td class="desc">: <input type="text" name="club" size="20">
-                            </td>
-                        </tr>
                         <tr>
                             <td colspan="2" class="desc"><u>Experience as Competitor</u>
                             </td>
@@ -567,9 +559,6 @@
                                 <input name="maps[]" type="file" accept=".pdf">
                                 <br><br>
 
-                                Explain how you can help as a volunteer <br>
-                                <div class="warn">(required)<br></div>
-                                <textarea rows="4" cols="30" name="helpDesc" id="helpDesc" value="" required></textarea><br><br>
                                 Expectations as a volunteer <br>
                                 <textarea rows="4" cols="30" name="expectations" id="expectations" value=""></textarea><br><br>
                                 Experience abroad? When? Where? What?<br>
@@ -584,35 +573,5 @@
                 </td>
             </tr>
 -->
-
-    <script type="text/javascript">
-
-        // Data fill code
-        $(document).ready(function() {
-
-            {% if data %}
-            var data = JSON.parse('{{ data | raw }}');
-
-            // reset form values from json object
-            $.each(data, function(name, val){
-
-                var $el = $('[name="'+name+'"]'), type = $el.attr('type');
-
-                switch(type){
-                    case 'checkbox':
-                        $el.attr('checked', 'checked');
-                        break;
-                    case 'radio':
-                        $el.filter('[value="'+val+'"]').attr('checked', 'checked');
-                        break;
-                    default:
-                        $el.val(val);
-                }
-            });
-            {% endif %}
-
-        });
-
-    </script>
 
 {% endblock %}
