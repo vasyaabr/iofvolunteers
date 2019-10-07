@@ -257,7 +257,12 @@ class VolunteerController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $params = $this->validate($_POST, 'register');
+        $validationErrors = Volunteer::validateAll($_POST, true);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
+        }
+
+        $params = $this->prepareVolunteerData($_POST, 'register');
 
         // process uploaded maps
         $files = [];
@@ -310,16 +315,11 @@ class VolunteerController extends Controller {
      * Validate params and set 'errors' element on errors
      *
      * @param array $params
-     * @param string $action
      *
      * @return array
      * @throws \Exception
      */
-    private function validate(array $params, string $action) : array {
-
-        if ( empty($action) || !in_array($action,self::$actions,true) ) {
-            throw new \Exception('Invalid validate action');
-        }
+    private function prepareVolunteerData(array $params) : array {
 
         foreach ($params as $key => &$param) {
 
@@ -334,38 +334,16 @@ class VolunteerController extends Controller {
             }
 
             // convert arrays to JSON
-            if (is_array($param) && $action === 'register') {
+            if (is_array($param)) {
                 $param = self::json_enc($param);
             }
 
         }
 
-        if ($action === 'search') {
-            return $params;
-        }
-
         $params['userID'] = User::getUserID();
 
         // check for required fields
-        foreach (Volunteer::$requiredFields as $key) {
-            if (!isset($params[$key])) {
-                $params['errors'][] = "Required field `{$key}` is missing`";
-            }
-        }
-
-        if (isset($params['email']) && filter_var($params['email'], FILTER_VALIDATE_EMAIL) === false) {
-            $params['errors'][] = 'Invalid email';
-        }
-
-        if (isset($params['birthdate']) && !\DateTime::createFromFormat('Y-m-d',$params['birthdate'])) {
-            $params['errors'][] = 'Invalid date of birth format (should be yyyy-mm-dd)';
-        }
-
-        if (empty($params["iAgreeWithTerms"])) {
-            $params['errors'][] = "You are not agreed with disclaimer";
-        } else {
-            unset($params["iAgreeWithTerms"]);
-        }
+        unset($params["iAgreeWithTerms"]);
         unset($params['MAX_FILE_SIZE']);
 
         // fill tech fields

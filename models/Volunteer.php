@@ -5,13 +5,33 @@ namespace models;
 
 use controllers\DbProvider;
 use controllers\TemplateProvider;
+use Respect\Validation\Validator as v;
 
 class Volunteer extends Model {
 
     public const CONTACT_TYPE = 'project=>volunteer';
 
     public static $table = 'volunteers';
-    public static $requiredFields = ['name','country', 'email', 'birthdate', 'startO', 'helpDesc'];
+
+    /**
+     * Local validators
+     * @return array
+     */
+    public static function getValidators() : array {
+
+        return array_replace(parent::getValidators(),
+            [
+                'name' => v::notEmpty(),
+                'country' => v::notEmpty(),
+                'email' => v::email(),
+                'birthdate' => v::date('Y-m-d'),
+                'startO' => v::intVal()->between(1920,(int)(new \DateTime())->format('Y')),
+                'helpDesc' => v::notEmpty(),
+                'iAgreeWithTerms' => v::trueVal(),
+            ]
+        );
+
+    }
 
     /**
      * Return MySQL condition string for each param name
