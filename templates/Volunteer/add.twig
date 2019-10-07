@@ -16,7 +16,6 @@
     <form id="step1" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Mandatory information (1/7)</h3>
 
@@ -67,10 +66,9 @@
 
     </form>
 
-    <form id="step2" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step2" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Personal details (2/7)</h3>
 
@@ -114,10 +112,9 @@
 
     </form>
 
-    <form id="step3" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step3" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Orienteering expirience (3/7)</h3>
 
@@ -253,10 +250,9 @@
 
     </form>
 
-    <form id="step4" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step4" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Languages spoken (4/7)</h3>
         <p class="text-danger">(required, even if only listed in "other")</p>
@@ -434,238 +430,219 @@
 
     </form>
 
-    <form id="step5" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step5" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Work preferations (5/7)</h3>
 
-        <tbody>
-        <tr valign="top">
-            <td class="desc"><b>Where to work?</b></td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td class="desc"><b>Timing</b></td>
-        </tr>
-        <tr>
-            <td class="smradio">Do you have a preferred destination?
-                <br>If not, just tick "Anywhere"
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td class="desc">
-                For how long can you work?
-                <div class="warn">(leave blank if you can stay more than 6 weeks)</div>
-            </td>
-        </tr>
+        <h5>Where to work?</h5>
+        <p>Do you have a preferred destination? If not, just tick "Anywhere"</p>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAnywhere" name="preferredContinents[Anywhere]">
+            <label for="preferredContinentsAnywhere" class="col-4 col-form-label col-form-label-sm form-check-label">Anywhere</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsNorthAmerica" name="preferredContinents[North America]">
+            <label for="preferredContinentsNorthAmerica" class="col-4 col-form-label col-form-label-sm form-check-label">North America</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsSouthAmerica" name="preferredContinents[South America]">
+            <label for="preferredContinentsSouthAmerica" class="col-4 col-form-label col-form-label-sm form-check-label">South America</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsEurope" name="preferredContinents[Europe]">
+            <label for="preferredContinentsEurope" class="col-4 col-form-label col-form-label-sm form-check-label">Europe</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAsia" name="preferredContinents[Asia]">
+            <label for="preferredContinentsAsia" class="col-4 col-form-label col-form-label-sm form-check-label">Asia</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAfrica" name="preferredContinents[Africa]">
+            <label for="preferredContinentsAfrica" class="col-4 col-form-label col-form-label-sm form-check-label">Africa</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsOceania" name="preferredContinents[Oceania]">
+            <label for="preferredContinentsOceania" class="col-4 col-form-label col-form-label-sm form-check-label">Oceania</label>
+        </div>
 
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td class="desc">
-                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
-                weeks
-            </td>
-        </tr>
-
-        <tr>
-            <td class="desc"><br>
-                <input type="checkbox" name="preferredContinents[North America]" value="1"> North America
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[South America]" value="1"> South America
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[Europe]" value="1"> Europe
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[Asia]" value="1"> Asia
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[Africa]" value="1"> Africa
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="desc">
-                <input type="checkbox" name="preferredContinents[Oceania]" value="1"> Oceania
-            </td>
-            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-            <td></td>
-        </tr>
+        <h5>Timing</h5>
+        <div class="form-group row">
+            <label for="maxWorkDuration" class="col-4 col-form-label col-form-label-sm">For how long can you work?</label>
+            <input type="number" class="col-8 form-control form-control-sm" id="maxWorkDuration" name="maxWorkDuration" aria-describedby="maxWorkDurationHelpBlock"> weeks
+            <small id="maxWorkDurationHelpBlock" class="form-text text-muted">
+                leave blank if you can stay more than 6 weeks
+            </small>
+        </div>
 
         <button type="submit" class="btn btn-primary">Save and continue</button>
 
     </form>
 
-    <form id="step6" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step6" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Orienteering skills (6/7)</h3>
 
-        <tbody>
-        <tr valign="top">
-            <td colspan="2" class="desc"><b>Skills</b>
-                <div class="warn"> &nbsp;(Please tick all relevant to you.
-                    Details are <b>required</b> if skill is ticked)
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">* Mapping <br>
-                <div class="warn">Notice that you will be required to upload map samples!
-                </div>
-                <br>
-                <div class="smradio">
-                    <input type="checkbox" name="mappingDesc[Sprint]" value="1"> Sprint <br>
-                    <input type="checkbox" name="mappingDesc[Forest]" value="1"> Forest <br>
-                    <input type="checkbox" name="mappingDesc[MTBO]" value="1"> MTBO<br>
-                    <input type="checkbox" name="mappingDesc[SkiO]" value="1"> Ski-O
-                </div>
-            </td>
-            <td class="smradio">Brief outline of your experience as a mapper
-                <br>
-                <textarea rows="2" cols="30" name="mappingDesc[info]" id="mappingDescInfo" value=""></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">
-                * Coaching<br>
-                <div class="smradio">
-                    <input type="checkbox" name="coachDesc[nationalTeam]" value="1"> National Team<br>
-                    <input type="checkbox" name="coachDesc[clubs]" value="1"> Clubs
-                </div>
-            </td>
-            <td class="smradio">Brief outline of your experience in coaching
-                <br>
-                <textarea rows="2" cols="30" name="coachDesc[info]" id="coachDescInfo" value=""></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">
-                * IT &amp; time-keeping <br>
-                <div class="smradio">
-                    <input type="checkbox" name="itDesc[si]" value="1"> SportIdent <br>
-                    <input type="checkbox" name="itDesc[emit]" value="1"> Emit <br>
-                    <input type="checkbox" name="itDesc[othertime]" value="1"> Other Timekeeping <br>
-                    <input type="checkbox" name="itDesc[gps]" value="1"> GPS Tracking
-                </div>
-            </td>
-            <td class="smradio">Brief details of your IT skills &amp; experience <br>
-                <textarea rows="2" cols="30" name="itDesc[info]" id="itDescInfo" value=""></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">
-                * Event Organising <br>
-                <div class="smradio">
-                    <input type="checkbox" name="eventDesc[club]" value="1"> Club &nbsp; &nbsp;<br>
-                    <input type="checkbox" name="eventDesc[local]" value="1"> Local &nbsp; &nbsp;<br>
-                    <input type="checkbox" name="eventDesc[national]" value="1"> National &nbsp; &nbsp;<br>
-                    <input type="checkbox" name="eventDesc[highLevel]" value="1"> High-Level
-                </div>
-            </td>
-            <td class="smradio">Brief outline of your experience as organiser
-                <br>
-                <textarea rows="2" cols="30" name="eventDesc[info]" id="eventDescInfo" value=""></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">
-                * Teaching experience
-                <br>
-                <div class="smradio">
-                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children <br>
-                    <input type="checkbox" name="teacherDesc[map]" value="1"> Teach how to map<br>
-                    <input type="checkbox" name="teacherDesc[coach]" value="1"> Teach coaching <br>
-                    <input type="checkbox" name="teacherDesc[it]" value="1"> Teach IT &amp; Timekeeping<br>
-                    <input type="checkbox" name="teacherDesc[events]" value="1"> Teach Event Organising
-                </div>
-            </td>
-            <td class="smradio">Brief outline of your experience in teaching
-                <textarea rows="2" cols="30" name="teacherDesc[info]" id="teacherDescInfo" value=""></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="desc">
-                * Other skills? Please explain...
-            </td>
-            <td>
-                <textarea rows="2" cols="30" name="otherSkills" id="otherSkills" value=""></textarea>
-            </td>
-        </tr>
-        </tbody>
-        </table>
+        <p class="text-danger">Please tick all relevant to you. Details are <strong>required</strong> if skill is ticked.</p>
 
-        </td>
-        <td valign="top" width="17%">
-            <table>
-                <tbody>
-                <tr valign="top">
-                    <td colspan="2" class="desc"><b>Additional Information</b></td>
-                </tr>
-                <tr>
-                    <td class="desc">
-                        Skilled in mapping? <br>Upload your "best" maps here...<br>
-                        <div class="warn">Required for mappers!</div>
-                        <p>(At most 3 maps in PDF format, max file size is 2 Mb)</p>
-                        {% if maps %}
-                            <p>Already loaded maps:
-                                {% for map in maps %}
-                                    <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
-                                {% endfor %}
-                                <br/><span class="warn">New maps will erase previously loaded</span>
-                            </p>
-                        {% endif %}
-                        <input name="maps[]" type="file" accept=".pdf">
-                        <br><br>
-                        <input name="maps[]" type="file" accept=".pdf">
-                        <br><br>
-                        <input name="maps[]" type="file" accept=".pdf">
-                        <br><br>
+        <h4>Mapping</h4>
+        <p class="text-danger">Notice that you will be required to upload map samples!</p>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescSprint" name="mappingDesc[Sprint]">
+            <label for="mappingDescSprint" class="col-4 col-form-label col-form-label-sm form-check-label">Sprint</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescForest" name="mappingDesc[Forest]">
+            <label for="mappingDescForest" class="col-4 col-form-label col-form-label-sm form-check-label">Forest</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescMTBO" name="mappingDesc[MTBO]">
+            <label for="mappingDescMTBO" class="col-4 col-form-label col-form-label-sm form-check-label">MTBO</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescSkiO" name="mappingDesc[SkiO]">
+            <label for="mappingDescSkiO" class="col-4 col-form-label col-form-label-sm form-check-label">Ski - O</label>
+        </div>
+        <div class="form-group">
+            <label for="mappingDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience as a mapper:</label>
+            <textarea class="form-control form-control-sm" id="mappingDescInfo" name="mappingDesc[info]" rows="2"></textarea>
+        </div>
 
+        <h5>Additional Information</h5>
+        <p>Skilled in mapping? Upload your "best" maps here... (At most 3 maps in PDF format, max file size is 2 Mb)</p>
+        <p class="text-danger">Required for mappers!</p>
+        {% if maps %}
+            <p>Already loaded maps:</p>
+            {% for map in maps %}
+                <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
+            {% endfor %}
+            <div class="text-danger">New maps will erase previously loaded</div>
+        {% endif %}
+        <div class="form-group">
+            <input type="file" class="form-control-file" id="map1" name="maps[]" accept=".pdf">
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control-file" id="map2" name="maps[]" accept=".pdf">
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control-file" id="map3" name="maps[]" accept=".pdf">
+        </div>
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
+        <h4>Coaching</h4>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="coachDescNationalTeam" name="coachDesc[nationalTeam]">
+            <label for="coachDescNationalTeam" class="col-4 col-form-label col-form-label-sm form-check-label">National Team</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="coachDescClubs" name="coachDesc[clubs]">
+            <label for="coachDescClubs" class="col-4 col-form-label col-form-label-sm form-check-label">Clubs</label>
+        </div>
+        <div class="form-group">
+            <label for="coachDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience in coaching:</label>
+            <textarea class="form-control form-control-sm" id="coachDescInfo" name="coachDesc[info]" rows="2"></textarea>
+        </div>
+
+        <h4>IT &amp; time-keeping</h4>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescSi" name="itDesc[si]">
+            <label for="itDescSi" class="col-4 col-form-label col-form-label-sm form-check-label">SportIdent</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescEmit" name="itDesc[emit]">
+            <label for="itDescEmit" class="col-4 col-form-label col-form-label-sm form-check-label">Emit</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescOthertime" name="itDesc[othertime]">
+            <label for="itDescOthertime" class="col-4 col-form-label col-form-label-sm form-check-label">Other timekeeping</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescGps" name="itDesc[gps]">
+            <label for="itDescGps" class="col-4 col-form-label col-form-label-sm form-check-label">GPS Tracking</label>
+        </div>
+        <div class="form-group">
+            <label for="itDescInfo" class="col-form-label col-form-label-sm">Brief details of your IT skills &amp; experience:</label>
+            <textarea class="form-control form-control-sm" id="itDescInfo" name="itDesc[info]" rows="2"></textarea>
+        </div>
+
+        <h4>Event Organising</h4>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescClub" name="eventDesc[club]">
+            <label for="eventDescClub" class="col-4 col-form-label col-form-label-sm form-check-label">Club</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescLocal" name="eventDesc[local]">
+            <label for="eventDescLocal" class="col-4 col-form-label col-form-label-sm form-check-label">Local</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescNational" name="eventDesc[national]">
+            <label for="eventDescNational" class="col-4 col-form-label col-form-label-sm form-check-label">National</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescHighLevel" name="eventDesc[highLevel]">
+            <label for="eventDescHighLevel" class="col-4 col-form-label col-form-label-sm form-check-label">High-Level</label>
+        </div>
+        <div class="form-group">
+            <label for="eventDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience as organiser:</label>
+            <textarea class="form-control form-control-sm" id="eventDescInfo" name="eventDesc[info]" rows="2"></textarea>
+        </div>
+
+        <h4>Teaching experience</h4>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescBeginners" name="teacherDesc[beginners]">
+            <label for="teacherDescBeginners" class="col-4 col-form-label col-form-label-sm form-check-label">Beginners &amp; children</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescMap" name="teacherDesc[map]">
+            <label for="teacherDescMap" class="col-4 col-form-label col-form-label-sm form-check-label">Teach how to map</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescCoach" name="teacherDesc[coach]">
+            <label for="teacherDescCoach" class="col-4 col-form-label col-form-label-sm form-check-label">Teach coaching</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescIt" name="teacherDesc[it]">
+            <label for="teacherDescIt" class="col-4 col-form-label col-form-label-sm form-check-label">Teach IT &amp; Timekeeping</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescEvents" name="teacherDesc[events]">
+            <label for="teacherDescEvents" class="col-4 col-form-label col-form-label-sm form-check-label">Teach Event Organising</label>
+        </div>
+        <div class="form-group">
+            <label for="teacherDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience in teaching:</label>
+            <textarea class="form-control form-control-sm" id="teacherDescInfo" name="teacherDesc[info]" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="otherSkills" class="col-form-label col-form-label-sm">Other skills? Please explain...</label>
+            <textarea class="form-control form-control-sm" id="otherSkills" name="otherSkills" rows="2"></textarea>
+        </div>
 
         <button type="submit" class="btn btn-primary">Save and continue</button>
 
     </form>
 
-    <form id="step7" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step7" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data" style="display: none">
 
         <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
         <h3>Additional details (7/7)</h3>
 
-        Expectations as a volunteer <br>
-        <textarea rows="4" cols="30" name="expectations" id="expectations" value=""></textarea><br><br>
-        Experience abroad? When? Where? What?<br>
-        <textarea rows="4" cols="30" name="abroadExp" id="abroadExp" value=""></textarea><br><br>
-        Seminars, Training Camps attended...<br>
-        <textarea rows="4" cols="30" name="learning" id="learning" value=""></textarea><br><br>
+        <div class="form-group">
+            <label for="expectations" class="col-form-label col-form-label-sm">Expectations as a volunteer:</label>
+            <textarea class="form-control form-control-sm" id="expectations" name="expectations" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="abroadExp" class="col-form-label col-form-label-sm">Experience abroad? When? Where? What?</label>
+            <textarea class="form-control form-control-sm" id="abroadExp" name="abroadExp" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="learning" class="col-form-label col-form-label-sm">Seminars, Training Camps attended...</label>
+            <textarea class="form-control form-control-sm" id="learning" name="learning" rows="4"></textarea>
+        </div>
 
         <button type="submit" class="btn btn-primary">Finish</button>
 
@@ -697,16 +674,8 @@
 
             {% if data %}
             // initialise forms
-            var data = JSON.parse('{{ data | raw }}');
-            fillData(data);
+            fillData(JSON.parse('{{ data | raw }}'));
             {% endif %}
-
-            $("#step2").hide();
-            $("#step3").hide();
-            $("#step4").hide();
-            $("#step5").hide();
-            $("#step6").hide();
-            $("#step7").hide();
 
             // forms submit
             $("form.wizard").submit(function(e) {
@@ -719,19 +688,30 @@
                     data: $(this).serialize(),
                     success: function(data)
                     {
-                        console.log(data);
                         // alert on error
+                        console.log('Result: ' . data);
 
                         // fill data to forms
                         fillData(data);
 
                         // switch to next step
                         console.log('Form sender: ' + $(this).attr('id'));
-                        if ($(this).attr('id') === 'step7') {
-                            // redirect to list
+
+                        // get all steps ids as array
+                        var forms = document.getElementsByTagName("form");
+                        var steps = [];
+                        for (var i = 0, n = forms.length; i < n; ++i) {
+                            var el = forms[i];
+                            if (el.id) { steps.push(el.id); }
+                        }
+                        steps.sort();
+                        console.log('Steps: ' + JSON.stringify(steps));
+
+                        if ($(this).attr('id') === steps[steps.length - 1]) {
+                            // redirect to list on last step submit
+                            window.location.replace("{{ url }}volunteer/list");
                         } else {
                             // show next step
-                            const steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
                             steps.forEach(function (item, index) {
                                 if (steps[index - 1] !== undefined && steps[index - 1] === $(this).attr('id')) {
                                     $("#" + item).show();

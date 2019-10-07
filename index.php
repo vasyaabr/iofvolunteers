@@ -24,6 +24,8 @@ $dispatcher = \FastRoute\simpleDispatcher(function(RouteCollector $r) {
     $r->addRoute('GET', '/logout', 'UserController/logout');
     $r->addRoute('GET', '/restore', 'UserController/restoreView');
     $r->addRoute('POST', '/restore', 'UserController/restore');
+    $r->addRoute('GET', '/changepass', 'UserController/changepassView');
+    $r->addRoute('POST', '/changepass', 'UserController/changepass');
 
     // Volunteer routes
     $r->addRoute('GET', '/volunteer/register', 'VolunteerController/addView');

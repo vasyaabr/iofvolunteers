@@ -108,4 +108,39 @@ class UserController {
 
     }
 
+    public function changepassView() : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        return TemplateProvider::render('User/change.twig');
+
+    }
+
+    public function changepass() : string {
+
+        if (!User::isAuthenticated()) {
+            return Platform::error( 'You are not authenticated' );
+        }
+
+        $validationErrors =  User::validate('password', $_POST['passsword'] ?? null);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
+        }
+
+        if ($_POST['passsword'] !== $_POST['passswordretype']) {
+            return Platform::error( 'Invalid password retype' );
+        }
+
+        if ($_SESSION['user']['password'] !== User::encodePassword($_POST['passsword'])) {
+            return Platform::error( 'Invalid old password' );
+        }
+
+        User::update(['id'=>User::getUserID(), 'password' => User::encodePassword($_POST['passsword'])]);
+
+        return Platform::error( 'Password successfully changed.' );
+
+    }
+
 }
