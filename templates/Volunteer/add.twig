@@ -13,12 +13,12 @@
         </p>
     </div>
 
-    <form id="step1" class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step1" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
 
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
-        <h3>Mandatory information</h3>
+        <h3>Mandatory information (1/7)</h3>
 
         <div class="form-group row">
             <label for="name" class="col-4 col-form-label col-form-label-sm">Name <span class="text-danger">(required)</span>:</label>
@@ -67,46 +67,43 @@
 
     </form>
 
-    <form id="step2" class="w-50" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+    <form id="step2" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
 
         <input type="hidden" name="id" value="">
         <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
-        <h3>Personal details</h3>
+        <h3>Personal details (2/7)</h3>
 
         <div class="form-group row">
             <label for="phone" class="col-4 col-form-label col-form-label-sm">Phone:</label>
             <input type="text" class="col-8 form-control form-control-sm" id="phone" name="phone">
         </div>
 
-        <tr>
-            <td class="desc">Gender</td>
-            <td>: <select size="1" name="gender">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                </select>
-            </td>
-        </tr>
+        <div class="form-group row">
+            <label for="phone" class="col-4 col-form-label col-form-label-sm">Phone:</label>
+            <select class="form-control form-control-sm col-8" id="gender" name="gender">
+                <option selected="" value="">--- select ---</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+        </div>
 
         <div class="form-group row">
             <label for="nickname" class="col-4 col-form-label col-form-label-sm">Nickname:</label>
-            <input type="text" class="col-8 form-control form-control-sm" id="nickname" name="nickname">
+            <input type="text" class="col-8 form-control form-control-sm" id="nickname" name="nickname" aria-describedby="nicknameHelpBlock">
+            <small id="nicknameHelpBlock" class="form-text text-muted">
+                if left blank, your first name  will be assumed as your nickname
+            </small>
         </div>
 
-        <tr>
-            <td colspan="2" class="warn">if left blank, your first name  will be assumed as your nickname
-            </td>
-        </tr>
-
-        <tr>
-            <td class="desc">International driving license?</td>
-            <td>: <select size="1" name="license">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select></td>
-        </tr>
+        <div class="form-group row">
+            <label for="license" class="col-4 col-form-label col-form-label-sm">International driving license?</label>
+            <select class="form-control form-control-sm col-8" id="gender" name="license">
+                <option selected="" value="">--- select ---</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
 
         <div class="form-group row">
             <label for="club" class="col-4 col-form-label col-form-label-sm">Your present club (if any):</label>
@@ -117,35 +114,602 @@
 
     </form>
 
+    <form id="step3" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Orienteering expirience (3/7)</h3>
+
+        <h4>Disciplines of experience</h4>
+
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="footO" name="footO">
+            <label for="footO" class="col-4 col-form-label col-form-label-sm form-check-label">Foot-O</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mtbO" name="mtbO">
+            <label for="mtbO" class="col-4 col-form-label col-form-label-sm form-check-label">MTB-O</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="skiO" name="skiO">
+            <label for="skiO" class="col-4 col-form-label col-form-label-sm form-check-label">Ski-O</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="trailO" name="trailO">
+            <label for="trailO" class="col-4 col-form-label col-form-label-sm form-check-label">Trail-O</label>
+        </div>
+
+        <h4>Experience as Competitor</h4>
+
+        <div class="form-group row">
+            <label for="competitorExpLocal" class="col-4 col-form-label col-form-label-sm">Local events</label>
+            <select class="form-control form-control-sm col-8" id="competitorExpLocal" name="competitorExp[local]">
+                <option selected="" value="">--- select ---</option>
+                <option value="none">none</option>
+                <option value="1 - 50">1 - 50</option>
+                <option value="51 - 100">51 - 100</option>
+                <option value="over 100">over 100</option>
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <label for="competitorExpNational" class="col-4 col-form-label col-form-label-sm">National Championships</label>
+            <select class="form-control form-control-sm col-8" id="competitorExpNational" name="competitorExp[national]">
+                <option selected="" value="">--- select ---</option>
+                <option value="none">none</option>
+                <option value="1 - 50">1 - 50</option>
+                <option value="51 - 100">51 - 100</option>
+                <option value="over 100">over 100</option>
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <label for="competitorExpInternational" class="col-4 col-form-label col-form-label-sm">International Competitions</label>
+            <select class="form-control form-control-sm col-8" id="competitorExpInternational" name="competitorExp[international]">
+                <option selected="" value="">--- select ---</option>
+                <option value="none">none</option>
+                <option value="1 - 20">1 - 20</option>
+                <option value="21 - 50">21 - 50</option>
+                <option value="over 50">over 50</option>
+            </select>
+        </div>
+
+        <h4>O-Work Experience</h4>
+
+        <div class="form-group row">
+            <label for="oworkLocalExpExperience" class="col-4 col-form-label col-form-label-sm">Local / National Events</label>
+            <select class="form-control form-control-sm col-8" id="oworkLocalExpExperience" name="oworkLocalExp[experience]">
+                <option selected="" value="">- select -</option>
+                <option value="none">none</option>
+                <option value="1 - 10">1 - 10</option>
+                <option value="11 - 30">11 - 30</option>
+                <option value="over 30">over 30</option>
+            </select>
+        </div>
+        <h5>Duties:</h5>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpDirector" name="oworkLocalExp[director]">
+            <label for="oworkLocalExpDirector" class="col-4 col-form-label col-form-label-sm form-check-label">Event Director</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpMapper" name="oworkLocalExp[mapper]">
+            <label for="oworkLocalExpMapper" class="col-4 col-form-label col-form-label-sm form-check-label">Mapper / Course Planner</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpIt" name="oworkLocalExp[it]">
+            <label for="oworkLocalExpIt" class="col-4 col-form-label col-form-label-sm form-check-label">IT Director</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpAdvisor" name="oworkLocalExp[advisor]">
+            <label for="oworkLocalExpAdvisor" class="col-4 col-form-label col-form-label-sm form-check-label">Event Advisor</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpJury" name="oworkLocalExp[jury]">
+            <label for="oworkLocalExpJury" class="col-4 col-form-label col-form-label-sm form-check-label">Jury Member</label>
+        </div>
+        <div class="form-group row">
+            <label for="oworkLocalExpOther" class="col-4 col-form-label col-form-label-sm">Other duties? State below...</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="oworkLocalExpOther" name="oworkLocalExp[other]">
+        </div>
+
+        <div class="form-group row">
+            <label for="oworkInternationalExpExperience" class="col-4 col-form-label col-form-label-sm">International Events</label>
+            <select class="form-control form-control-sm col-8" id="oworkInternationalExpExperience" name="oworkInternationalExp[experience]">
+                <option selected="" value="">- select -</option>
+                <option value="none">none</option>
+                <option value="1 - 10">1 - 10</option>
+                <option value="11 - 20">11 - 20</option>
+                <option value="over 20">over 20</option>
+            </select>
+        </div>
+        <h5>Duties:</h5>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpDirector" name="oworkInternationalExp[director]">
+            <label for="oworkInternationalExpDirector" class="col-4 col-form-label col-form-label-sm form-check-label">Event Director</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpMapper" name="oworkInternationalExp[mapper]">
+            <label for="oworkInternationalExpMapper" class="col-4 col-form-label col-form-label-sm form-check-label">Mapper / Course Planner</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpIt" name="oworkInternationalExp[it]">
+            <label for="oworkInternationalExpIt" class="col-4 col-form-label col-form-label-sm form-check-label">IT Director</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpAdvisor" name="oworkInternationalExp[advisor]">
+            <label for="oworkInternationalExpAdvisor" class="col-4 col-form-label col-form-label-sm form-check-label">Event Advisor</label>
+        </div>
+        <div class="form-group row">
+            <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpJury" name="oworkInternationalExp[jury]">
+            <label for="oworkInternationalExpJury" class="col-4 col-form-label col-form-label-sm form-check-label">Jury Member</label>
+        </div>
+        <div class="form-group row">
+            <label for="oworkInternationalExpOther" class="col-4 col-form-label col-form-label-sm">Other duties? State below...</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="oworkInternationalExpOther" name="oworkInternationalExp[other]">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
+    <form id="step4" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Languages spoken (4/7)</h3>
+        <p class="text-danger">(required, even if only listed in "other")</p>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesEnglishKnown" name="languages[English][known]">
+                    <label for="languagesEnglishKnown" class="col-4 col-form-label col-form-label-sm form-check-label">English</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesEnglishLevel1" name="languages[English][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesEnglishLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesEnglishLevel2" name="languages[English][level]" value="OK">
+                    <label class="form-check-label" for="languagesEnglishLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesEnglishLevel3" name="languages[English][level]" value="Poor">
+                    <label class="form-check-label" for="languagesEnglishLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesFrenchKnown" name="languages[French][known]">
+                    <label for="languagesFrenchKnown" class="col-4 col-form-label col-form-label-sm form-check-label">French</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesFrenchLevel1" name="languages[French][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesFrenchLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesFrenchLevel2" name="languages[French][level]" value="OK">
+                    <label class="form-check-label" for="languagesFrenchLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesFrenchLevel3" name="languages[French][level]" value="Poor">
+                    <label class="form-check-label" for="languagesFrenchLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesSpanishKnown" name="languages[Spanish][known]">
+                    <label for="languagesSpanishKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Spanish</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesSpanishLevel1" name="languages[Spanish][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesSpanishLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesSpanishLevel2" name="languages[Spanish][level]" value="OK">
+                    <label class="form-check-label" for="languagesSpanishLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesSpanishLevel3" name="languages[Spanish][level]" value="Poor">
+                    <label class="form-check-label" for="languagesSpanishLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesGermanKnown" name="languages[German][known]">
+                    <label for="languagesGermanKnown" class="col-4 col-form-label col-form-label-sm form-check-label">German</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesGermanLevel1" name="languages[German][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesGermanLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesGermanLevel2" name="languages[German][level]" value="OK">
+                    <label class="form-check-label" for="languagesGermanLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesGermanLevel3" name="languages[German][level]" value="Poor">
+                    <label class="form-check-label" for="languagesGermanLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesItalianKnown" name="languages[Italian][known]">
+                    <label for="languagesItalianKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Italian</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesItalianLevel1" name="languages[Italian][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesItalianLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesItalianLevel2" name="languages[Italian][level]" value="OK">
+                    <label class="form-check-label" for="languagesItalianLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesItalianLevel3" name="languages[Italian][level]" value="Poor">
+                    <label class="form-check-label" for="languagesItalianLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesPortugueseKnown" name="languages[Portuguese][known]">
+                    <label for="languagesPortugueseKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Portuguese</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel1" name="languages[Portuguese][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesPortugueseLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel2" name="languages[Portuguese][level]" value="OK">
+                    <label class="form-check-label" for="languagesPortugueseLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel3" name="languages[Portuguese][level]" value="Poor">
+                    <label class="form-check-label" for="languagesPortugueseLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group row">
+                    <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesScandinavianKnown" name="languages[Scandinavian][known]">
+                    <label for="languagesScandinavianKnown" class="col-4 col-form-label col-form-label-sm form-check-label">"Scandinavian"</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel1" name="languages[Scandinavian][level]" value="Excellent">
+                    <label class="form-check-label" for="languagesScandinavianLevel1">Excellent</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel2" name="languages[Scandinavian][level]" value="OK">
+                    <label class="form-check-label" for="languagesScandinavianLevel2">OK</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel3" name="languages[Scandinavian][level]" value="Poor">
+                    <label class="form-check-label" for="languagesScandinavianLevel3">Poor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="languagesOther" class="col-4 col-form-label col-form-label-sm">Other languages?</label>
+            <input type="text" class="col-8 form-control form-control-sm" id="languagesOther" name="languages[Other]" aria-describedby="languagesOtherHelpBlock">
+            <small id="languagesOtherHelpBlock" class="form-text text-muted">
+                State each language and level, separated by commas below...
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
+    <form id="step5" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Work preferations (5/7)</h3>
+
+        <tbody>
+        <tr valign="top">
+            <td class="desc"><b>Where to work?</b></td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td class="desc"><b>Timing</b></td>
+        </tr>
+        <tr>
+            <td class="smradio">Do you have a preferred destination?
+                <br>If not, just tick "Anywhere"
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td class="desc">
+                For how long can you work?
+                <div class="warn">(leave blank if you can stay more than 6 weeks)</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td class="desc">
+                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
+                weeks
+            </td>
+        </tr>
+
+        <tr>
+            <td class="desc"><br>
+                <input type="checkbox" name="preferredContinents[North America]" value="1"> North America
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[South America]" value="1"> South America
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[Europe]" value="1"> Europe
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[Asia]" value="1"> Asia
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[Africa]" value="1"> Africa
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="desc">
+                <input type="checkbox" name="preferredContinents[Oceania]" value="1"> Oceania
+            </td>
+            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
+            <td></td>
+        </tr>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
+    <form id="step6" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Orienteering skills (6/7)</h3>
+
+        <tbody>
+        <tr valign="top">
+            <td colspan="2" class="desc"><b>Skills</b>
+                <div class="warn"> &nbsp;(Please tick all relevant to you.
+                    Details are <b>required</b> if skill is ticked)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">* Mapping <br>
+                <div class="warn">Notice that you will be required to upload map samples!
+                </div>
+                <br>
+                <div class="smradio">
+                    <input type="checkbox" name="mappingDesc[Sprint]" value="1"> Sprint <br>
+                    <input type="checkbox" name="mappingDesc[Forest]" value="1"> Forest <br>
+                    <input type="checkbox" name="mappingDesc[MTBO]" value="1"> MTBO<br>
+                    <input type="checkbox" name="mappingDesc[SkiO]" value="1"> Ski-O
+                </div>
+            </td>
+            <td class="smradio">Brief outline of your experience as a mapper
+                <br>
+                <textarea rows="2" cols="30" name="mappingDesc[info]" id="mappingDescInfo" value=""></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">
+                * Coaching<br>
+                <div class="smradio">
+                    <input type="checkbox" name="coachDesc[nationalTeam]" value="1"> National Team<br>
+                    <input type="checkbox" name="coachDesc[clubs]" value="1"> Clubs
+                </div>
+            </td>
+            <td class="smradio">Brief outline of your experience in coaching
+                <br>
+                <textarea rows="2" cols="30" name="coachDesc[info]" id="coachDescInfo" value=""></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">
+                * IT &amp; time-keeping <br>
+                <div class="smradio">
+                    <input type="checkbox" name="itDesc[si]" value="1"> SportIdent <br>
+                    <input type="checkbox" name="itDesc[emit]" value="1"> Emit <br>
+                    <input type="checkbox" name="itDesc[othertime]" value="1"> Other Timekeeping <br>
+                    <input type="checkbox" name="itDesc[gps]" value="1"> GPS Tracking
+                </div>
+            </td>
+            <td class="smradio">Brief details of your IT skills &amp; experience <br>
+                <textarea rows="2" cols="30" name="itDesc[info]" id="itDescInfo" value=""></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">
+                * Event Organising <br>
+                <div class="smradio">
+                    <input type="checkbox" name="eventDesc[club]" value="1"> Club &nbsp; &nbsp;<br>
+                    <input type="checkbox" name="eventDesc[local]" value="1"> Local &nbsp; &nbsp;<br>
+                    <input type="checkbox" name="eventDesc[national]" value="1"> National &nbsp; &nbsp;<br>
+                    <input type="checkbox" name="eventDesc[highLevel]" value="1"> High-Level
+                </div>
+            </td>
+            <td class="smradio">Brief outline of your experience as organiser
+                <br>
+                <textarea rows="2" cols="30" name="eventDesc[info]" id="eventDescInfo" value=""></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">
+                * Teaching experience
+                <br>
+                <div class="smradio">
+                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children <br>
+                    <input type="checkbox" name="teacherDesc[map]" value="1"> Teach how to map<br>
+                    <input type="checkbox" name="teacherDesc[coach]" value="1"> Teach coaching <br>
+                    <input type="checkbox" name="teacherDesc[it]" value="1"> Teach IT &amp; Timekeeping<br>
+                    <input type="checkbox" name="teacherDesc[events]" value="1"> Teach Event Organising
+                </div>
+            </td>
+            <td class="smradio">Brief outline of your experience in teaching
+                <textarea rows="2" cols="30" name="teacherDesc[info]" id="teacherDescInfo" value=""></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="desc">
+                * Other skills? Please explain...
+            </td>
+            <td>
+                <textarea rows="2" cols="30" name="otherSkills" id="otherSkills" value=""></textarea>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+
+        </td>
+        <td valign="top" width="17%">
+            <table>
+                <tbody>
+                <tr valign="top">
+                    <td colspan="2" class="desc"><b>Additional Information</b></td>
+                </tr>
+                <tr>
+                    <td class="desc">
+                        Skilled in mapping? <br>Upload your "best" maps here...<br>
+                        <div class="warn">Required for mappers!</div>
+                        <p>(At most 3 maps in PDF format, max file size is 2 Mb)</p>
+                        {% if maps %}
+                            <p>Already loaded maps:
+                                {% for map in maps %}
+                                    <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
+                                {% endfor %}
+                                <br/><span class="warn">New maps will erase previously loaded</span>
+                            </p>
+                        {% endif %}
+                        <input name="maps[]" type="file" accept=".pdf">
+                        <br><br>
+                        <input name="maps[]" type="file" accept=".pdf">
+                        <br><br>
+                        <input name="maps[]" type="file" accept=".pdf">
+                        <br><br>
+
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+
+        <button type="submit" class="btn btn-primary">Save and continue</button>
+
+    </form>
+
+    <form id="step7" class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
+
+        <h3>Additional details (7/7)</h3>
+
+        Expectations as a volunteer <br>
+        <textarea rows="4" cols="30" name="expectations" id="expectations" value=""></textarea><br><br>
+        Experience abroad? When? Where? What?<br>
+        <textarea rows="4" cols="30" name="abroadExp" id="abroadExp" value=""></textarea><br><br>
+        Seminars, Training Camps attended...<br>
+        <textarea rows="4" cols="30" name="learning" id="learning" value=""></textarea><br><br>
+
+        <button type="submit" class="btn btn-primary">Finish</button>
+
+    </form>
+
     <script type="text/javascript">
 
         // Data fill code
         $(document).ready(function() {
 
-            {% if data %}
-            var data = JSON.parse('{{ data | raw }}');
-
             // reset form values from json object
-            $.each(data, function(name, val){
+            function fillData(formData) {
+                $.each(formData, function (name, val) {
 
-                var $el = $('[name="'+name+'"]'), type = $el.attr('type');
+                    var $el = $('[name="' + name + '"]'), type = $el.attr('type');
 
-                switch(type){
-                    case 'checkbox':
-                        $el.attr('checked', 'checked');
-                        break;
-                    case 'radio':
-                        $el.filter('[value="'+val+'"]').attr('checked', 'checked');
-                        break;
-                    default:
-                        $el.val(val);
-                }
-            });
+                    switch (type) {
+                        case 'checkbox':
+                            $el.attr('checked', 'checked');
+                            break;
+                        case 'radio':
+                            $el.filter('[value="' + val + '"]').attr('checked', 'checked');
+                            break;
+                        default:
+                            $el.val(val);
+                    }
+                });
+            }
+
+            {% if data %}
+            // initialise forms
+            var data = JSON.parse('{{ data | raw }}');
+            fillData(data);
             {% endif %}
 
             $("#step2").hide();
+            $("#step3").hide();
+            $("#step4").hide();
+            $("#step5").hide();
+            $("#step6").hide();
+            $("#step7").hide();
 
-            $("#step1").submit(function(e) {
+            // forms submit
+            $("form.wizard").submit(function(e) {
 
                 e.preventDefault();
 
@@ -155,423 +719,36 @@
                     data: $(this).serialize(),
                     success: function(data)
                     {
-                        // switch to next step or display errors
                         console.log(data);
+                        // alert on error
+
+                        // fill data to forms
+                        fillData(data);
+
+                        // switch to next step
+                        console.log('Form sender: ' + $(this).attr('id'));
+                        if ($(this).attr('id') === 'step7') {
+                            // redirect to list
+                        } else {
+                            // show next step
+                            const steps = ['step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'step7'];
+                            steps.forEach(function (item, index) {
+                                if (steps[index - 1] !== undefined && steps[index - 1] === $(this).attr('id')) {
+                                    $("#" + item).show();
+                                } else {
+                                    $("#" + item).hide();
+                                }
+                            });
+                        }
+
                     }
                 });
 
             });
+            // end forms submit
 
         });
 
     </script>
-
-<!--
-        <table width="90%" align="center">
-            <tbody>
-            <tr>
-                <td valign="top" width="25%">
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>Disciplines of experience</b></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="footO" value="1"> Foot-O
-                            </td>
-                            <td class="desc">
-                                <input type="checkbox" name="mtbO" value="1"> MTBO
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="skiO" value="1"> Ski-O
-                            </td>
-                            <td class="desc">
-                                <input type="checkbox" name="trailO" value="1"> Trail-O
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                    <br>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td colspan="2" class="desc"><u>Experience as Competitor</u>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Local events</td>
-                            <td class="desc">: <select size="1" name="competitorExp[local]">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="none">none</option>
-                                    <option value="1 - 50">1 - 50</option>
-                                    <option value="51 - 100">51 - 100</option>
-                                    <option value="over 100">over 100</option>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">National Championships</td>
-                            <td class="desc">: <select size="1" name="competitorExp[national]">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="none">none</option>
-                                    <option value="1 - 50">1 - 50</option>
-                                    <option value="51 - 100">51 - 100</option>
-                                    <option value="over 100">over 100</option>
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">International Competitions</td>
-                            <td class="desc">: <select size="1" name="competitorExp[international]">
-                                    <option selected="" value="">--- select ---</option>
-                                    <option value="none">none</option>
-                                    <option value="1 - 20">1 - 20</option>
-                                    <option value="21 - 50">21 - 50</option>
-                                    <option value="over 50">over 50</option>
-                                </select></td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </td>
-
-                <td valign="top" width="27%">
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>Languages spoken</b>
-                                <div class="warn"> (required, even if only listed in "other")</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[English][known]" value="1">English</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[English][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[English][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[English][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[French][known]" value="1">French</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[French][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[French][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[French][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[Spanish][known]" value="1">Spanish</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[Spanish][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Spanish][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Spanish][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[German][known]" value="1">German</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[German][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[German][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[German][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[Italian][known]" value="1">Italian</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[Italian][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Italian][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Italian][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[Portuguese][known]" value="1">Portuguese</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[Portuguese][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Portuguese][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Portuguese][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc"><input type="checkbox" name="languages[Scandinavian][known]" value="1">"Scandinavian"</td>
-                            <td class="smradio">
-                                <input type="radio" name="languages[Scandinavian][level]" value="Excellent">Excellent &nbsp; &nbsp;
-                                <input type="radio" name="languages[Scandinavian][level]" value="OK">OK &nbsp;&nbsp;
-                                <input type="radio" name="languages[Scandinavian][level]" value="Poor">Poor
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="desc">
-                                Other languages?<br>
-                                State each language and level, separated by commas below...<br>
-                                <input type="text" name="languages[Other]" value="" size="30">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    &nbsp; &nbsp; &nbsp; &nbsp;<table>
-                        <tbody>
-                        <tr valign="top">
-                            <td class="desc"><b>Where to work?</b></td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc"><b>Timing</b></td>
-                        </tr>
-                        <tr>
-                            <td class="smradio">Do you have a preferred destination?
-                                <br>If not, just tick "Anywhere"
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc">
-                                For how long can you work?
-                                <div class="warn">(leave blank if you can stay more than 6 weeks)</div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[Anywhere]" value="1"> Anywhere
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td class="desc">
-                                <input type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
-                                weeks
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="desc"><br>
-                                <input type="checkbox" name="preferredContinents[North America]" value="1"> North America
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[South America]" value="1"> South America
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[Europe]" value="1"> Europe
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[Asia]" value="1"> Asia
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[Africa]" value="1"> Africa
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                <input type="checkbox" name="preferredContinents[Oceania]" value="1"> Oceania
-                            </td>
-                            <td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                            <td></td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-
-                </td>
-                <td valign="top" width="31%">
-
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>Skills</b>
-                                <div class="warn"> &nbsp;(Please tick all relevant to you.
-                                    Details are <b>required</b> if skill is ticked)
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">* Mapping <br>
-                                <div class="warn">Notice that you will be required to upload map samples!
-                                </div>
-                                <br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="mappingDesc[Sprint]" value="1"> Sprint <br>
-                                    <input type="checkbox" name="mappingDesc[Forest]" value="1"> Forest <br>
-                                    <input type="checkbox" name="mappingDesc[MTBO]" value="1"> MTBO<br>
-                                    <input type="checkbox" name="mappingDesc[SkiO]" value="1"> Ski-O
-                                </div>
-                            </td>
-                            <td class="smradio">Brief outline of your experience as a mapper
-                                <br>
-                                <textarea rows="2" cols="30" name="mappingDesc[info]" id="mappingDescInfo" value=""></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                * Coaching<br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="coachDesc[nationalTeam]" value="1"> National Team<br>
-                                    <input type="checkbox" name="coachDesc[clubs]" value="1"> Clubs
-                                </div>
-                            </td>
-                            <td class="smradio">Brief outline of your experience in coaching
-                                <br>
-                                <textarea rows="2" cols="30" name="coachDesc[info]" id="coachDescInfo" value=""></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                * IT &amp; time-keeping <br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="itDesc[si]" value="1"> SportIdent <br>
-                                    <input type="checkbox" name="itDesc[emit]" value="1"> Emit <br>
-                                    <input type="checkbox" name="itDesc[othertime]" value="1"> Other Timekeeping <br>
-                                    <input type="checkbox" name="itDesc[gps]" value="1"> GPS Tracking
-                                </div>
-                            </td>
-                            <td class="smradio">Brief details of your IT skills &amp; experience <br>
-                                <textarea rows="2" cols="30" name="itDesc[info]" id="itDescInfo" value=""></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                * Event Organising <br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="eventDesc[club]" value="1"> Club &nbsp; &nbsp;<br>
-                                    <input type="checkbox" name="eventDesc[local]" value="1"> Local &nbsp; &nbsp;<br>
-                                    <input type="checkbox" name="eventDesc[national]" value="1"> National &nbsp; &nbsp;<br>
-                                    <input type="checkbox" name="eventDesc[highLevel]" value="1"> High-Level
-                                </div>
-                            </td>
-                            <td class="smradio">Brief outline of your experience as organiser
-                                <br>
-                                <textarea rows="2" cols="30" name="eventDesc[info]" id="eventDescInfo" value=""></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                * Teaching experience
-                                <br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="teacherDesc[beginners]" value="1"> Beginners &amp; children <br>
-                                    <input type="checkbox" name="teacherDesc[map]" value="1"> Teach how to map<br>
-                                    <input type="checkbox" name="teacherDesc[coach]" value="1"> Teach coaching <br>
-                                    <input type="checkbox" name="teacherDesc[it]" value="1"> Teach IT &amp; Timekeeping<br>
-                                    <input type="checkbox" name="teacherDesc[events]" value="1"> Teach Event Organising
-                                </div>
-                            </td>
-                            <td class="smradio">Brief outline of your experience in teaching
-                                <textarea rows="2" cols="30" name="teacherDesc[info]" id="teacherDescInfo" value=""></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                * Other skills? Please explain...
-                            </td>
-                            <td>
-                                <textarea rows="2" cols="30" name="otherSkills" id="otherSkills" value=""></textarea>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>O-Work Experience</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="desc">Local / National Events
-                                <select size="1" name="oworkLocalExp[experience]">
-                                    <option selected="" value="">- select -</option>
-                                    <option value="none">none</option>
-                                    <option value="1 - 10">1 - 10</option>
-                                    <option value="11 - 30">11 - 30</option>
-                                    <option value="over 30">over 30</option>
-                                </select><br>
-                                <br>Duties:<br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="oworkLocalExp[director]" value="1"> Event Director <br>
-                                    <input type="checkbox" name="oworkLocalExp[mapper]" value="1"> Mapper / Course Planner <br>
-                                    <input type="checkbox" name="oworkLocalExp[it]" value="1"> IT Director <br>
-                                    <input type="checkbox" name="oworkLocalExp[advisor]" value="1"> Event Advisor <br>
-                                    <input type="checkbox" name="oworkLocalExp[jury]" value="1"> Jury Member <br>
-                                    Other duties? State below...<br>
-                                    <input type="text" name="oworkLocalExp[other]" value="" size="20">
-                                </div>
-                            </td>
-                            <td class="desc">International Events &nbsp;
-                                <select size="1" name="oworkInternationalExp[experience]">
-                                    <option selected="" value="">- select -</option>
-                                    <option value="none">none</option>
-                                    <option value="1 - 10">1 - 10</option>
-                                    <option value="11 - 20">11 - 20</option>
-                                    <option value="over 20">over 20</option>
-                                </select><br>
-                                <br>Duties:<br>
-                                <div class="smradio">
-                                    <input type="checkbox" name="oworkInternationalExp[director]" value="1"> Event Director <br>
-                                    <input type="checkbox" name="oworkInternationalExp[mapper]" value="1"> Mapper / Course Planner <br>
-                                    <input type="checkbox" name="oworkInternationalExp[it]" value="1"> IT Director <br>
-                                    <input type="checkbox" name="oworkInternationalExp[advisor]" value="1"> Event Advisor <br>
-                                    <input type="checkbox" name="oworkInternationalExp[jury]" value="1"> Jury Member <br>
-                                    Other duties? State below...<br>
-                                    <input type="text" name="oworkInternationalExp[info]" value="" size="20">
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                </td>
-                <td valign="top" width="17%">
-                    <table>
-                        <tbody>
-                        <tr valign="top">
-                            <td colspan="2" class="desc"><b>Additional Information</b></td>
-                        </tr>
-                        <tr>
-                            <td class="desc">
-                                Skilled in mapping? <br>Upload your "best" maps here...<br>
-                                <div class="warn">Required for mappers!</div>
-                                <p>(At most 3 maps in PDF format, max file size is 2 Mb)</p>
-                                {% if maps %}
-                                    <p>Already loaded maps:
-                                    {% for map in maps %}
-                                        <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
-                                    {% endfor %}
-                                        <br/><span class="warn">New maps will erase previously loaded</span>
-                                    </p>
-                                {% endif %}
-                                <input name="maps[]" type="file" accept=".pdf">
-                                <br><br>
-                                <input name="maps[]" type="file" accept=".pdf">
-                                <br><br>
-                                <input name="maps[]" type="file" accept=".pdf">
-                                <br><br>
-
-                                Expectations as a volunteer <br>
-                                <textarea rows="4" cols="30" name="expectations" id="expectations" value=""></textarea><br><br>
-                                Experience abroad? When? Where? What?<br>
-                                <textarea rows="4" cols="30" name="abroadExp" id="abroadExp" value=""></textarea><br><br>
-                                Seminars, Training Camps attended...<br>
-                                <textarea rows="4" cols="30" name="learning" id="learning" value=""></textarea><br><br>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
--->
 
 {% endblock %}

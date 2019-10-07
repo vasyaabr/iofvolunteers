@@ -1,0 +1,30 @@
+{% extends 'common.twig' %}
+
+{% block onecolumn %}
+
+    <div class="row mt-3">
+        <div class="col text-center">
+            <h2>Password change form</h2>
+        </div>
+    </div>
+
+    <form class="w-50" method="POST" action="{{ url }}change" enctype="multipart/form-data">
+
+        <div class="form-group row">
+            <label for="oldpassword" class="col-4 col-form-label col-form-label-sm">Old password:</label>
+            <input type="password" class="col-8 form-control form-control-sm" id="oldpassword" name="oldpassword" required>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-4 col-form-label col-form-label-sm">New password:</label>
+            <input type="password" class="col-8 form-control form-control-sm" id="password" name="password" required>
+        </div>
+        <div class="form-group row">
+            <label for="passwordretype" class="col-4 col-form-label col-form-label-sm">Retype new password:</label>
+            <input type="password" class="col-8 form-control form-control-sm" id="passwordretype" name="passwordretype" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Change my password</button>
+
+    </form>
+
+{% endblock %}
