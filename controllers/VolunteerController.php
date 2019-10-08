@@ -312,7 +312,7 @@ class VolunteerController extends Controller {
     }
 
     /**
-     * Validate params and set 'errors' element on errors
+     * Prepare data for INSERT/UPDATE
      *
      * @param array $params
      *
@@ -321,28 +321,13 @@ class VolunteerController extends Controller {
      */
     private function prepareVolunteerData(array $params) : array {
 
-        foreach ($params as $key => &$param) {
-
-            // remove all empty array elements
-            if (is_array($param)) {
-                $param = array_filter($param);
-            }
-
-            // remove empty elements
-            if (empty($param)) {
-                unset($params[$key]);
-            }
-
-            // convert arrays to JSON
-            if (is_array($param)) {
-                $param = self::json_enc($param);
-            }
-
-        }
+        $params = array_map(
+            function ($v) { return is_array($v) ? self::json_enc($v) : $v; },
+            self::array_filter_recursive($params)
+        );
 
         $params['userID'] = User::getUserID();
 
-        // check for required fields
         unset($params["iAgreeWithTerms"]);
         unset($params['MAX_FILE_SIZE']);
 
@@ -363,7 +348,13 @@ class VolunteerController extends Controller {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $params = $this->validate($_POST, 'search');
+        // filter empty values and arrays
+        $params = self::array_filter_recursive($_POST);
+
+        $validationErrors = Volunteer::validateAll($params);
+        if (!empty($validationErrors)) {
+            return Platform::error( implode("<br>",$validationErrors) );
+        }
 
         $found = Volunteer::get(array_merge($params, ['active' => 1]));
 
