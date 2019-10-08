@@ -24,10 +24,11 @@ class Volunteer extends Model {
                 'name' => v::notEmpty(),
                 'country' => v::notEmpty(),
                 'email' => v::email(),
-                'birthdate' => v::date('Y-m-d'),
+                'birthdate' => v::date('Y-m-d')->between('1920-01-01', 'yesterday'),
                 'startO' => v::intVal()->between(1920,(int)(new \DateTime())->format('Y')),
                 'helpDesc' => v::notEmpty(),
                 'iAgreeWithTerms' => v::trueVal(),
+                'phone' => v::optional(v::phone()),
             ]
         );
 
@@ -60,6 +61,8 @@ class Volunteer extends Model {
                 break;
             // json arrays
             case 'competitorExp':
+            case 'oworkLocalExp':
+            case 'oworkInternationalExp':
             case 'teacherDesc':
             case 'languages':
                 $condition = [];
@@ -99,6 +102,8 @@ class Volunteer extends Model {
             switch ($key) {
                 // 1-dimension json arrays
                 case 'competitorExp':
+                case 'oworkLocalExp':
+                case 'oworkInternationalExp':
                 case 'teacherDesc':
                     foreach ($value as $key2 => $value2) {
                         $params["{$key}_{$key2}"] = $value2;

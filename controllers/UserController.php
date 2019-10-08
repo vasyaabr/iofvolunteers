@@ -124,20 +124,20 @@ class UserController {
             return Platform::error( 'You are not authenticated' );
         }
 
-        $validationErrors =  User::validate('password', $_POST['passsword'] ?? null);
+        $validationErrors =  User::validate('password', $_POST['password'] ?? null);
         if (!empty($validationErrors)) {
             return Platform::error( implode("<br>",$validationErrors) );
         }
 
-        if ($_POST['passsword'] !== $_POST['passswordretype']) {
+        if ($_POST['password'] !== $_POST['passwordretype']) {
             return Platform::error( 'Invalid password retype' );
         }
 
-        if ($_SESSION['user']['password'] !== User::encodePassword($_POST['passsword'])) {
+        if ($_SESSION['user']['password'] !== User::encodePassword($_POST['password'])) {
             return Platform::error( 'Invalid old password' );
         }
 
-        User::update(['id'=>User::getUserID(), 'password' => User::encodePassword($_POST['passsword'])]);
+        User::update(['id'=>User::getUserID(), 'password' => User::encodePassword($_POST['password'])]);
 
         return Platform::error( 'Password successfully changed.' );
 

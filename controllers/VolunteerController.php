@@ -249,20 +249,36 @@ class VolunteerController extends Controller {
     public function add() : string {
 
         if((int)$_SERVER['CONTENT_LENGTH']>0 && count($_POST)===0){
-            $params['errors'][] = "Files are too big";
-            return Platform::error( $params['errors'] );
+            return self::error('Files are too big');
         }
 
         if (!User::isAuthenticated()) {
-            return Platform::error( 'You are not authenticated' );
+            return self::error('You are not authenticated');
         }
 
+        //error_log(var_export($_POST,true));
         $validationErrors = Volunteer::validateAll($_POST, true);
         if (!empty($validationErrors)) {
-            return Platform::error( implode("<br>",$validationErrors) );
+            return self::error(implode("<br>",$validationErrors));
         }
 
-        $params = $this->prepareVolunteerData($_POST, 'register');
+        // filter and set additional fields
+        $params = array_map(
+            function ($v) { return is_array($v) ? self::json_enc($v) : $v; },
+            self::array_filter_recursive($_POST)
+        );
+
+        $params['userID'] = User::getUserID();
+
+        unset($params["iAgreeWithTerms"]);
+        unset($params['MAX_FILE_SIZE']);
+
+        // fill tech fields
+        if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
+        if (isset($params['coachDesc'])) { $params['coachSkilled'] = 1; }
+        if (isset($params['itDesc'])) { $params['itSkilled'] = 1; }
+        if (isset($params['eventDesc'])) { $params['eventSkilled'] = 1; }
+        if (isset($params['teacherDesc'])) { $params['teacherSkilled'] = 1; }
 
         // process uploaded maps
         $files = [];
@@ -297,7 +313,7 @@ class VolunteerController extends Controller {
 
         // show files errors
         if (!empty($params['errors'])) {
-            return Platform::error( $params['errors'] );
+            return self::error(implode("<br>",$params['errors']));
         }
 
         if (!empty($files)) {
@@ -307,38 +323,7 @@ class VolunteerController extends Controller {
         // modify database
         $success = isset($params['id']) ? Volunteer::update($params) : Volunteer::add($params);
 
-        return $success ? $this->listView() : Platform::error( 'Unexpected error' );
-
-    }
-
-    /**
-     * Prepare data for INSERT/UPDATE
-     *
-     * @param array $params
-     *
-     * @return array
-     * @throws \Exception
-     */
-    private function prepareVolunteerData(array $params) : array {
-
-        $params = array_map(
-            function ($v) { return is_array($v) ? self::json_enc($v) : $v; },
-            self::array_filter_recursive($params)
-        );
-
-        $params['userID'] = User::getUserID();
-
-        unset($params["iAgreeWithTerms"]);
-        unset($params['MAX_FILE_SIZE']);
-
-        // fill tech fields
-        if (isset($params['mappingDesc'])) { $params['mappingSkilled'] = 1; }
-        if (isset($params['coachDesc'])) { $params['coachSkilled'] = 1; }
-        if (isset($params['itDesc'])) { $params['itSkilled'] = 1; }
-        if (isset($params['eventDesc'])) { $params['eventSkilled'] = 1; }
-        if (isset($params['teacherDesc'])) { $params['teacherSkilled'] = 1; }
-
-        return $params;
+        return $success ? self::json_enc( Volunteer::getSingle(self::decode($params)) ) : self::error('Volunteer already saved');
 
     }
 

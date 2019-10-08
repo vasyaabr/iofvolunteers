@@ -92,4 +92,8 @@ abstract class Controller
         return array_filter($input);
     }
 
+    public static function error(string $errorText) : string {
+        return self::json_enc(['error' => $errorText]);
+    }
+
 }

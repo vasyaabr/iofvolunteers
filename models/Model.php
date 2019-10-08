@@ -85,10 +85,10 @@ abstract class Model {
     /**
      * Validate single parameter
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      * @return array
      */
-    public static function validate(string $key, string $value) : array {
+    public static function validate(string $key, $value) : array {
 
         $validators = static::getValidators();
 
@@ -112,6 +112,10 @@ abstract class Model {
      */
     public static function add(array $params) : bool {
 
+        if (count(static::get($params))>0) {
+            return false;
+        }
+
         $valueMasks = implode(',',
             array_map(function($v) { return ':'.$v; },array_keys($params))
         );
@@ -128,12 +132,12 @@ abstract class Model {
      * @param array $params
      *
      * @return bool
-     * @throws \Error
      */
     public static function update(array $params) : bool {
 
         if (!isset($params[static::$key])) {
-            throw new \Error('Update key not set');
+            \Sentry\captureMessage('Update key not set');
+            return false;
         }
 
         $valueMasks = implode(',',
@@ -151,11 +155,11 @@ abstract class Model {
      * @param array $params
      *
      * @return array
-     * @throws \Error
      */
     public static function getSingle(array $params) : array {
 
         $query = self::query($params);
+        //error_log($query);
         $params = static::prepareParamsForQuery($params);
         $result = DbProvider::select($query, $params);
         return count($result) === 1 ? $result[0] : [];
@@ -167,7 +171,6 @@ abstract class Model {
      * @param array $params
      *
      * @return array
-     * @throws \Error
      */
     public static function get(array $params, array $fields = []) : array {
 
@@ -209,7 +212,6 @@ abstract class Model {
      * @param array $params
      *
      * @return string
-     * @throws \Error
      */
     public static function query(array $params, array $fields = []) : string {
 

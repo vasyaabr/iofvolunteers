@@ -22,12 +22,12 @@ class DbProvider {
     public static function getInstance() : \PDO
     {
         
-        if ( is_null(self::$instance) ) {
+        if ( self::$instance === null ) {
 
             self::$instance = new \PDO( "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",
                 DB_USER,
                 DB_PASSWORD,
-                array( \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8" ) );
+                [ \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8" ] );
             self::$instance->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
 
         }
@@ -51,7 +51,8 @@ class DbProvider {
 //        echo var_export($params,true)."<br/>";
         $success = $statement->execute($params);
         if (!$success) {
-            throw new \Error("SQL error in query:\n{$query}");
+            \Sentry\captureMessage("SQL error in query:\n{$query}");
+            return [];
         }
 
         return $statement->fetchAll( \PDO::FETCH_ASSOC );
