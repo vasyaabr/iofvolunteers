@@ -63,6 +63,7 @@ class Volunteer extends Model {
             case 'competitorExp':
             case 'oworkLocalExp':
             case 'oworkInternationalExp':
+            case 'preferredContinents':
             case 'teacherDesc':
             case 'languages':
                 $condition = [];
@@ -104,6 +105,7 @@ class Volunteer extends Model {
                 case 'competitorExp':
                 case 'oworkLocalExp':
                 case 'oworkInternationalExp':
+                case 'preferredContinents':
                 case 'teacherDesc':
                     foreach ($value as $key2 => $value2) {
                         $params["{$key}_{$key2}"] = $value2;
