@@ -1,735 +1,908 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title"><img class="title-icon" src="{{ url }}images/icon-add.svg" width="65" height="65"> Volunteer Registration Form</h1>
 
-    <div class="row mt-3">
-        <div class="col text-center">
-            <h2>Volunteer Registration Form</h2>
-        </div>
-    </div>
-    <div class="row">
-        <p class="col text-center text-danger">
-            Please note that you must be 18+ to register as a volunteer!
-        </p>
-    </div>
-
-    <div id="top-alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none">
-        <span id="top-alert-contents"></span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <form class="w-50 wizard" method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
-
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
-
-        <div id="step1" class="wizard">
-
-            <h3>Mandatory information (1/7)</h3>
-
-            <div class="form-group row">
-                <label for="name" class="col-4 col-form-label col-form-label-sm">Name <span class="text-danger">(required)</span>:</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="name" name="name" required>
-            </div>
-            <div class="form-group row">
-                <label for="email" class="col-4 col-form-label col-form-label-sm">E-mail <span class="text-danger">(required)</span>:</label>
-                <input type="email" class="col-8 form-control form-control-sm" id="email" name="email" required>
-            </div>
-            <div class="form-group row">
-                <label for="country" class="col-4 col-form-label col-form-label-sm">Country <span class="text-danger">(required)</span>:</label>
-                <select type="text" class="col-8 form-control form-control-sm" name="country" id="country" value="" required>
-                    {{ countries | raw }}
-                </select>
-            </div>
-            <div class="form-group row">
-                <label for="birthdate" class="col-4 col-form-label col-form-label-sm">Date of birth <span class="text-danger">(required)</span>:</label>
-                <input type="date" class="col-8 form-control form-control-sm" id="birthdate" name="birthdate" required>
-            </div>
-            <div class="form-group row">
-                <label for="startO" class="col-4 col-form-label col-form-label-sm">Year you started orienteering <span class="text-danger">(required)</span>:</label>
-                <input type="number" class="col-8 form-control form-control-sm" id="startO" name="startO" required min="1900" max="2099" step="1">
-            </div>
-            <div class="form-group">
-                <label for="helpDesc" class="col-form-label col-form-label-sm">Explain how you can help as a volunteer <span class="text-danger">(required)</span>:</label>
-                <textarea class="form-control form-control-sm" id="helpDesc" name="helpDesc" required rows="4"></textarea>
-            </div>
-
-            <p>
-                <strong>Disclaimer:</strong> I have filled in my details
-                above as accurately as possible. By submitting this form, I state that I am a volunteer in
-                developing orienteering. I understand that the IOF cannot be held responsible for my being or not
-                being recruited as a volunteer. I also understand that should I choose to accept any offer
-                requesting my assistance, the IOF cannot be held responsible for the terms under which I will work
-                as a volunteer.
-            </p>
-
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="iAgreeWithTerms" name="iAgreeWithTerms" required>
-                <label for="iAgreeWithTerms" class="form-check-label"> I have read and understood the above</label>
-            </div>
-
-            <div class="text-danger"> Please tick the disclaimer...</div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
+            <div class="title-desc">Please note that you must be 18+ to register as a
+                volunteer!</div>
         </div>
 
-        <div id="step2" class="wizard" style="display: none">
-
-            <h3>Personal details (2/7)</h3>
-
-            <div class="form-group row">
-                <label for="phone" class="col-4 col-form-label col-form-label-sm">Phone:</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="phone" name="phone">
-            </div>
-
-            <div class="form-group row">
-                <label for="gender" class="col-4 col-form-label col-form-label-sm">Gender:</label>
-                <select class="form-control form-control-sm col-8" id="gender" name="gender">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="nickname" class="col-4 col-form-label col-form-label-sm">Nickname:</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="nickname" name="nickname" aria-describedby="nicknameHelpBlock">
-                <small id="nicknameHelpBlock" class="form-text text-muted">
-                    if left blank, your first name  will be assumed as your nickname
-                </small>
-            </div>
-
-            <div class="form-group row">
-                <label for="license" class="col-4 col-form-label col-form-label-sm">International driving license?</label>
-                <select class="form-control form-control-sm col-8" id="gender" name="license">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="club" class="col-4 col-form-label col-form-label-sm">Your present club (if any):</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="club" name="club">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
-        </div>
-
-        <div id="step3" class="wizard" style="display: none">
-
-            <h3>Orienteering expirience (3/7)</h3>
-
-            <h4>Disciplines of experience</h4>
-
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="footO" name="footO">
-                <label for="footO" class="col-4 col-form-label col-form-label-sm form-check-label">Foot-O</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mtbO" name="mtbO">
-                <label for="mtbO" class="col-4 col-form-label col-form-label-sm form-check-label">MTB-O</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="skiO" name="skiO">
-                <label for="skiO" class="col-4 col-form-label col-form-label-sm form-check-label">Ski-O</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="trailO" name="trailO">
-                <label for="trailO" class="col-4 col-form-label col-form-label-sm form-check-label">Trail-O</label>
-            </div>
-
-            <h4>Experience as Competitor</h4>
-
-            <div class="form-group row">
-                <label for="competitorExpLocal" class="col-4 col-form-label col-form-label-sm">Local events</label>
-                <select class="form-control form-control-sm col-8" id="competitorExpLocal" name="competitorExp[local]">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="none">none</option>
-                    <option value="1 - 50">1 - 50</option>
-                    <option value="51 - 100">51 - 100</option>
-                    <option value="over 100">over 100</option>
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="competitorExpNational" class="col-4 col-form-label col-form-label-sm">National Championships</label>
-                <select class="form-control form-control-sm col-8" id="competitorExpNational" name="competitorExp[national]">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="none">none</option>
-                    <option value="1 - 50">1 - 50</option>
-                    <option value="51 - 100">51 - 100</option>
-                    <option value="over 100">over 100</option>
-                </select>
-            </div>
-
-            <div class="form-group row">
-                <label for="competitorExpInternational" class="col-4 col-form-label col-form-label-sm">International Competitions</label>
-                <select class="form-control form-control-sm col-8" id="competitorExpInternational" name="competitorExp[international]">
-                    <option selected="" value="">--- select ---</option>
-                    <option value="none">none</option>
-                    <option value="1 - 20">1 - 20</option>
-                    <option value="21 - 50">21 - 50</option>
-                    <option value="over 50">over 50</option>
-                </select>
-            </div>
-
-            <h4>O-Work Experience</h4>
-
-            <div class="form-group row">
-                <label for="oworkLocalExpExperience" class="col-4 col-form-label col-form-label-sm">Local / National Events</label>
-                <select class="form-control form-control-sm col-8" id="oworkLocalExpExperience" name="oworkLocalExp[experience]">
-                    <option selected="" value="">- select -</option>
-                    <option value="none">none</option>
-                    <option value="1 - 10">1 - 10</option>
-                    <option value="11 - 30">11 - 30</option>
-                    <option value="over 30">over 30</option>
-                </select>
-            </div>
-            <h5>Duties:</h5>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpDirector" name="oworkLocalExp[director]">
-                <label for="oworkLocalExpDirector" class="col-4 col-form-label col-form-label-sm form-check-label">Event Director</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpMapper" name="oworkLocalExp[mapper]">
-                <label for="oworkLocalExpMapper" class="col-4 col-form-label col-form-label-sm form-check-label">Mapper / Course Planner</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpIt" name="oworkLocalExp[it]">
-                <label for="oworkLocalExpIt" class="col-4 col-form-label col-form-label-sm form-check-label">IT Director</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpAdvisor" name="oworkLocalExp[advisor]">
-                <label for="oworkLocalExpAdvisor" class="col-4 col-form-label col-form-label-sm form-check-label">Event Advisor</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkLocalExpJury" name="oworkLocalExp[jury]">
-                <label for="oworkLocalExpJury" class="col-4 col-form-label col-form-label-sm form-check-label">Jury Member</label>
-            </div>
-            <div class="form-group row">
-                <label for="oworkLocalExpOther" class="col-4 col-form-label col-form-label-sm">Other duties? State below...</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="oworkLocalExpOther" name="oworkLocalExp[other]">
-            </div>
-
-            <div class="form-group row">
-                <label for="oworkInternationalExpExperience" class="col-4 col-form-label col-form-label-sm">International Events</label>
-                <select class="form-control form-control-sm col-8" id="oworkInternationalExpExperience" name="oworkInternationalExp[experience]">
-                    <option selected="" value="">- select -</option>
-                    <option value="none">none</option>
-                    <option value="1 - 10">1 - 10</option>
-                    <option value="11 - 20">11 - 20</option>
-                    <option value="over 20">over 20</option>
-                </select>
-            </div>
-            <h5>Duties:</h5>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpDirector" name="oworkInternationalExp[director]">
-                <label for="oworkInternationalExpDirector" class="col-4 col-form-label col-form-label-sm form-check-label">Event Director</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpMapper" name="oworkInternationalExp[mapper]">
-                <label for="oworkInternationalExpMapper" class="col-4 col-form-label col-form-label-sm form-check-label">Mapper / Course Planner</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpIt" name="oworkInternationalExp[it]">
-                <label for="oworkInternationalExpIt" class="col-4 col-form-label col-form-label-sm form-check-label">IT Director</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpAdvisor" name="oworkInternationalExp[advisor]">
-                <label for="oworkInternationalExpAdvisor" class="col-4 col-form-label col-form-label-sm form-check-label">Event Advisor</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="oworkInternationalExpJury" name="oworkInternationalExp[jury]">
-                <label for="oworkInternationalExpJury" class="col-4 col-form-label col-form-label-sm form-check-label">Jury Member</label>
-            </div>
-            <div class="form-group row">
-                <label for="oworkInternationalExpOther" class="col-4 col-form-label col-form-label-sm">Other duties? State below...</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="oworkInternationalExpOther" name="oworkInternationalExp[other]">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
-        </div>
-
-        <div id="step4" class="wizard" style="display: none">
-
-            <h3>Languages spoken (4/7)</h3>
-            <p class="text-danger">(required, even if only listed in "other")</p>
+        <form method="POST" action="{{ url }}volunteer/register" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="MAX_FILE_SIZE" value="{{ MAX_FILE_SIZE }}" />
 
             <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <label for="languagesEnglishKnown" class="col-4 col-form-label col-form-label-sm form-check-label">English</label>
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesEnglishKnown" name="languages[English][known]">
+                <div class="col-12 col-md-6">
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            1. Contact Information
+                        </h3>
+
+                        <div class="form-group">
+                            <input id="field_name" placeholder=" " type="text" name="name" size="15" required>
+                            <label class="formGroupLabel"  for="field_name">Name</label>
+                        </div>
+
+                        <div class="form-group">
+                            <select type="text" name="country" id="country" size="1" value="" required>
+                                {{ countries | raw }}
+                            </select>
+                            <div class="warn">Country</div>
+                            <img for="country" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_email" placeholder=" " type="text" name="email" size="15" required>
+                            <label class="formGroupLabel"  for="field_email">E-mail *</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_phone" placeholder=" " type="text" name="phone" value="" size="15">
+                            <label class="formGroupLabel"  for="field_phone">Phone </label>
+                            <div class="warn">(optional)</div>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            2. Personal Information
+                        </h3>
+
+                        <div class="form-group">
+                            <select size="1" name="gender" id="gender">
+                                <option selected="" value="">Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                            <img for="gender" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_birthdate" placeholder=" " type="text" name="birthdate" size="15" value="" class="datepicker-here" data-language='en' data-date-format="yyyy-mm-dd" required>
+                            <label class="formGroupLabel"  for="field_birthdate">Date of birth (yyyy-mm-dd) *</label>
+                            <img for="field_birthdate" class="selectArr v2" src="{{ url }}/images/calendarIcon.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_nickname" placeholder=" " type="text" name="nickname" size="15" value="">
+                            <label class="formGroupLabel"  for="field_nickname">Nickname </label>
+                            <div class="warn">optional</div>
+                            <div class="warn">if left blank, your first name  will be assumed as your nickname</div>
+                        </div>
+
+                        <div class="form-group">
+                            <select size="1" name="license" id="license">
+                                <option selected="" value="">International driving license?</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            <img for="license" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            3. Disciplines of experience
+                        </h3>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="footO" name="footO">
+                                <label class="form-check-label" for="footO">
+                                    Foot-O
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="mtbO" name="mtbO">
+                                <label class="form-check-label" for="mtbO">
+                                    MTBO
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="skiO" name="skiO">
+                                <label class="form-check-label" for="skiO">
+                                    Ski-O
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="trailO" name="trailO">
+                                <label class="form-check-label" for="trailO">
+                                    Trail-O
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            4. O-Experience
+                        </h3>
+
+                        <div class="form-group">
+                            <input type="number" min="1900" max="2099" step="1" name="startO" size="4" id="field_startO" class="datepicker-here" data-language='en' data-date-format="yyyy" data-view="years" data-min-view="years" placeholder=" " value="" required>
+                            <label class="formGroupLabel"  for="field_startO">Year you started orienteering (yyyy) *</label>
+                            <img for="field_startO" class="selectArr v2" src="{{ url }}/images/calendarIcon.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_club" placeholder=" " type="text" name="club" size="20">
+                            <label class="formGroupLabel"  for="field_club">Your present club (if any)</label>
+                            <div class="font-italic">
+                                Experience as Competitor
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <select size="1" name="competitorExp[local]" id="competitorExplocal">
+                                <option selected="" value="">Local events</option>
+                                <option value="none">none</option>
+                                <option value="1 - 50">1 - 50</option>
+                                <option value="51 - 100">51 - 100</option>
+                                <option value="over 100">over 100</option>
+                            </select>
+                            <img for="competitorExplocal" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <select size="1" name="competitorExp[national]" id="competitorExpnational">
+                                <option selected="" value="">National Championships</option>
+                                <option value="none">none</option>
+                                <option value="1 - 50">1 - 50</option>
+                                <option value="51 - 100">51 - 100</option>
+                                <option value="over 100">over 100</option>
+                            </select>
+                            <img for="competitorExpnational" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <select size="1" name="competitorExp[international]" id="competitorExpinternational">
+                                <option selected="" value="">International Competitions</option>
+                                <option value="none">none</option>
+                                <option value="1 - 20">1 - 20</option>
+                                <option value="21 - 50">21 - 50</option>
+                                <option value="over 50">over 50</option>
+                            </select>
+                            <img for="competitorExpinternational" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            5. Languages spoken
+                            <div class="warn"> (required, even if only listed in "other")</div>
+                        </h3>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[English][known]" value="1" id="languages1_1">
+                                <label class="form-check-label" for="languages1_1">
+                                    English
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[English][level]" value="Excellent" id="languages1_2">
+                                <label class="form-check-label" for="languages1_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[English][level]" value="OK" id="languages1_3">
+                                <label class="form-check-label" for="languages1_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[English][level]" value="Poor" id="languages1_4">
+                                <label class="form-check-label" for="languages1_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[French][known]" value="1" id="languages2_1">
+                                <label class="form-check-label" for="languages2_1">
+                                    French
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[French][level]" value="Excellent" id="languages2_2">
+                                <label class="form-check-label" for="languages2_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[French][level]" value="OK" id="languages2_3">
+                                <label class="form-check-label" for="languages2_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[French][level]" value="Poor" id="languages2_4">
+                                <label class="form-check-label" for="languages2_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[Spanish][known]" value="1" id="languages3_1">
+                                <label class="form-check-label" for="languages3_1">
+                                    Spanish
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Spanish][level]" value="Excellent" id="languages3_2">
+                                <label class="form-check-label" for="languages3_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Spanish][level]" value="OK" id="languages3_3">
+                                <label class="form-check-label" for="languages3_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Spanish][level]" value="Poor" id="languages3_4">
+                                <label class="form-check-label" for="languages3_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[German][known]" value="1" id="languages4_1">
+                                <label class="form-check-label" for="languages4_1">
+                                    German
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[German][level]" value="Excellent" id="languages4_2">
+                                <label class="form-check-label" for="languages4_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[German][level]" value="OK" id="languages4_3">
+                                <label class="form-check-label" for="languages4_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[German][level]" value="Poor" id="languages4_4">
+                                <label class="form-check-label" for="languages4_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[Italian][known]" value="1" id="languages5_1">
+                                <label class="form-check-label" for="languages5_1">
+                                    Italian
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Italian][level]" value="Excellent" id="languages5_2">
+                                <label class="form-check-label" for="languages5_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Italian][level]" value="OK" id="languages5_3">
+                                <label class="form-check-label" for="languages5_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Italian][level]" value="Poor" id="languages5_4">
+                                <label class="form-check-label" for="languages5_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[Portuguese][known]" value="1" id="languages6_1">
+                                <label class="form-check-label" for="languages6_1">
+                                    Portuguese
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Portuguese][level]" value="Excellent" id="languages6_2">
+                                <label class="form-check-label" for="languages6_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Portuguese][level]" value="OK" id="languages6_3">
+                                <label class="form-check-label" for="languages6_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Portuguese][level]" value="Poor" id="languages6_4">
+                                <label class="form-check-label" for="languages6_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="languages[Scandinavian][known]" value="1" id="languages7_1">
+                                <label class="form-check-label" for="languages7_1">
+                                    Scandinavian
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Scandinavian][level]" value="Excellent" id="languages7_2">
+                                <label class="form-check-label" for="languages7_2">
+                                    Excellent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Scandinavian][level]" value="OK" id="languages7_3">
+                                <label class="form-check-label" for="languages7_3">
+                                    OK
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="languages[Scandinavian][level]" value="Poor" id="languages7_4">
+                                <label class="form-check-label" for="languages7_4">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="field_languagesOther" placeholder=" " type="text" name="languages[Other]" value="" size="30">
+                            <label class="formGroupLabel"  for="field_languagesOther">Other languages?</label>
+                            <div class="font-italic">
+                                State each language and level, separated by commas below...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            6. Where to work?
+                            <div class="font-italic">
+                                Do you have a preferred destination?
+                                <br>If not, just tick "Anywhere"
+                            </div>
+                        </h3>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[Anywhere]" id="preferredContinents1">
+                                <label class="form-check-label" for="preferredContinents1">
+                                    Anywhere
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[North America]" id="preferredContinents2">
+                                <label class="form-check-label" for="preferredContinents2">
+                                    North America
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[South America]" id="preferredContinents3">
+                                <label class="form-check-label" for="preferredContinents3">
+                                    South America
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[Europe]" id="preferredContinents4">
+                                <label class="form-check-label" for="preferredContinents4">
+                                    Europe
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[Asia]" id="preferredContinents5">
+                                <label class="form-check-label" for="preferredContinents5">
+                                    Asia
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[Africa]" id="preferredContinents6">
+                                <label class="form-check-label" for="preferredContinents6">
+                                    Africa
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="preferredContinents[Oceania]" id="preferredContinents7">
+                                <label class="form-check-label" for="preferredContinents7">
+                                    Oceania
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            7. Timing
+                            <div class="font-italic">
+                                For how long can you work?
+                                <div class="warn">(leave blank if you can stay more than 6 weeks)</div>
+                            </div>
+                        </h3>
+
+                        <div class="form-group">
+                            <input placeholder=" " type="text" size="3" name="maxWorkDuration" id="maxWorkDuration" value="">
+                            <label class="formGroupLabel"  for="maxWorkDuration">weeks</label>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            8. Skills
+                            <div class="warn"> &nbsp;(Please tick all relevant to you.
+                                Details are <b>required</b> if skill is ticked)
+                            </div>
+                        </h3>
+
+                        <div class="form-group">
+                            <div class="formGroupLabelStatic">* Mapping</div>
+                            <div class="warn">Notice that you will be required to upload map samples!</div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="mappingDesc[Sprint]" id="mappingDesc1">
+                                <label class="form-check-label" for="mappingDesc1">
+                                    Sprint
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="mappingDesc[Forest]" id="mappingDesc2">
+                                <label class="form-check-label" for="mappingDesc2">
+                                    Forest
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="mappingDesc[MTBO]" id="mappingDesc3">
+                                <label class="form-check-label" for="mappingDesc3">
+                                    MTBO
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="mappingDesc[SkiO]" id="mappingDesc4">
+                                <label class="form-check-label" for="mappingDesc4">
+                                    SkiO
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="mappingDesc[info]" id="mappingDescInfo" value=""></textarea>
+                            <label class="formGroupLabel"  for="mappingDescInfo">Brief outline of your experience as a mapper</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="formGroupLabelStatic">* Coaching</div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="coachDesc[nationalTeam]" id="coachDesc1">
+                                <label class="form-check-label" for="coachDesc1">
+                                    National Team
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="coachDesc[clubs]" id="coachDesc2">
+                                <label class="form-check-label" for="coachDesc2">
+                                    Clubs
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="coachDesc[info]" id="coachDescInfo" value=""></textarea>
+                            <label class="formGroupLabel"  for="coachDescInfo">Brief outline of your experience in coaching</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="formGroupLabelStatic">* IT &amp; time-keeping</div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="itDesc[si]" id="itDesc1">
+                                <label class="form-check-label" for="itDesc1">
+                                    SportIdent
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="itDesc[emit]" id="itDesc2">
+                                <label class="form-check-label" for="itDesc2">
+                                    Emit
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="itDesc[othertime]" id="itDesc3">
+                                <label class="form-check-label" for="itDesc3">
+                                    Other Timekeeping
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="itDesc[gps]" id="itDesc4">
+                                <label class="form-check-label" for="itDesc4">
+                                    GPS Tracking
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="itDesc[info]" id="itDescInfo" value=""></textarea>
+                            <label class="formGroupLabel"  for="itDescInfo">Brief details of your IT skills &amp; experience</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="formGroupLabelStatic">* Event Organising</div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="eventDesc[club]" id="eventDesc1">
+                                <label class="form-check-label" for="eventDesc1">
+                                    Club
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="eventDesc[local]" id="eventDesc2">
+                                <label class="form-check-label" for="eventDesc2">
+                                    Local
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="eventDesc[national]" id="eventDesc3">
+                                <label class="form-check-label" for="eventDesc3">
+                                    National
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="eventDesc[highLevel]" id="eventDesc4">
+                                <label class="form-check-label" for="eventDesc4">
+                                    High-Level
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="eventDesc[info]" id="eventDescInfo" value=""></textarea>
+                            <label class="formGroupLabel"  for="eventDescInfo">Brief outline of your experience as organiser</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="formGroupLabelStatic">* Teaching experience</div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="teacherDesc[beginners]" id="teacherDesc1">
+                                <label class="form-check-label" for="teacherDesc1">
+                                    Beginners &amp; children
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="teacherDesc[map]" id="teacherDesc2">
+                                <label class="form-check-label" for="teacherDesc2">
+                                    Teach how to map
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="teacherDesc[coach]" id="teacherDesc3">
+                                <label class="form-check-label" for="teacherDesc3">
+                                    Teach coaching
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="teacherDesc[it]" id="teacherDesc4">
+                                <label class="form-check-label" for="teacherDesc4">
+                                    Teach IT &amp; Timekeeping
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="teacherDesc[events]" id="teacherDesc5">
+                                <label class="form-check-label" for="teacherDesc5">
+                                    Teach Event Organising
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="teacherDesc[info]" id="teacherDescInfo" value=""></textarea>
+                            <label class="formGroupLabel"  for="teacherDescInfo">Brief outline of your experience in teaching</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="2" cols="30" name="otherSkills" id="otherSkills" value=""></textarea>
+                            <label class="formGroupLabel"  for="otherSkills">* Other skills? Please explain...</label>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            9. O-Work Experience
+                        </h3>
+
+                        <div class="form-group">
+                            <select size="1" name="oworkLocalExp[experience]" id="oworkLocalExpexperience">
+                                <option selected="" value="">Local / National Events</option>
+                                <option value="none">none</option>
+                                <option value="1 - 10">1 - 10</option>
+                                <option value="11 - 30">11 - 30</option>
+                                <option value="over 30">over 30</option>
+                            </select>
+                            <img for="oworkLocalExpexperience" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="formGroupLabelStatic">Duties:</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkLocalExp[director]" id="oworkLocalExp1">
+                                <label class="form-check-label" for="oworkLocalExp1">
+                                    Event Director
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkLocalExp[mapper]" id="oworkLocalExp2">
+                                <label class="form-check-label" for="oworkLocalExp2">
+                                    Mapper / Course Planner
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkLocalExp[it]" id="oworkLocalExp3">
+                                <label class="form-check-label" for="oworkLocalExp3">
+                                    IT Director
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkLocalExp[advisor]" id="oworkLocalExp4">
+                                <label class="form-check-label" for="oworkLocalExp4">
+                                    Event Advisor
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkLocalExp[jury]" id="oworkLocalExp5">
+                                <label class="form-check-label" for="oworkLocalExp5">
+                                    Jury Member
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <input id="field_oworkLocalExpother" placeholder=" " type="text" name="oworkLocalExp[other]" value="" size="20">
+                                <label class="formGroupLabel"  for="field_oworkLocalExpother">Other duties? State below...</label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <select size="1" name="oworkInternationalExp[experience]" id="oworkInternationalExpexperience">
+                                <option selected="" value="">International Events</option>
+                                <option value="none">none</option>
+                                <option value="1 - 10">1 - 10</option>
+                                <option value="11 - 20">11 - 20</option>
+                                <option value="over 20">over 20</option>
+                            </select>
+                            <img for="oworkInternationalExpexperience" class="selectArr" src="{{ url }}/images/selectArr.svg" alt="" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="formGroupLabelStatic">Duties:</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkInternationalExp[director]" id="oworkInternationalExp1">
+                                <label class="form-check-label" for="oworkInternationalExp1">
+                                    Event Director
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkInternationalExp[mapper]" id="oworkInternationalExp2">
+                                <label class="form-check-label" for="oworkInternationalExp2">
+                                    Mapper / Course Planner
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkInternationalExp[it]" id="oworkInternationalExp3">
+                                <label class="form-check-label" for="oworkInternationalExp3">
+                                    IT Director
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkInternationalExp[advisor]" id="oworkInternationalExp4">
+                                <label class="form-check-label" for="oworkInternationalExp4">
+                                    Event Advisor
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" name="oworkInternationalExp[jury]" id="oworkInternationalExp5">
+                                <label class="form-check-label" for="oworkInternationalExp5">
+                                    Jury Member
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <input id="field_oworkInternationalExpinfo" placeholder=" " type="text" name="oworkInternationalExp[info]" value="" size="20">
+                                <label class="formGroupLabel"  for="field_oworkInternationalExpinfo">Other duties? State below...</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formSection">
+                        <h3 class="formSectionTitle">
+                            10. Additional Information
+                        </h3>
+
+                        <div class="form-group">
+                            <label class="formGroupLabelStatic">Skilled in mapping? Upload your "best" maps here...</label>
+                            <div class="warn">Required for mappers!
+                            <br>(At most 3 maps in PDF format, max file size is 2 Mb)
+                            {% if maps %}
+                                <p>Already loaded maps:
+                                    {% for map in maps %}
+                                        <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
+                                    {% endfor %}
+                                    <br/><span class="warn">New maps will erase previously loaded</span>
+                                </p>
+                            {% endif %}</div>
+
+                            <div class="custom-file mt-3">
+                                <input type="file" class="custom-file-input" id="mapsFile1" name="maps[]" accept=".pdf">
+                                <label class="custom-file-label" for="mapsFile1">Choose file</label>
+                            </div>
+
+                            <div class="custom-file mt-3">
+                                <input type="file" class="custom-file-input" id="mapsFile2" name="maps[]" accept=".pdf">
+                                <label class="custom-file-label" for="mapsFile2">Choose file</label>
+                            </div>
+
+                            <div class="custom-file mt-3">
+                                <input type="file" class="custom-file-input" id="mapsFile3" name="maps[]" accept=".pdf">
+                                <label class="custom-file-label" for="mapsFile3">Choose file</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="4" cols="30" name="helpDesc" id="helpDesc" value="" required></textarea>
+                            <label class="formGroupLabel"  for="helpDesc">Explain how you can help as a volunteer *</label>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="4" cols="30" name="expectations" id="expectations" value=""></textarea>
+                            <label class="formGroupLabel"  for="expectations">Expectations as a volunteer</label>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="4" cols="30" name="abroadExp" id="abroadExp" value=""></textarea>
+                            <label class="formGroupLabel"  for="abroadExp">Experience abroad? When? Where? What?</label>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea placeholder=" " rows="4" cols="30" name="learning" id="learning" value=""></textarea>
+                            <label class="formGroupLabel"  for="learning">Seminars, Training Camps attended...</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesEnglishLevel1" name="languages[English][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesEnglishLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesEnglishLevel2" name="languages[English][level]" value="OK">
-                        <label class="form-check-label" for="languagesEnglishLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesEnglishLevel3" name="languages[English][level]" value="Poor">
-                        <label class="form-check-label" for="languagesEnglishLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesFrenchKnown" name="languages[French][known]">
-                        <label for="languagesFrenchKnown" class="col-4 col-form-label col-form-label-sm form-check-label">French</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesFrenchLevel1" name="languages[French][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesFrenchLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesFrenchLevel2" name="languages[French][level]" value="OK">
-                        <label class="form-check-label" for="languagesFrenchLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesFrenchLevel3" name="languages[French][level]" value="Poor">
-                        <label class="form-check-label" for="languagesFrenchLevel3">Poor</label>
+                <div class="col-12 col-md-6">
+                    <div class="sticky">
+                        <div class="noteWrap">
+                            <h3 class="noteTitle">Disclaimer</h3>
+                            <p>I have filled in my details
+                            above as accurately as possible. By submitting this form, I state that I am a volunteer in
+                            developing orienteering. I understand that the IOF cannot be held responsible for my being or not
+                            being recruited as a volunteer. I also understand that should I choose to accept any offer
+                            requesting my assistance, the IOF cannot be held responsible for the terms under which I will work
+                                as a volunteer.</p>
+                        </div>
+
+                        <div class="formSection">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="iAgreeWithTerms" id="iAgreeWithTerms" required>
+                                    <label class="form-check-label" for="iAgreeWithTerms">
+                                        I have read and understood the above.
+                                    </label>
+                                    <div class="warn"> Please tick the disclaimer...</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex">
+                                <input class="ml-auto" type="submit" value="Submit my details">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </form>
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesSpanishKnown" name="languages[Spanish][known]">
-                        <label for="languagesSpanishKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Spanish</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesSpanishLevel1" name="languages[Spanish][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesSpanishLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesSpanishLevel2" name="languages[Spanish][level]" value="OK">
-                        <label class="form-check-label" for="languagesSpanishLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesSpanishLevel3" name="languages[Spanish][level]" value="Poor">
-                        <label class="form-check-label" for="languagesSpanishLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
+        <script language="javascript" type="text/javascript">
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesGermanKnown" name="languages[German][known]">
-                        <label for="languagesGermanKnown" class="col-4 col-form-label col-form-label-sm form-check-label">German</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesGermanLevel1" name="languages[German][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesGermanLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesGermanLevel2" name="languages[German][level]" value="OK">
-                        <label class="form-check-label" for="languagesGermanLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesGermanLevel3" name="languages[German][level]" value="Poor">
-                        <label class="form-check-label" for="languagesGermanLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
+            jQuery(document).ready(function($) {
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesItalianKnown" name="languages[Italian][known]">
-                        <label for="languagesItalianKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Italian</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesItalianLevel1" name="languages[Italian][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesItalianLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesItalianLevel2" name="languages[Italian][level]" value="OK">
-                        <label class="form-check-label" for="languagesItalianLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesItalianLevel3" name="languages[Italian][level]" value="Poor">
-                        <label class="form-check-label" for="languagesItalianLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
+                {% if data %}
+                var data = JSON.parse('{{ data | raw }}');
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesPortugueseKnown" name="languages[Portuguese][known]">
-                        <label for="languagesPortugueseKnown" class="col-4 col-form-label col-form-label-sm form-check-label">Portuguese</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel1" name="languages[Portuguese][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesPortugueseLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel2" name="languages[Portuguese][level]" value="OK">
-                        <label class="form-check-label" for="languagesPortugueseLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesPortugueseLevel3" name="languages[Portuguese][level]" value="Poor">
-                        <label class="form-check-label" for="languagesPortugueseLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
+                // reset form values from json object
+                $.each(data, function(name, val){
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group row">
-                        <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="languagesScandinavianKnown" name="languages[Scandinavian][known]">
-                        <label for="languagesScandinavianKnown" class="col-4 col-form-label col-form-label-sm form-check-label">"Scandinavian"</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel1" name="languages[Scandinavian][level]" value="Excellent">
-                        <label class="form-check-label" for="languagesScandinavianLevel1">Excellent</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel2" name="languages[Scandinavian][level]" value="OK">
-                        <label class="form-check-label" for="languagesScandinavianLevel2">OK</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="languagesScandinavianLevel3" name="languages[Scandinavian][level]" value="Poor">
-                        <label class="form-check-label" for="languagesScandinavianLevel3">Poor</label>
-                    </div>
-                </div>
-            </div>
+                    var $el = $('[name="'+name+'"]'), type = $el.attr('type');
 
-            <div class="form-group row">
-                <label for="languagesOther" class="col-4 col-form-label col-form-label-sm">Other languages?</label>
-                <input type="text" class="col-8 form-control form-control-sm" id="languagesOther" name="languages[Other]" aria-describedby="languagesOtherHelpBlock">
-                <small id="languagesOtherHelpBlock" class="form-text text-muted">
-                    State each language and level, separated by commas below...
-                </small>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
-        </div>
-
-        <div id="step5" class="wizard" style="display: none">
-
-            <h3>Work preferations (5/7)</h3>
-
-            <h5>Where to work?</h5>
-            <p>Do you have a preferred destination? If not, just tick "Anywhere"</p>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAnywhere" name="preferredContinents[Anywhere]">
-                <label for="preferredContinentsAnywhere" class="col-4 col-form-label col-form-label-sm form-check-label">Anywhere</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsNorthAmerica" name="preferredContinents[North America]">
-                <label for="preferredContinentsNorthAmerica" class="col-4 col-form-label col-form-label-sm form-check-label">North America</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsSouthAmerica" name="preferredContinents[South America]">
-                <label for="preferredContinentsSouthAmerica" class="col-4 col-form-label col-form-label-sm form-check-label">South America</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsEurope" name="preferredContinents[Europe]">
-                <label for="preferredContinentsEurope" class="col-4 col-form-label col-form-label-sm form-check-label">Europe</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAsia" name="preferredContinents[Asia]">
-                <label for="preferredContinentsAsia" class="col-4 col-form-label col-form-label-sm form-check-label">Asia</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsAfrica" name="preferredContinents[Africa]">
-                <label for="preferredContinentsAfrica" class="col-4 col-form-label col-form-label-sm form-check-label">Africa</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="preferredContinentsOceania" name="preferredContinents[Oceania]">
-                <label for="preferredContinentsOceania" class="col-4 col-form-label col-form-label-sm form-check-label">Oceania</label>
-            </div>
-
-            <h5>Timing</h5>
-            <div class="form-group row">
-                <label for="maxWorkDuration" class="col-4 col-form-label col-form-label-sm">For how long can you work?</label>
-                <input type="number" class="col-8 form-control form-control-sm" id="maxWorkDuration" name="maxWorkDuration" aria-describedby="maxWorkDurationHelpBlock"> weeks
-                <small id="maxWorkDurationHelpBlock" class="form-text text-muted">
-                    leave blank if you can stay more than 6 weeks
-                </small>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
-        </div>
-
-        <div id="step6" class="wizard" style="display: none">
-
-            <h3>Orienteering skills (6/7)</h3>
-
-            <p class="text-danger">Please tick all relevant to you. Details are <strong>required</strong> if skill is ticked.</p>
-
-            <h4>Mapping</h4>
-            <p class="text-danger">Notice that you will be required to upload map samples!</p>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescSprint" name="mappingDesc[Sprint]">
-                <label for="mappingDescSprint" class="col-4 col-form-label col-form-label-sm form-check-label">Sprint</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescForest" name="mappingDesc[Forest]">
-                <label for="mappingDescForest" class="col-4 col-form-label col-form-label-sm form-check-label">Forest</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescMTBO" name="mappingDesc[MTBO]">
-                <label for="mappingDescMTBO" class="col-4 col-form-label col-form-label-sm form-check-label">MTBO</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="mappingDescSkiO" name="mappingDesc[SkiO]">
-                <label for="mappingDescSkiO" class="col-4 col-form-label col-form-label-sm form-check-label">Ski - O</label>
-            </div>
-            <div class="form-group">
-                <label for="mappingDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience as a mapper:</label>
-                <textarea class="form-control form-control-sm" id="mappingDescInfo" name="mappingDesc[info]" rows="2"></textarea>
-            </div>
-
-            <h5>Additional Information</h5>
-            <p>Skilled in mapping? Upload your "best" maps here... (At most 3 maps in PDF format, max file size is 2 Mb)</p>
-            <p class="text-danger">Required for mappers!</p>
-            {% if maps %}
-                <p>Already loaded maps:</p>
-                {% for map in maps %}
-                    <a href="{{ url }}{{ map }}" target="_blank">Map {{ loop.index }}</a>
-                {% endfor %}
-                <div class="text-danger">New maps will erase previously loaded</div>
-            {% endif %}
-            <div class="form-group">
-                <input type="file" class="form-control-file" id="map1" name="maps[]" accept=".pdf">
-            </div>
-            <div class="form-group">
-                <input type="file" class="form-control-file" id="map2" name="maps[]" accept=".pdf">
-            </div>
-            <div class="form-group">
-                <input type="file" class="form-control-file" id="map3" name="maps[]" accept=".pdf">
-            </div>
-
-            <h4>Coaching</h4>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="coachDescNationalTeam" name="coachDesc[nationalTeam]">
-                <label for="coachDescNationalTeam" class="col-4 col-form-label col-form-label-sm form-check-label">National Team</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="coachDescClubs" name="coachDesc[clubs]">
-                <label for="coachDescClubs" class="col-4 col-form-label col-form-label-sm form-check-label">Clubs</label>
-            </div>
-            <div class="form-group">
-                <label for="coachDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience in coaching:</label>
-                <textarea class="form-control form-control-sm" id="coachDescInfo" name="coachDesc[info]" rows="2"></textarea>
-            </div>
-
-            <h4>IT &amp; time-keeping</h4>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescSi" name="itDesc[si]">
-                <label for="itDescSi" class="col-4 col-form-label col-form-label-sm form-check-label">SportIdent</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescEmit" name="itDesc[emit]">
-                <label for="itDescEmit" class="col-4 col-form-label col-form-label-sm form-check-label">Emit</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescOthertime" name="itDesc[othertime]">
-                <label for="itDescOthertime" class="col-4 col-form-label col-form-label-sm form-check-label">Other timekeeping</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="itDescGps" name="itDesc[gps]">
-                <label for="itDescGps" class="col-4 col-form-label col-form-label-sm form-check-label">GPS Tracking</label>
-            </div>
-            <div class="form-group">
-                <label for="itDescInfo" class="col-form-label col-form-label-sm">Brief details of your IT skills &amp; experience:</label>
-                <textarea class="form-control form-control-sm" id="itDescInfo" name="itDesc[info]" rows="2"></textarea>
-            </div>
-
-            <h4>Event Organising</h4>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescClub" name="eventDesc[club]">
-                <label for="eventDescClub" class="col-4 col-form-label col-form-label-sm form-check-label">Club</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescLocal" name="eventDesc[local]">
-                <label for="eventDescLocal" class="col-4 col-form-label col-form-label-sm form-check-label">Local</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescNational" name="eventDesc[national]">
-                <label for="eventDescNational" class="col-4 col-form-label col-form-label-sm form-check-label">National</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="eventDescHighLevel" name="eventDesc[highLevel]">
-                <label for="eventDescHighLevel" class="col-4 col-form-label col-form-label-sm form-check-label">High-Level</label>
-            </div>
-            <div class="form-group">
-                <label for="eventDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience as organiser:</label>
-                <textarea class="form-control form-control-sm" id="eventDescInfo" name="eventDesc[info]" rows="2"></textarea>
-            </div>
-
-            <h4>Teaching experience</h4>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescBeginners" name="teacherDesc[beginners]">
-                <label for="teacherDescBeginners" class="col-4 col-form-label col-form-label-sm form-check-label">Beginners &amp; children</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescMap" name="teacherDesc[map]">
-                <label for="teacherDescMap" class="col-4 col-form-label col-form-label-sm form-check-label">Teach how to map</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescCoach" name="teacherDesc[coach]">
-                <label for="teacherDescCoach" class="col-4 col-form-label col-form-label-sm form-check-label">Teach coaching</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescIt" name="teacherDesc[it]">
-                <label for="teacherDescIt" class="col-4 col-form-label col-form-label-sm form-check-label">Teach IT &amp; Timekeeping</label>
-            </div>
-            <div class="form-group row">
-                <input class="form-check-input col-8 form-control-sm" type="checkbox" value="1" id="teacherDescEvents" name="teacherDesc[events]">
-                <label for="teacherDescEvents" class="col-4 col-form-label col-form-label-sm form-check-label">Teach Event Organising</label>
-            </div>
-            <div class="form-group">
-                <label for="teacherDescInfo" class="col-form-label col-form-label-sm">Brief outline of your experience in teaching:</label>
-                <textarea class="form-control form-control-sm" id="teacherDescInfo" name="teacherDesc[info]" rows="2"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="otherSkills" class="col-form-label col-form-label-sm">Other skills? Please explain...</label>
-                <textarea class="form-control form-control-sm" id="otherSkills" name="otherSkills" rows="2"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save and continue</button>
-
-        </div>
-
-        <div id="step7" class="wizard" style="display: none">
-
-            <h3>Additional details (7/7)</h3>
-
-            <div class="form-group">
-                <label for="expectations" class="col-form-label col-form-label-sm">Expectations as a volunteer:</label>
-                <textarea class="form-control form-control-sm" id="expectations" name="expectations" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="abroadExp" class="col-form-label col-form-label-sm">Experience abroad? When? Where? What?</label>
-                <textarea class="form-control form-control-sm" id="abroadExp" name="abroadExp" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="learning" class="col-form-label col-form-label-sm">Seminars, Training Camps attended...</label>
-                <textarea class="form-control form-control-sm" id="learning" name="learning" rows="4"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Finish</button>
-
-        </div>
-
-    </form>
-
-    <script type="text/javascript">
-
-        // Data fill code
-        $(document).ready(function() {
-
-            // reset form values from json object
-            function fillData(formData) {
-                $.each(formData, function (name, val) {
-
-                    var $el = $('[name="' + name + '"]'), type = $el.attr('type');
-
-                    switch (type) {
+                    switch(type){
                         case 'checkbox':
                             $el.attr('checked', 'checked');
                             break;
                         case 'radio':
-                            $el.filter('[value="' + val + '"]').attr('checked', 'checked');
+                            $el.filter('[value="'+val+'"]').attr('checked', 'checked');
                             break;
                         default:
                             $el.val(val);
                     }
                 });
-            }
-
-            {% if data %}
-            // initialise forms
-            fillData(JSON.parse('{{ data | raw }}'));
-            {% endif %}
-
-            // forms submit
-            $("form.wizard").submit(function(e) {
-
-                e.preventDefault();
-
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(result)
-                    {
-                        console.log('Result: ' + result);
-                        result = JSON.parse(result);
-
-                        // alert on error
-                        if ("error" in result) {
-                            $("#top-alert-contents").html(result['error']);
-                            $("#top-alert").show();
-                            return;
-                        }
-
-                        // fill data to forms
-                        fillData(result);
-
-                        // switch to next step
-                        var currentFormId = $("div.wizard:visible").attr('id');
-                        console.log('Form sender: ' + currentFormId);
-
-                        // get all steps ids as array
-                        var steps = $("div.wizard").map(function() { return $(this).attr('id'); }).get();
-                        console.log('Steps: ' + JSON.stringify(steps));
-
-                        if (currentFormId === steps[steps.length - 1]) {
-                            // redirect to list on last step submit
-                            window.location.replace("{{ url }}volunteer/list");
-                        } else {
-                            // show next step
-                            steps.forEach(function (item, index) {
-                                if (steps[index - 1] !== undefined && steps[index - 1] === currentFormId) {
-                                    $("#" + item).show();
-                                } else {
-                                    $("#" + item).hide();
-                                }
-                            });
-                        }
-
-                    }
-                });
+                {% endif %}
 
             });
-            // end forms submit
 
-        });
-
-    </script>
+        </script>
+    </div>
+</section>
 
 {% endblock %}

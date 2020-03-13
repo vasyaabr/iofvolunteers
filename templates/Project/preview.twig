@@ -1,130 +1,86 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title pb-0"><img class="title-icon" src="{{ url }}images/icon-search3.svg" width="65" height="65"> Project details</h1>
+        </div>
 
-<div align="center">
-    <div class="title">Project details</div>
-</div>
-
-<table width="90%" align="center" border="1" bordercolor="#376FA6">
-    <tbody>
-    <tr>
-        <td valign="top" width="30%">
-
-            <table>
-                <tbody>
-                <tr valign="top">
-                    <td colspan="2" class="big-desc">
-                        Project organisation: {{ data.name }}, {{ data.status }}, ({{ data.webpage }})
+        <table    class="table">
+            <tbody>
+                <tr>
+                    <td class="big-desc">
+                        Project
                     </td>
-                </tr>
-
-                <tr>
-                    <td class="desc">
-                        Region: {{ data.region }}
+                    <td class="big-desc">
+                        Expected languages
                     </td>
-                </tr>
-
-                {% if visit %}
-                <tr>
-                    <td class="desc">Contact : {{ data.contact }} ({{ data.email }}, {{ data.phone }})</td>
-                </tr>
-                {% endif %}
-                <tr>
-                    <td class="desc">Location: {{ data.place }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc">Expected languages</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.expectedLanguage }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc"><br>General details
+                    <td class="big-desc">
+                        General details
+                    </td>
+                    <td class="big-desc">
+                        Expected disciplines of experience
+                    </td>
+                    <td class="big-desc">
+                        Expected o-experience
+                    </td>
+                    <td class="big-desc">
+                        What we can offer
                     </td>
                 </tr>
                 <tr>
-                    <td class="desc">Description: {{ data.details }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-
-        <td valign="top" width="30%">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="big-desc">Expected disciplines of experience</td>
-                </tr>
-                <tr>
-                    <td class="desc">
+                    <td>
+                        <b>Organisation:</b> {{ data.name }}, {{ data.status }}, ({{ data.webpage }})
+                        <br>
+                        <br>
+                        <b>Region:</b> {{ data.region }}
+                        <br>
+                        <br>
+                        {% if visit %}
+                        <b>Contact :</b> {{ data.contact }} ({{ data.email }}, {{ data.phone }})
+                            <br>
+                            <br>
+                        {% endif %}
+                        <b>Location:</b> {{ data.place }}
+                    </td>
+                    <td>
+                        {{ data.expectedLanguage }}
+                    </td>
+                    <td>
+                        <b>Description:</b> {{ data.details }}
+                    </td>
+                    <td>
                         {% if data.footO %} Foot-O<br> {% endif %}
                         {% if data.mtbO %} MTBO<br> {% endif %}
                         {% if data.skiO %} Ski-O<br> {% endif %}
                         {% if data.trailO %} Trail-O<br> {% endif %}
                     </td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-            <table>
-                <tbody>
-                <tr>
-                    <td class="big-desc">Expected o-experience
+                    <td>
+                        {{ data.expirience | raw }}
+                    </td>
+                    <td>
+                        {{ data.offer }}
                     </td>
                 </tr>
-                <tr>
-                    <td class="desc">{{ data.expirience | raw }}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-        </td>
+            </tbody>
+        </table>
 
-        <td valign="top" width="35%">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="desc">
-                        <b>What we can offer </b>
-                        <br>{{ data.offer }}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </td>
-    </tr>
-
-    </tbody>
-</table>
-
-    {% if not visit %}
-        <div align="center" style="margin-top: 15px;">
-            <form method="POST" action="{{ url }}project/contact" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ data.id }}">
-                Contact project leader from volunteer:
-                <select size="1" name="choice">
-                    {{ choices | raw }}
-                </select>
-                <input type="submit" value="Contact"/>
-            </form>
-        </div>
-    {% endif %}
+        {% if not visit %}
+            <div class="mt-3">
+                <form class="d-flex flex-column align-items-start"  method="POST" action="{{ url }}project/contact" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ data.id }}">
+                    <p>Contact project leader from volunteer:</p>
+                    <div class="selectWrap">
+                        <select size="1" name="choice">
+                            {{ choices | raw }}
+                        </select>
+                    </div>
+                    <input class="mt-3" type="submit" value="Contact"/>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</section>
 
 {% endblock %}

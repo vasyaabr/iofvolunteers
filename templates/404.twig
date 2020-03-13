@@ -7,15 +7,14 @@
 {% endblock %}
 
 {% block main %}
-<td valign="top" id="main">
-
-    <div style="width: 50%; margin: 0 auto;">
-
-        <h1>404</h1>
-        <h2>Sorry, page not found</h2>
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title pb-0">404</h1>
+        </div>
+        <p>Sorry, page not found</p>
         <p><a href="{{ referer }}">Return back</a></p>
 
     </div>
-
-</td>
+</section>
 {% endblock %}

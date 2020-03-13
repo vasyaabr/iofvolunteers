@@ -1,67 +1,348 @@
 <!doctype html>
-<html lang="en">
-
+<html lang=en>
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IOF Global Orienteering Volunteer Platform</title>
 
-    <!-- Twitter bootrap style -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Local style -->
-    <link rel="stylesheet" type="text/css" href="{{ url }}css/local.css">
+    <link rel="icon" href="{{ url }}images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ url }}images/favicon.png" type="image/x-icon" />
 
-    <!-- Twitter bootrap scripts -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--[if IE]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
 
-    <!-- JQuery UI -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script>
-        $( function() {
-            $( ".datepicker" ).datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-        } );
-    </script>
-
+    <link rel="stylesheet" type="text/css" href="{{ url }}css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url }}css/datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url }}css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url }}css/media.css">
+    <script src="{{ url }}js/jquery-2.2.4.min.js"></script>
 </head>
+<body class="d-flex flex-column">
+<div class="wrapper flex-grow-1">
+    <header>
+        <div class="container-fluid shadow eltop">
+            <div class="row justify-content-between align-items-center">
+                <a href="/" class="col-auto logo d-none  d-xl-block">
+                    <img src="{{ url }}images/logo.svg" width="160" alt="" />
+                </a>
+                <nav class="flex-grow-1 d-flex flex-column justify-content-end">
+                    <div class="col-12 child d-flex justify-content-between align-items-center">
+                        <ul id="menu-top-external-links-menu" class="menu top_menu d-flex align-items-center">
+                            <li id="menu-item-28" class="menu-item">
+                                <a target="_blank" rel="noopener noreferrer" href="https://orienteering.sport/">
+                                    INTERNATIONAL ORIENTEERING FEDERATION
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="main d-flex justify-content-end justify-content-xl-start align-items-center">
+                        <a href="/" class="col logo d-block d-xl-none">
+                            <img src="{{ url }}images/logo.svg" width="160" alt="" />
+                        </a>
+                        <a href="#" class="main_menu_burger order-1 pl-3 pr-3">
+                            <img src="{{ url }}images/menu.svg" alt="" />
+                        </a>
+                        <ul id="menu-main-menu" class="menu main_menu d-xl-flex align-items-center w-100">
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">
+                                    Volunteer
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        <a href="#">Column 1</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}volunteer/list">
+                                                    Register as a Volunteer
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#">Column 2</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}volunteer/search">
+                                                    Search a Volunteer
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">
+                                    Projects
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        <a href="#">Column 1</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}project/list">
+                                                    Register a Project
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#">Column 2</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}project/search">
+                                                    Search a Project
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">
+                                    Host family
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        <a href="#">Column 1</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}host/list">
+                                                    Register as a Host Family
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#">Column 2</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}host/search">
+                                                    Find a host family
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">
+                                    Guest
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        <a href="#">Column 1</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}guest/list">
+                                                    Register as a Guest
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#">Column 2</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ url }}guest/search">
+                                                    Search a guest
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% if loggedIn == true %}
+                                <li class="m_red menu-item ml-auto mr-3">
+                                    <a href="{{ url }}logout">
+                                        Logout
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="m_green menu-item ml-auto">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#registration-modal">
+                                        NEW USER
+                                    </a>
+                                </li>
+                                <li class="m_red menu-item mr-3">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#login-modal">
+                                        SIGN IN
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
 
-<body>
+    </header>
+    <main>
+        {% block onecolumn %}
+        {% endblock %}
 
+        {#{% block sidebar %}
+        {% endblock %}#}
+
+        {% block main %}
+        {% endblock %}
+        <div class="clear"></div>
+    </main>
+</div><!--/wrapper-->
+<footer>
     <div class="container">
-
         <div class="row">
-            <div class="col">
-                <a href="{{ url }}"><img class="img-fluid" src="{{ url }}images/pg_template1.jpg" /></a>
+            <aside class="col-12">
+                <h4>International Orienteering Federation</h4>
+                <p>Drottninggatan 47 31/2 tr<br>
+                    SE-65225 Karlstad<br>
+                    SWEDEN<br>
+                    <a href="mailto:iof@orienteering.org">iof@orienteering.org</a></p>
+            </aside>
+        </div>
+    </div>
+</footer>
+
+{% if loggedIn != true %}
+    <div class="modal" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="signinForm" method="POST" action="{{ url }}signin">
+                        <p  class="big-desc">You may sign in using your e-mail or username and password...</p>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="login">Username / E-mail: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="text" name="login" size="20" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="password">Password: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="password" name="password" size="20" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row mx-0">
+                            <button type="submit" class="btn btn-primary">Sign in!</button>
+                            <a href="{{ url }}restore" class="resetPassword-link">
+                                Restore password
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                {% block onecolumn %}
-                {% endblock %}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
-                {% block sidebar %}
-                {% endblock %}
-            </div>
-            <div class="col-8">
-                {% block main %}
-                {% endblock %}
-            </div>
-        </div>
-
     </div>
 
-</body>
+    <div class="modal" id="registration-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <form id="registerForm" method="POST" action="{{ url }}register">
+                        <p  class="big-desc">All fields are required!</p>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="name">Name<span class="warn-title">*</span>: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="text" name="name" size="20" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="name">Country<span class="warn-title">*</span>: </label>
+                            <div class="col-9">
+                                <select type="text" name="country" id="country" required=""></select>
+                            </div>
+                        </div>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="name">E-mail<span class="warn-title">*</span>: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="text" name="email" size="20" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="name">Username<span class="warn-title">*</span>: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="text" name="login" size="20" required="">
+                            </div>
+                        </div>
+                        <div class="form-group row desc">
+                            <label class="col-3 col-form-label col-form-label-sm" for="name">Password<span class="warn-title">*</span>: </label>
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" type="password" name="password" size="20" required="">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="javascript" type="text/javascript">
+
+        jQuery( document ).ready(function($) {
+
+            // load countries list
+            $.ajax({
+                type: "GET",
+                url: '{{ url }}countries',
+                success: function(data)
+                {
+                    $('#country').empty().append(data);
+                }
+            });
+
+            $('#register').click(function() {
+                $('#register').hide();
+                $('#registerBlock').show();
+                $('#signInBlock').hide();
+                $('#signIn').show();
+            });
+
+            $('#signIn').click(function() {
+                $('#registerBlock').hide();
+                $('#register').show();
+                $('#signInBlock').show();
+                $('#signIn').hide();
+            });
+        });
+
+    </script>
+{% endif %}
+
+<script src="{{ url }}js/bootstrap.min.js"></script>
+<script src="{{ url }}js/datepicker.min.js"></script>
+<script language="javascript" type="text/javascript">
+    $.fn.datepicker.language['en'] = {
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        months: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        today: 'Today',
+        clear: 'Clear',
+        dateFormat: 'mm/dd/yyyy',
+        timeFormat: 'hh:ii aa',
+        firstDay: 0
+    };
+</script>
+<script src="{{ url }}js/main.js"></script>
+
+</body>
 </html>
+

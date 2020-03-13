@@ -1,51 +1,54 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
 
-    <div align="center">
-        <div class="title">{{ title }}</div>
-        <br>
-        {#<div class="maincol">Click on Host name for more details</div>#}
+        <div class="titleWrap">
+            <h1 class="title pb-0"><img class="title-icon" src="{{ url }}images/icon-search4.svg" width="65" height="65">{{ title }}</h1>
+        </div>
+        {#<div >Click on Host name for more details</div>#}
         {#<br><br>#}
-    </div>
 
-    {% if edit %}
-        <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}host/register';" value="Add host" />
-    {% endif %}
+        {% if edit %}
+            <input type="button" class="mb-3" onclick="location.href='{{ url }}host/register';" value="Add host" />
+        {% endif %}
 
-    <table width="90%" align="center" border="1" bordercolor="#376FA6">
-        <tbody>
-            <tr>
-                <td class="big-desc">Name</td>
-                <td class="big-desc">Country</td>
-                <td class="big-desc">Languages</td>
-                <td class="big-desc">Duration (weeks)</td>
-                <td class="big-desc">Offer</td>
-                <td class="big-desc"></td>
-            </tr>
-            {% for host in hosts %}
+        <table    class="table">
+            <tbody>
                 <tr>
-                    <td class="desc">
-                        {{ host.name }}
-                        {% if not host.active %}
-                            <span class="warn"> (disabled)</span>
-                        {% endif %}
-                    </td>
-                    <td class="desc">{{ host.country }}</td>
-                    <td class="desc">{{ host.languages }}</td>
-                    <td class="desc">{{ host.maxDuration }}</td>
-                    <td class="desc">{{ host.offer | raw }}</td>
-                    <td class="desc">
-                        {% if edit %}
-                        <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />
-                        <input type="button" onclick="location.href='{{ url }}host/switch/{{ host.id }}';" value="{{ host.active ? 'Disable' : 'Enable' }}" />
-                        {% else %}
-                        <input type="button" onclick="location.href='{{ url }}host/preview/{{ host.id }}';" value="Details" />
-                        {% endif %}
-                    </td>
+                    <td class="big-desc">Name</td>
+                    <td class="big-desc">Country</td>
+                    <td class="big-desc">Languages</td>
+                    <td class="big-desc">Duration (weeks)</td>
+                    <td class="big-desc">Offer</td>
+                    <td class="big-desc"></td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                {% for host in hosts %}
+                    <tr>
+                        <td class="desc">
+                            {{ host.name }}
+                            {% if not host.active %}
+                                <span class="warn"> (disabled)</span>
+                            {% endif %}
+                        </td>
+                        <td class="desc">{{ host.country }}</td>
+                        <td class="desc">{{ host.languages }}</td>
+                        <td class="desc">{{ host.maxDuration }}</td>
+                        <td class="desc">{{ host.offer | raw }}</td>
+                        <td class="desc">
+                            {% if edit %}
+                            <input type="button" onclick="location.href='{{ url }}host/edit/{{ host.id }}';" value="Edit" />
+                            <input type="button" onclick="location.href='{{ url }}host/switch/{{ host.id }}';" value="{{ host.active ? 'Disable' : 'Enable' }}" />
+                            {% else %}
+                            <input type="button" onclick="location.href='{{ url }}host/preview/{{ host.id }}';" value="Details" />
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
 
 {% endblock %}

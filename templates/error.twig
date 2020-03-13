@@ -7,17 +7,15 @@
 {% endblock %}
 
 {% block main %}
-<td valign="top" id="main">
+<section class="default">
+    <div class="container">
 
-    <div style="margin-left: 10%; margin-top: 20px;">
-
-        <h3>
+        <p>
         {{ message|raw }}
-        </h3>
+        </p>
 
-        <a href="javascript:history.back()">Return back</a>
+        <p><a href="javascript:history.back(1)">Return back</a></p>
 
     </div>
-
-</td>
+</section>
 {% endblock %}

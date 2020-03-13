@@ -1,51 +1,51 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title pb-0"><img class="title-icon" src="{{ url }}images/icon-search3.svg" width="65" height="65"> {{ title }}</h1>
+        </div>
+        {#<div >Click on Project name for more details</div>#}
 
-    <div align="center">
-        <div class="title">{{ title }}</div>
-        <br>
-        {#<div class="maincol">Click on Project name for more details</div>#}
-        {#<br><br>#}
-    </div>
+        {% if edit %}
+        <input type="button" class="mb-3" onclick="location.href='{{ url }}project/register';" value="Add project" />
+        {% endif %}
 
-    {% if edit %}
-    <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}project/register';" value="Add project" />
-    {% endif %}
-
-    <table width="90%" align="center" border="1" bordercolor="#376FA6">
-        <tbody>
-            <tr>
-                <td class="big-desc">Organisation</td>
-                <td class="big-desc">Place</td>
-                <td class="big-desc">Start date</td>
-                <td class="big-desc">Offerings</td>
-                <td class="big-desc">Work to be done</td>
-                <td class="big-desc"></td>
-            </tr>
-            {% for project in projects %}
+        <table    class="table">
+            <tbody>
                 <tr>
-                    <td class="desc">
-                        {{ project.name }}
-                        {% if not project.active %}
-                            <span class="warn"> (disabled)</span>
-                        {% endif %}
-                    </td>
-                    <td class="desc">{{ project.place }}</td>
-                    <td class="desc">{{ project.startDate }}</td>
-                    <td class="desc">{{ project.offer }}</td>
-                    <td class="desc">{{ project.details }}</td>
-                    <td class="desc">
-                    {% if edit %}
-                        <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
-                        <input type="button" onclick="location.href='{{ url }}project/switch/{{ project.id }}';" value="{{ project.active ? 'Disable' : 'Enable' }}" />
-                    {% else %}
-                        <input type="button" onclick="location.href='{{ url }}project/preview/{{ project.id }}';" value="Details" />
-                    {% endif %}
-                    </td>
+                    <td class="big-desc">Organisation</td>
+                    <td class="big-desc">Place</td>
+                    <td class="big-desc">Start date</td>
+                    <td class="big-desc">Offerings</td>
+                    <td class="big-desc">Work to be done</td>
+                    <td class="big-desc"></td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+                {% for project in projects %}
+                    <tr>
+                        <td class="desc">
+                            {{ project.name }}
+                            {% if not project.active %}
+                                <span class="warn"> (disabled)</span>
+                            {% endif %}
+                        </td>
+                        <td class="desc">{{ project.place }}</td>
+                        <td class="desc">{{ project.startDate }}</td>
+                        <td class="desc">{{ project.offer }}</td>
+                        <td class="desc">{{ project.details }}</td>
+                        <td class="desc">
+                        {% if edit %}
+                            <input type="button" onclick="location.href='{{ url }}project/edit/{{ project.id }}';" value="Edit" />
+                            <input type="button" onclick="location.href='{{ url }}project/switch/{{ project.id }}';" value="{{ project.active ? 'Disable' : 'Enable' }}" />
+                        {% else %}
+                            <input type="button" onclick="location.href='{{ url }}project/preview/{{ project.id }}';" value="Details" />
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
 {% endblock %}

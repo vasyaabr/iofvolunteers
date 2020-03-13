@@ -1,106 +1,80 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title pb-0"><img class="title-icon" src="{{ url }}images/icon-search4.svg" width="65" height="65"> Host details</h1>
+        </div>
 
-<div align="center">
-    <div class="title">Host details</div>
-</div>
-
-<table width="90%" align="center" border="1" bordercolor="#376FA6">
-    <tbody>
-    <tr>
-        <td valign="top" width="50%">
-
-            <table>
-                <tbody>
-                <tr valign="top">
-                    <td colspan="2" class="big-desc">
-                        Name: {{ data.name }}
+        <table    class="table">
+            <tbody>
+                <tr>
+                    <td class="big-desc">
+                        Host
+                    </td>
+                    <td class="big-desc">
+                        Languages
+                    </td>
+                    <td class="big-desc">
+                        Offers
+                    </td>
+                    <td class="big-desc">
+                        Host description
+                    </td>
+                    <td class="big-desc">
+                        Guest expectations
                     </td>
                 </tr>
                 <tr>
-                    <td class="desc">Country: {{ data.country }}</td>
+                    <td>
+                        <b>Name:</b> {{ data.name }}
+                        <br>
+                        <br>
+                        <b>Country:</b> {{ data.country }}
+                        <br>
+                        <br>
+                        <b>E-mail:</b> {{ data.email }}
+                        {% if visit %}
+                            <br>
+                            <br>
+                            <b>Contacts:</b> {{ data.contacts | raw }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ data.languages }}
+                    </td>
+                    <td>
+                        {{ data.offer | raw }}
+                        <br>
+                        <br>
+                        <b>Max duration (weeks):</b> {{ data.maxDuration }}
+                    </td>
+                    <td>
+                        {{ data.hostDesc }}
+                    </td>
+                    <td>
+                        {{ data.guestExpectations }}
+                    </td>
                 </tr>
-                <tr>
-                    <td class="desc">E-mail : {{ data.email }}</td>
-                    <br>
-                </tr>
-                {% if visit %}
-                <tr>
-                    <td class="big-desc">Contacts</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.contacts | raw }}</td>
-                </tr>
-                {% endif %}
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
-            <br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc">Languages</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.languages }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </td>
-
-        <td valign="top" width="50%">
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc">Offers</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.offer | raw }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-            <table>
-                <tbody>
-                <tr>
-                    <td class="desc">Max duration (weeks) : {{ data.maxDuration }}<br></td>
-                </tr>
-                <tr>
-                    <td class="big-desc">Host description :</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.hostDesc }}<br></td>
-                </tr>
-                <tr>
-                    <td class="big-desc">Guest expectations:</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.guestExpectations }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-        </td>
-
-    </tr>
-
-    </tbody>
-</table>
-
-    {% if not visit %}
-        <div align="center" style="margin-top: 15px;">
-            <form method="POST" action="{{ url }}host/contact" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ data.id }}">
-                Contact host from guest:
-                <select size="1" name="choice">
-                    {{ choices | raw }}
-                </select>
-                <input type="submit" value="Contact"/>
-            </form>
-        </div>
-    {% endif %}
+        {% if not visit %}
+            <div class="mt-3">
+                <form class="d-flex flex-column align-items-start" method="POST" action="{{ url }}host/contact" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ data.id }}">
+                    <p>Contact host from guest:</p>
+                    <div class="selectWrap">
+                        <select size="1" name="choice">
+                            {{ choices | raw }}
+                        </select>
+                    </div>
+                    <input class="mt-3" type="submit" value="Contact"/>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</section>
 
 {% endblock %}

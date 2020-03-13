@@ -1,68 +1,72 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+<section class="default">
+    <div class="container">
+        <div class="titleWrap">
+            <h1 class="title"><img class="title-icon" src="{{ url }}images/icon-search1.svg" width="65" height="65"> {{ title }}</h1>
 
-    <div align="center">
-        <div class="title">{{ title }}</div>
-        <br>
-        <div class="maincol">Click on Volunteer Nickname for more details</div>
-        <br><br>
-    </div>
-
-    {% if edit %}
-        <input type="button" style="margin-left: 5%; margin-bottom: 15px;" onclick="location.href='{{ url }}volunteer/register';" value="Add volunteer" />
-    {% endif %}
-
-    <table width="90%" align="center" border="1" bordercolor="#376FA6">
-        <tbody>
-            <tr>
-                <td class="big-desc">Nickname</td>
-                <td class="big-desc">Languages</td>
-                <td class="big-desc">Duration available</td>
-                <td class="big-desc">O-Experience</td>
-                <td class="big-desc"></td>
-            </tr>
-            {% for volunteer in volunteers %}
-                <tr>
-                    <td align="center" class="maincol">
-                        {% if edit %}
-                            <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
-                        {% else %}
-                            <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
-                                <b>{{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}</b>
-                            </a>
-                        {% endif %}
-                        {% if not volunteer.active %}
-                        <span class="warn"> (disabled)</span>
-                        {% endif %}
-                    </td>
-                    <td class="desc"> {{ volunteer.languages }}</td>
-                    <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
-                    <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
-                    <td class="desc">
-                    {% if edit %}
-                        <input type="button" onclick="location.href='{{ url }}volunteer/edit/{{ volunteer.id }}';" value="Edit" />
-                        <input type="button" onclick="location.href='{{ url }}volunteer/switch/{{ volunteer.id }}';" value="{{ volunteer.active ? 'Disable' : 'Enable' }}" />
-                    {% else %}
-                        <input type="button" onclick="location.href='{{ url }}volunteer/preview/{{ volunteer.id }}';" value="Details" />
-                    {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    {% if not edit and volunteers is not empty %}
-        <div align="center" style="margin-top: 15px;">
-            <form method="POST" action="{{ url }}volunteer/contactall" enctype="multipart/form-data">
-                <input type="hidden" name="list" value="{{ list }}">
-                Invite all volunteers to project:
-                <select size="1" name="project">
-                    {{ projects | raw }}
-                </select>
-                <input type="submit" value="Contact volunteers"/>
-            </form>
+            <div class="title-desc">Click on Volunteer Nickname for more details</div>
         </div>
-    {% endif %}
+
+        {% if edit %}
+            <input type="button" class="mb-3" onclick="location.href='{{ url }}volunteer/register';" value="Add volunteer" />
+        {% endif %}
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="big-desc">Nickname</td>
+                    <td class="big-desc">Languages</td>
+                    <td class="big-desc">Duration available</td>
+                    <td class="big-desc">O-Experience</td>
+                    <td class="big-desc"></td>
+                </tr>
+                {% for volunteer in volunteers %}
+                    <tr>
+                        <td  >
+                            {% if edit %}
+                                {{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}
+                            {% else %}
+                                <a href="{{ url }}volunteer/preview/{{ volunteer.id }}">
+                                    {{ volunteer.nickname is empty ? volunteer.name : volunteer.nickname }}
+                                </a>
+                            {% endif %}
+                            {% if not volunteer.active %}
+                            <span class="warn"> (disabled)</span>
+                            {% endif %}
+                        </td>
+                        <td class="desc"> {{ volunteer.languages }}</td>
+                        <td class="desc">{{ volunteer.maxWorkDuration }} weeks</td>
+                        <td class="desc">Started orienteering in {{ volunteer.startO|slice(0,4) }} <br> {{ volunteer.competitorExp }}</td>
+                        <td class="desc">
+                        {% if edit %}
+                            <input type="button" onclick="location.href='{{ url }}volunteer/edit/{{ volunteer.id }}';" value="Edit" />
+                            <input type="button" onclick="location.href='{{ url }}volunteer/switch/{{ volunteer.id }}';" value="{{ volunteer.active ? 'Disable' : 'Enable' }}" />
+                        {% else %}
+                            {#<input type="button" onclick="location.href='{{ url }}volunteer/preview/{{ volunteer.id }}';" value="Details" />#}
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if not edit and volunteers is not empty %}
+            <div class="mt-3">
+                <form class="d-flex flex-column align-items-start" method="POST" action="{{ url }}volunteer/contactall" enctype="multipart/form-data">
+                    <input type="hidden" name="list" value="{{ list }}">
+                    <p>Invite all volunteers to project:</p>
+                    <div class="selectWrap">
+                        <select size="1" name="project">
+                            {{ projects | raw }}
+                        </select>
+                    </div>
+                    <input class="mt-3" type="submit" value="Contact volunteers"/>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</section>
 
 {% endblock %}

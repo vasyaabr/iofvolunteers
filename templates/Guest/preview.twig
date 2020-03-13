@@ -1,118 +1,91 @@
 {% extends 'common.twig' %}
 
 {% block onecolumn %}
+    <section class="default">
+        <div class="container">
 
-<div align="center">
-    <div class="title">Guest details</div>
-</div>
+            <div class="titleWrap">
+                <h1 class="title pb-0"><img class="title-icon" src="{{ url }}images/icon-search5.svg" width="65" height="65"> Guest details</h1>
+            </div>
 
-<table width="90%" align="center" border="1" bordercolor="#376FA6">
-    <tbody>
-    <tr>
-        <td valign="top" width="50%">
-
-            <table>
+            <table    class="table">
                 <tbody>
-                <tr valign="top">
-                    <td colspan="2" class="big-desc">
-                        Name: {{ data.name }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">Gender: {{ data.gender }}</td>
-                </tr>
-                <tr>
-                    <td class="desc">
-                        Country: {{ data.country }}
-                    </td>
-                </tr>
-                {% if visit %}
-                <tr>
-                    <td class="desc">Contact : {{ data.email }}</td>
-                </tr>
-                {% endif %}
+                    <tr>
+                        <td class="big-desc">
+                            Guest
+                        </td>
+                        <td class="big-desc">
+                            Languages
+                        </td>
+                        <td class="big-desc">
+                            General details
+                        </td>
+                        <td class="big-desc">
+                            Expectations
+                        </td>
+                        <td class="big-desc">
+                            Motivation
+                        </td>
+                        <td class="big-desc">
+                            Health restrictions
+                        </td>
+                        <td class="big-desc">
+                            What I can offer
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Name:</b> {{ data.name }}
+                            <br>
+                            <br>
+                            <b>Gender:</b> {{ data.gender }}
+                            <br>
+                            <br>
+                            <b>Country:</b> {{ data.country }}
+                            {% if visit %}
+                                <br>
+                                <br>
+                                <b>Contact:</b> {{ data.email }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ data.languages }}
+                        </td>
+                        <td>
+                            started orienteering from: {{ data.startO }}
+                        </td>
+                        <td>
+                            {{ data.oExpectations }}
+                        </td>
+                        <td>
+                            {{ data.motivation }}
+                        </td>
+                        <td>
+                            {{ data.healthRestrictions }}
+                        </td>
+                        <td>
+                            {{ data.offer }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
-            <br>
+            {% if not visit %}
+                <div class="mt-3">
+                    <form class="d-flex flex-column align-items-start" method="POST" action="{{ url }}guest/contact" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{ data.id }}">
+                        <p>Contact guest from host:</p>
+                        <div class="selectWrap">
+                            <select size="1" name="choice">
+                                {{ choices | raw }}
+                            </select>
+                        </div>
+                        <input class="mt-3" type="submit" value="Contact"/>
+                    </form>
+                </div>
+            {% endif %}
 
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc">Languages</td>
-                </tr>
-                <tr>
-                    <td class="desc">{{ data.languages }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <br>
-
-            <table>
-                <tbody>
-                <tr>
-                    <td colspan="2" class="big-desc"><br>General details
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">started orienteering from: {{ data.startO }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-
-        <td valign="top" width="50%">
-            <table>
-                <tbody>
-                <tr>
-                    <td class="desc">
-                        <b>Expectations</b>
-                        <br>{{ data.oExpectations }}
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">
-                        <b>Motivation</b>
-                        <br>{{ data.motivation }}
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">
-                        <b>Health restrictions</b>
-                        <br>{{ data.healthRestrictions }}
-                        <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="desc">
-                        <b>What I can offer</b>
-                        <br>{{ data.offer }}
-                        <br>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </td>
-    </tr>
-
-    </tbody>
-</table>
-
-    {% if not visit %}
-        <div align="center" style="margin-top: 15px;">
-            <form method="POST" action="{{ url }}guest/contact" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ data.id }}">
-                Contact guest from host:
-                <select size="1" name="choice">
-                    {{ choices | raw }}
-                </select>
-                <input type="submit" value="Contact"/>
-            </form>
         </div>
-    {% endif %}
+    </section>
 
 {% endblock %}
